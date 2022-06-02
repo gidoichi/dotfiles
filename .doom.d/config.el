@@ -177,10 +177,8 @@
   :config
   (defun markdown-mode-hooks ()
     (setq flycheck-checker 'textlint)
-    (setq markdown-display-remote-images t)
     (setq markdown-fontify-code-blocks-natively t)
     (setq markdown-hide-urls t)
-    (setq markdown-max-image-size '(500 . 500))
     (unless window-system
       (add-to-ordered-list 'markdown-url-compose-char 8943 1))
     )
