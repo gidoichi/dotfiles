@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "Shinichi Yanagido"
-      user-mail-address "hakuto1yds@gmail.com")
+(setq user-full-name (getenv "USERFULLNAME")
+      user-mail-address (getenv "EMAIL"))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -274,4 +274,5 @@
 ;; LOCAL CONFIG
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(doom-load-envvars-file (expand-file-name "myenv" doom-private-dir) 'noerror)
 (load (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir) 'noerror)

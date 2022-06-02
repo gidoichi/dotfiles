@@ -11,4 +11,4 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-source /home/shinichi/.shell/shrc; source /home/shinichi/.shell/custom.sh
+source "$HOME/.shell/shrc"; source "$HOME/.shell/custom.sh"

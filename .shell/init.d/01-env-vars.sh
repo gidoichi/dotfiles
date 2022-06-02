@@ -1,5 +1,6 @@
 #!/bin/sh
 
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.shell/bin:$PATH"
 
 if type emacs >/dev/null 2>&1; then
