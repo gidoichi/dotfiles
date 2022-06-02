@@ -1,0 +1,48 @@
+#!/bin/sh
+# -*- mode:shell-script -*-
+
+
+######################################################################
+# Initial Configuration
+######################################################################
+
+print_usage_and_exit () {
+    cat <<-USAGE 1>&2
+	\$PATH から与えられたパスを削除する
+
+	Usage   : ${0##*/} <path...>
+	USAGE
+    exit 1
+}
+
+exit_trap() {
+    set -- ${1:-} $?  # $? is set as $1 if no argument given
+    trap '' EXIT HUP INT QUIT PIPE ALRM TERM
+    [ -d "${Tmp:-}" ] && rm -rf "${Tmp%/*}/_${Tmp##*/_}"
+    trap -  EXIT HUP INT QUIT PIPE ALRM TERM
+    exit $1
+}
+
+
+######################################################################
+# Main
+######################################################################
+
+trap 'exit_trap' EXIT HUP INT QUIT PIPE ALRM TERM
+Tmp=$(mktemp -t "_${0##*/}.$$.XXXXXXXXXXX") || error_exit 1 'Failed to mktemp'
+
+ls -di1 "${@}" | sed 's/^ *//' | cut -d ' ' -f 1 > "${Tmp}"
+
+echo "${PATH}" |
+    tr ':' '\n' |
+    xargs -L 1 ls -di 2>/dev/null |
+    while IFS= read line; do
+        inode="${line%% *}"
+        path="${line#* }"
+        if grep "^${inode}\$" "${Tmp}" >/dev/null 2>&1; then
+            continue
+        fi
+        echo "${path}"
+    done |
+    tr '\n' ':' |
+    sed 's/:$//'

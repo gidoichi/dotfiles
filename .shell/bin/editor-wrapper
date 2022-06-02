@@ -1,0 +1,121 @@
+#!/bin/sh
+# -*- mode:shell-script -*-
+
+
+######################################################################
+# Initial Configuration
+######################################################################
+
+EDITOR="${EDITOR:-vi}"
+
+print_usage_and_exit () {
+    cat <<-USAGE 1>&2
+	標準入力からデータがファイルとして開けるようになった \$EDITOR
+	「-」を指定すれば標準入力から読み込む。 \$EDITOR にオプションを渡したい場合には、 「--」の後に指定する
+
+	Usage   : ${0##*/} [options]
+	Options : -e <extension> ... 標準入力のデータに対するシンタックスハイライト用拡張子
+	          -f <filename> .... エディタで指定したいファイル名
+	          -o ............... 編集結果を標準出力に出力する
+	USAGE
+    exit 1
+}
+
+exit_trap() {
+    set -- ${1:-} $?  # $? is set as $1 if no argument given
+    trap '' EXIT HUP INT QUIT PIPE ALRM TERM
+    [ -e "${Tmp:-}" ] && rm -rf "$Tmp"
+    trap -  EXIT HUP INT QUIT PIPE ALRM TERM
+    exit $1
+}
+
+error_exit() {
+    ${2+:} false && echo "${0##*/}: $2" 1>&2
+    exit $1
+}
+
+
+######################################################################
+# Argument Parsing
+######################################################################
+
+while :; do
+    case "${1:-}" in
+        -e)        case $# in 1) error_exit 1 'Invalid -e option';; esac
+                   ext=$2
+                   shift 2
+                   ;;
+        -f)        case $# in 1) error_exit 1 'Invalid -f option';; esac
+                   fname=$2
+                   shift 2
+                   ;;
+        -o)        output=$1
+                   shift
+                   ;;
+        --help|-h) print_usage_and_exit
+                   ;;
+        --)        shift
+                   break
+                   ;;
+        -)         break
+                   ;;
+        --*|-*)    error_exit 1 'Invalid option'
+                   ;;
+        *)         break
+                   ;;
+    esac
+done
+
+
+######################################################################
+# Main
+######################################################################
+
+if [ $# -eq 0 ]; then
+    "${EDITOR}"
+    exit
+fi
+
+for arg in "$@"; do
+    if [ "$arg" = "-" ]; then
+        read_from_stdin=1
+    fi
+done
+if [ -n "${read_from_stdin}" ]; then
+    trap 'exit_trap' EXIT HUP INT QUIT PIPE ALRM TERM
+    Tmp=$(mktemp -t "${0##*/}_XXXXXX") || error_exit 1 'Failed to mktemp'
+    target_file="${Tmp}"
+    if [ -n "${fname}" ]; then
+        target_file="${Tmp}/${fname}"
+    fi
+    if [ -n "${ext}" ]; then
+        target_file="${target_file}.${ext}"
+    fi
+    cat > "${target_file}"
+    break
+fi
+
+# $EDITOR で開く
+for arg in "$@"; do
+    if [ "${arg}" = '-' ]; then
+        echo "${target_file}"
+        continue
+    fi
+    echo "${arg}"
+done |
+    sed 's/\\/\\\\\\\\/g' |
+    sed 's/"/\\\\\\"/g' |
+    sed 's/^/\\"/' |
+    sed 's/$/\\" /' |
+    tr -d '\n' |
+    xargs -I {} sh -c '${EDITOR} {} </dev/tty' 1>&2
+
+if [ -n "${output}" ]; then
+    for arg in "$@"; do
+        if [ "${arg}" = '-' ]; then
+            cat "${target_file}"
+            continue
+        fi
+        cat "${arg}" 2>/dev/null
+    done
+fi

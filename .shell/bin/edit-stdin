@@ -1,0 +1,84 @@
+#!/bin/sh
+# -*- mode:shell-script -*-
+
+
+######################################################################
+# Initial Configuration
+######################################################################
+
+print_usage_and_exit () {
+    cat <<-USAGE 1>&2
+	標準入力からデータ受け取りファイルとして \$EDITOR で開く
+
+	Usage   : ${0##*/} [options]
+	Options : -e <extension> ... シンタックスハイライト用拡張子
+	          -f <filename> .... エディタで指定したいファイル名
+	          -o ............... 編集結果を標準出力に出力する
+	USAGE
+    exit 1
+}
+
+exit_trap() {
+    set -- ${1:-} $?  # $? is set as $1 if no argument given
+    trap '' EXIT HUP INT QUIT PIPE ALRM TERM
+    [ -d "${Tmp:-}" ] && rm -rf "${Tmp%/*}/_${Tmp##*/_}"
+    trap -  EXIT HUP INT QUIT PIPE ALRM TERM
+    exit $1
+}
+
+error_exit() {
+    ${2+:} false && echo "${0##*/}: $2" 1>&2
+    exit $1
+}
+
+
+######################################################################
+# Argument Parsing
+######################################################################
+
+while :; do
+    case "${1:-}" in
+        -e)        case $# in 1) error_exit 1 'Invalid -e option';; esac
+                   ext=$2
+                   shift 2
+                   ;;
+        -f)        case $# in 1) error_exit 1 'Invalid -f option';; esac
+                   fname=$2
+                   shift 2
+                   ;;
+        -o)        output=$1
+                   shift
+                   ;;
+        --help|-h) print_usage_and_exit
+                   ;;
+        --|-)      break
+                   ;;
+        --*|-*)    error_exit 1 'Invalid option'
+                   ;;
+        *)         break
+                   ;;
+    esac
+done
+
+
+######################################################################
+# Main
+######################################################################
+
+trap 'exit_trap' EXIT HUP INT QUIT PIPE ALRM TERM
+Tmp=$(mktemp -d -t "_${0##*/}.$$.XXXXXXXXXXX") || error_exit 1 'Failed to mktemp'
+
+target_file="$Tmp/${0##/*}_$$"
+if [ -n "${fname}" ]; then
+    target_file="${Tmp}/${fname}"
+fi
+if [ -n "${ext}" ]; then
+    target_file="${target_file}.${ext}"
+fi
+cat > "${target_file}"
+
+${EDITOR:-vi} "${target_file}" </dev/tty 1>&2
+
+if [ -n "${output}" ]; then
+    cat "${target_file}"
+fi

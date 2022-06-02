@@ -1,0 +1,52 @@
+#!/bin/sh
+# -*- mode:shell-script -*-
+
+
+######################################################################
+# Variable Settings
+######################################################################
+
+LINUM_INSERT=${LINUM_INSERT:-nl -b a -s "|"}
+
+
+######################################################################
+# Initial Configuration
+######################################################################
+
+exit_trap() {
+    set -- ${1:-} $?  # $? is set as $1 if no argument given
+    trap '' EXIT HUP INT QUIT PIPE ALRM TERM
+    [ -d "${Tmp:-}" ] && rm -rf "${Tmp%/*}/_${Tmp##*/_}"
+    trap -  EXIT HUP INT QUIT PIPE ALRM TERM
+    exit $1
+}
+
+error_exit() {
+    ${2+:} false && echo "${0##*/}: $2" 1>&2
+    exit $1
+}
+
+
+######################################################################
+# Main
+######################################################################
+
+trap 'exit_trap' EXIT HUP INT QUIT PIPE ALRM TERM
+Tmp=`mktemp -d -t "_${0##*/}.$$.XXXXXXXXXXX"` || error_exit 1 'Failed to mktemp'
+
+target_file=$Tmp/${0##/*}_$$
+cat >"${target_file}"
+
+cat "${target_file}" | ${LINUM_INSERT} >&2
+
+printf '> ' >&2
+read line </dev/tty
+pattern=$(printf '%s\n' "${line}" | grep '^[0-9]\{1,\}\([,-][0-9]\{1,\}\)*$')
+if [ -z "${pattern}" ]; then
+    error_exit 1 "invalid pattern: ${line}"
+fi
+cat "${target_file}" |
+    sed -n $(printf '%s\n' "${pattern}" |
+                 sed 's/\(^\|,\)/ -e /g' |
+                 sed 's/\([0-9]\)-\([0-9]\)/\1,\2/g' |
+                 sed 's/\([0-9]\)\( \|$\)/\1p\2/g')
