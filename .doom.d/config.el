@@ -171,6 +171,13 @@
                #'lsp-organize-imports
                )))
 
+(use-package! magit
+  :config
+  (unless (getenv "GIT_AUTHOR_NAME")
+    (display-warning load-file-name "cannot find 'GIT_AUTHOR_NAME' env var to use 'magit'"))
+  (unless (getenv "GIT_COMMITTER_NAME")
+    (display-warning load-file-name "cannot find 'GIT_COMMITTER_NAME' env var to use 'magit'")))
+
 (use-package! markdown-mode
   :hook
   (markdown-mode . markdown-mode-hooks)
