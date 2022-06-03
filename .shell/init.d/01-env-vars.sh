@@ -16,6 +16,10 @@ if type go >/dev/null 2>&1; then
     export PATH="$GOPATH/bin:$PATH"
 fi
 
+if type npm >/dev/null 2>&1; then
+    export PATH="$HOME/.npm/bin:$PATH"
+fi
+
 export LC_COLLATE=ja_JP.UTF-8
 
 if type screen >/dev/null 2>&1; then

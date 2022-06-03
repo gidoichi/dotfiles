@@ -92,7 +92,6 @@ if [ -n "${read_from_stdin}" ]; then
         target_file="${target_file}.${ext}"
     fi
     cat > "${target_file}"
-    break
 fi
 
 # $EDITOR で開く

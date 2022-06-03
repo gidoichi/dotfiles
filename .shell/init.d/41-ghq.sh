@@ -75,8 +75,8 @@ ghq() {
         fi
         rm -rf "${root}/${repo}"
         mkdir "${root}/${repo}"
-        echo "remove: ${root}/${repo}" >&2
         while rmdir "${root}/${repo}" >/dev/null 2>&1; do
+            echo "remove: ${root}/${repo}" >&2
             repo=$(dirname "${repo}")
             if [ "${repo}" = '.' ]; then
                 break
