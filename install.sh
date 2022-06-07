@@ -6,6 +6,6 @@ find "${PARENT}/" -mindepth 1 -maxdepth 1 -name '.*' -not -name '.git' |
 sed 's#^.*/##' |
 while IFS= read -r file; do
     (set -x
-     ln -sf "${PARENT}/$file" "${HOME}/"
+     ln -s "${PARENT}/${file}" "${HOME}/" "${@}"
     )
 done
