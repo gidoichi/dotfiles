@@ -99,6 +99,21 @@
       "M-%"   'anzu-query-replace
       "C-M-%" 'anzu-query-replace-regexp)
 
+(use-package! flycheck
+  :config
+  (if (/= 0 (call-process-shell-command "type textlint"))
+      (display-warning load-file-name "cannot find 'textlint' command to use 'flycheck-define-checker textlint'")
+    (flycheck-define-checker textlint
+      "A linter for Markdown."
+      :command ("textlint" "--format" "unix" source)
+      :error-patterns
+      ((warning line-start (file-name) ":" line ":" column ": "
+                (message (minimal-match (one-or-more anychar)))
+                "[" (id (one-or-more (not ?\s))) "]"
+                line-end))
+      :modes (text-mode markdown-mode gfm-mode))
+    ))
+
 (use-package! helm-ghq
   :config
   (defalias 'ghq 'helm-ghq))
@@ -183,22 +198,13 @@
   (markdown-mode . markdown-mode-hooks)
   :config
   (defun markdown-mode-hooks ()
-    (setq flycheck-checker 'textlint)
     (setq markdown-fontify-code-blocks-natively t)
     (setq markdown-hide-urls t)
+    (when (flycheck-registered-checker-p 'textlint)
+      (setq flycheck-checker 'textlint))
     (unless window-system
       (add-to-ordered-list 'markdown-url-compose-char 8943 1))
-    )
-  (flycheck-define-checker textlint
-    "A linter for Markdown."
-    :command ("textlint" "--format" "unix" source)
-    :error-patterns
-    ((warning line-start (file-name) ":" line ":" column ": "
-              (message (minimal-match (one-or-more anychar)))
-              "[" (id (one-or-more (not ?\s))) "]"
-              line-end))
-    :modes (text-mode markdown-mode gfm-mode))
-  )
+    ))
 
 (defun term-mode-quoted-insert (ch)
   "Send any char (as CH) in term mode."
