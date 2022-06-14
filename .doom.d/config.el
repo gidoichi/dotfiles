@@ -282,6 +282,13 @@
     )
   )
 
+(use-package! yaml-mode
+  :hook
+  (yaml-mode . yaml-path-which-func)
+  :config
+  (if (/= 0 (call-process-shell-command "type yaml-path"))
+      (display-warning load-file-name "cannot find 'yaml-path' command to use 'yaml-path-which-func'")
+    (defalias 'find-grep 'helm-do-grep-ag)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; LOCAL CONFIG
