@@ -162,6 +162,16 @@
   (treemacs-project-follow-mode t)
   )
 
+(use-package! switch-buffer-functions
+  :hook
+  (switch-buffer-functions . switch-buffer-functions-hooks)
+  :config
+  (defun switch-buffer-functions-hooks (prev cur)
+    (if (eq major-mode 'yaml-mode)
+        (which-func-mode +1)
+      (which-func-mode -1)))
+  )
+
 (use-package! undo-tree
   :hook
   (prog-mode . undo-tree-mode)
