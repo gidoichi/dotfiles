@@ -96,7 +96,7 @@
   (setq anzu-minimum-input-length 3)
   )
 (map! :g
-      "M-%"   'anzu-query-replace
+      "M-%" 'anzu-query-replace
       "C-M-%" 'anzu-query-replace-regexp)
 
 (use-package! flycheck
@@ -168,8 +168,8 @@
   :config
   (defun switch-buffer-functions-hooks (prev cur)
     (if (eq major-mode 'yaml-mode)
-        (which-func-mode +1)
-      (which-func-mode -1)))
+        (which-function-mode +1)
+      (which-function-mode -1)))
   )
 
 (use-package! undo-tree
@@ -192,8 +192,8 @@
   (defun go-mode-hooks ()
     (add-hook! before-save
                :local
-               #'gofmt-before-save
-               #'lsp-organize-imports
+               'gofmt-before-save
+               'lsp-organize-imports
                )))
 
 (use-package! magit
@@ -281,12 +281,12 @@
       (t (error "Cannot use clipboard"))
       )))
   (defun vterm-mode-hooks ()
-    (define-key vterm-mode-map (kbd "C-c C-y") #'vterm-send-clipboard)
-    (define-key vterm-mode-map (kbd "C-h") #'vterm-send-C-h)
-    (define-key vterm-mode-map (kbd "C-k") #'vterm-not-copy-mode-kill-line)
-    (define-key vterm-mode-map (kbd "C-q") #'vterm-mode-quoted-insert)
-    (define-key vterm-mode-map (kbd "<C-left>") #'centaur-tabs-backward-tab)
-    (define-key vterm-mode-map (kbd "<C-right>") #'centaur-tabs-forward-tab)
+    (define-key vterm-mode-map (kbd "C-c C-y") 'vterm-send-clipboard)
+    (define-key vterm-mode-map (kbd "C-h") 'vterm-send-C-h)
+    (define-key vterm-mode-map (kbd "C-k") 'vterm-not-copy-mode-kill-line)
+    (define-key vterm-mode-map (kbd "C-q") 'vterm-mode-quoted-insert)
+    (define-key vterm-mode-map (kbd "<C-left>") 'centaur-tabs-backward-tab)
+    (define-key vterm-mode-map (kbd "<C-right>") 'centaur-tabs-forward-tab)
     (face-remap-set-base 'link nil)
     (face-remap-add-relative 'link 'underline 'italic)
     )
@@ -299,6 +299,7 @@
   (if (/= 0 (call-process-shell-command "type yaml-path"))
       (display-warning load-file-name "cannot find 'yaml-path' command to use 'yaml-path-which-func'")
     (defalias 'find-grep 'helm-do-grep-ag)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; LOCAL CONFIG
