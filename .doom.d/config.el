@@ -202,6 +202,8 @@
 (use-package! markdown-mode
   :hook
   (markdown-mode . markdown-mode-hooks)
+  :mode
+  ("\\.Rmd\\'" . markdown-mode)
   :config
   (defun markdown-mode-hooks ()
     (setq markdown-fontify-code-blocks-natively t)
