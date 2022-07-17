@@ -217,6 +217,9 @@
       (setq flycheck-checker 'textlint))
     ))
 
+(map! :mode special-mode
+      "q" 'kill-buffer-and-window)
+
 (defun term-mode-quoted-insert (ch)
   "Send any char (as CH) in term mode."
   (interactive "c")
