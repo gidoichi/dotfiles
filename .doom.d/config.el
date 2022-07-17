@@ -250,9 +250,6 @@
 (use-package! typescript-mode
   :hook
   (typescript-mode . lsp-deferred)
-  :config
-  (lsp-install-server nil 'eslint)
-  (lsp-install-server nil 'ts-ls)
   )
 
 (use-package! vterm
