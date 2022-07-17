@@ -162,6 +162,9 @@
   (treemacs-project-follow-mode t)
   )
 
+(map! :mode special-mode
+      "q" 'kill-buffer-and-window)
+
 (add-hook 'switch-buffer-functions 'switch-buffer-functions-hooks)
 (defun switch-buffer-functions-hooks (prev cur)
   (if (eq major-mode 'yaml-mode)
@@ -216,9 +219,6 @@
     (when (flycheck-registered-checker-p 'textlint)
       (setq flycheck-checker 'textlint))
     ))
-
-(map! :mode special-mode
-      "q" 'kill-buffer-and-window)
 
 (defun term-mode-quoted-insert (ch)
   "Send any char (as CH) in term mode."
