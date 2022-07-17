@@ -11,13 +11,13 @@ if [ -d "${HOME}/.emacs.d/bin" ]; then
     export PATH="${HOME}/.emacs.d/bin:${PATH}"
 fi
 
-if type go >/dev/null 2>&1; then
-    export GOPATH="${GOPATH:-${HOME}/go}"
+export GOPATH="${GOPATH:-${HOME}/go}"
+if [ -d "${GOPATH}/bin" ] 2>&1; then
     export PATH="${GOPATH}/bin:${PATH}"
 fi
 
 export NPM_HOME="${NPM_HOME:-${HOME}/.npm}"
-if type npm >/dev/null 2>&1; then
+if [ -d "${NPM_HOME}/bin" ] 2>&1; then
     export PATH="${NPM_HOME}/bin:${PATH}"
 fi
 
