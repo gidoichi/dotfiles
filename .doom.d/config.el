@@ -250,6 +250,12 @@
 (use-package! typescript-mode
   :hook
   (typescript-mode . lsp-deferred)
+  (typescript-mode . prettier-mode)
+  (typescript-mode . typescript-mode-hooks)
+  :config
+  (defun typescript-mode-hooks ()
+    (add-hook! before-save
+               :local 'prettier-prettify))
   )
 
 (use-package! vterm
