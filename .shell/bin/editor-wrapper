@@ -13,9 +13,9 @@ print_usage_and_exit () {
 	標準入力からデータがファイルとして開けるようになった \$EDITOR
 	「-」を指定すれば標準入力から読み込む。 \$EDITOR にオプションを渡したい場合には、 「--」の後に指定する
 
-	Usage   : ${0##*/} [options]
+	Usage   : ${0##*/} [<options>] [--] [<files>] [<\$EDITOR specified options>]
 	Options : -e <extension> ... 標準入力のデータに対するシンタックスハイライト用拡張子
-	          -f <filename> .... エディタで指定したいファイル名
+	          -f <filename> .... エディタで指定したいファイル名。<files>として「-」を指定したときのみ有効
 	          -o ............... 編集結果を標準出力に出力する
 	USAGE
     exit 1
@@ -59,8 +59,6 @@ while :; do
                    ;;
         -)         break
                    ;;
-        --*|-*)    error_exit 1 'Invalid option'
-                   ;;
         *)         break
                    ;;
     esac
@@ -79,6 +77,7 @@ fi
 for arg in "$@"; do
     if [ "$arg" = "-" ]; then
         read_from_stdin=1
+        break
     fi
 done
 if [ -n "${read_from_stdin}" ]; then
@@ -111,6 +110,9 @@ done |
 
 if [ -n "${output}" ]; then
     for arg in "$@"; do
+        if [ -z "$(printf '%s' "${arg##-?*}")" ]; then
+            break
+        fi
         if [ "${arg}" = '-' ]; then
             cat "${target_file}"
             continue
