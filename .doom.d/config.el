@@ -235,6 +235,7 @@
   (python-mode . lsp-deferred)
   )
 (use-package! py-isort
+  ;; :init pip install isort
   :hook
   (before-save . py-isort-before-save))
 
