@@ -220,6 +220,22 @@
       (setq flycheck-checker 'textlint))
     ))
 
+(use-package! lsp-pyright
+  ;; :init npm install pyright
+  :hook
+  (python-mode . lsp-deferred)
+  )
+(use-package! elpy
+  :hook
+  (python-mode . elpy-enable)
+  (python-mode . elpy-mode-hooks)
+  :config
+  (defun elpy-mode-hooks ()
+    (add-hook! before-save
+               :local 'elpy-format-code)
+    (assq-delete-all 'elpy-mode minor-mode-map-alist))
+  )
+
 (defun term-mode-quoted-insert (ch)
   "Send any char (as CH) in term mode."
   (interactive "c")
