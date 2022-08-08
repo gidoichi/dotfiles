@@ -6,7 +6,7 @@
 # Initial Configuration
 ######################################################################
 
-EDITOR="${EDITOR:-vi}"
+set -eu
 
 print_usage_and_exit () {
     cat <<-USAGE 1>&2
@@ -34,10 +34,18 @@ error_exit() {
     exit $1
 }
 
+print_and_exec () {
+    PS4=$( (set -x; :) 2>&1 | sed 's/:$//')
+    echo "${PS4}${*}" 1>&2
+    "${@}"
+}
+
 
 ######################################################################
 # Argument Parsing
 ######################################################################
+
+EDITOR="${EDITOR:-vi}"
 
 while :; do
     case "${1:-}" in
@@ -70,24 +78,26 @@ done
 ######################################################################
 
 if [ $# -eq 0 ]; then
-    "${EDITOR}"
+    print_and_exec "${EDITOR}"
     exit
 fi
 
+# 標準入力から読み込み
 for arg in "$@"; do
     if [ "$arg" = "-" ]; then
         read_from_stdin=1
         break
     fi
 done
-if [ -n "${read_from_stdin}" ]; then
+if [ -n "${read_from_stdin:-}" ]; then
     trap 'exit_trap' EXIT HUP INT QUIT PIPE ALRM TERM
-    Tmp=$(mktemp -t "${0##*/}_XXXXXX") || error_exit 1 'Failed to mktemp'
-    target_file="${Tmp}"
-    if [ -n "${fname}" ]; then
+    Tmp=$(mktemp -d -t "${0##*/}.$$.XXXXXXXXXXX") || error_exit 1 'Failed to mktemp'
+    if ! [ -z ${fname+_} ]; then
         target_file="${Tmp}/${fname}"
+    else
+        target_file="${Tmp}/tmp_${0##*/}"
     fi
-    if [ -n "${ext}" ]; then
+    if ! [ -z ${ext+_} ]; then
         target_file="${target_file}.${ext}"
     fi
     cat > "${target_file}"
@@ -95,20 +105,14 @@ fi
 
 # $EDITOR で開く
 for arg in "$@"; do
-    if [ "${arg}" = '-' ]; then
-        echo "${target_file}"
-        continue
+    file="${arg}"
+    if [ "${file}" = '-' ]; then
+        file="${target_file}"
     fi
-    echo "${arg}"
-done |
-    sed 's/\\/\\\\\\\\/g' |
-    sed 's/"/\\\\\\"/g' |
-    sed 's/^/\\"/' |
-    sed 's/$/\\" /' |
-    tr -d '\n' |
-    xargs -I {} sh -c '${EDITOR} {} </dev/tty' 1>&2
+    print_and_exec "${EDITOR}" "${file}" </dev/tty 1>&2
+done
 
-if [ -n "${output}" ]; then
+if ! [ -z ${output+_} ]; then
     for arg in "$@"; do
         if [ -z "$(printf '%s' "${arg##-?*}")" ]; then
             break
