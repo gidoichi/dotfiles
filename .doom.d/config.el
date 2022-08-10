@@ -76,7 +76,9 @@
 ;; they are implemented.
 
 (setq confirm-kill-emacs nil)
-(server-start)
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 (map! :g
       "C-h" 'delete-backward-char
