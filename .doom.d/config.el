@@ -355,4 +355,4 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (doom-load-envvars-file (expand-file-name "myenv" doom-private-dir) 'noerror)
-(load (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir) 'noerror)
+(load! (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir 'noerror)
