@@ -76,9 +76,15 @@
 ;; they are implemented.
 
 (setq confirm-kill-emacs nil)
+
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
+(setq tab-bar-show 1)
+(unless window-system
+  (setq tab-bar-close-button-show nil)
+  (setq tab-bar-new-button-show nil))
 
 (map! :g
       "C-h" 'delete-backward-char
@@ -168,11 +174,16 @@
 (map! :mode special-mode
       "q" 'kill-buffer-and-window)
 
-(add-hook 'switch-buffer-functions 'switch-buffer-functions-hooks)
-(defun switch-buffer-functions-hooks (prev cur)
-  (if (eq major-mode 'yaml-mode)
-      (which-function-mode +1)
-    (which-function-mode -1)))
+(use-package! switch-buffer-functions
+  :hook
+  (switch-buffer-functions . switch-buffer-functions-hooks)
+  (defun switch-buffer-functions-hooks (prev cur)
+    (if (eq major-mode 'yaml-mode)
+        (which-function-mode +1)
+      (which-function-mode -1))
+    (setq word-wrap nil)
+    (global-visual-line-mode -1)))
+
 
 (use-package! undo-tree
   :hook
