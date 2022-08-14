@@ -177,6 +177,7 @@
 (use-package! switch-buffer-functions
   :hook
   (switch-buffer-functions . switch-buffer-functions-hooks)
+  :config
   (defun switch-buffer-functions-hooks (prev cur)
     (if (eq major-mode 'yaml-mode)
         (which-function-mode +1)
