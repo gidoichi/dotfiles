@@ -1,6 +1,4 @@
 #!/bin/sh
-# -*- mode:shell-script -*-
-
 
 ######################################################################
 # Initial Configuration
@@ -8,7 +6,7 @@
 
 set -eu
 
-print_usage_and_exit () {
+print_usage_and_exit() {
     cat <<-USAGE 1>&2
 	標準入力からデータ受け取りファイルとして \$EDITOR で開く
 
@@ -33,11 +31,12 @@ error_exit() {
     exit $1
 }
 
-print_and_exec () {
+print_and_exec() (
     PS4=$( (set -x; :) 2>&1 | sed 's/:$//')
     echo "${PS4}${*}" 1>&2
-    "${@}"
-}
+    PS4=$(printf '%s' "${PS4}" | sed 's/\(.\) $/\1\0/')
+    PS4="${PS4}" "${@}"
+)
 
 
 ######################################################################
