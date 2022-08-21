@@ -112,9 +112,10 @@
   :config
   (if (/= 0 (call-process-shell-command "type textlint"))
       (display-warning load-file-name "cannot find 'textlint' command to use 'flycheck-define-checker textlint'")
+    (setq textlint-config-file (expand-file-name ".textlintrc" (getenv "HOME")))
     (flycheck-define-checker textlint
       "A linter for Markdown."
-      :command ("textlint" "--format" "unix" source)
+      :command ("textlint" "--format" "unix" "--config" (eval textlint-config-file) source)
       :error-patterns
       ((warning line-start (file-name) ":" line ":" column ": "
                 (message (minimal-match (one-or-more anychar)))
