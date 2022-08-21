@@ -236,6 +236,13 @@
 ;; MAJOR MODE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-generic-mode console-mode
+  '("$" "#")
+  '()
+  '()
+  nil nil
+  "console-mode for hilighting console log")
+
 (use-package! go-mode
   :hook
   (go-mode . go-mode-hooks)
