@@ -32,10 +32,9 @@ error_exit() {
 }
 
 print_and_exec() (
-    PS4=$( (set -x; :) 2>&1 | sed 's/:$//')
     echo "${PS4}${*}" 1>&2
-    PS4=$(printf '%s' "${PS4}" | sed 's/\(.\) $/\1\0/')
-    PS4="${PS4}" "${@}"
+    PS4=$(printf '%s' "${PS4}" | sed 's/\(.\) $/\1\1 /')
+    PS4="${PS4}" "$@"
 )
 
 
