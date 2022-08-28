@@ -85,7 +85,7 @@
 (setq tab-bar-show 1)
 (unless window-system
   (setq tab-bar-close-button-show nil)
-  (setq tab-bar-new-button-show nil))
+  (setq tab-bar-format (delq 'tab-bar-format-add-tab tab-bar-format)))
 
 (map! :g
       "C-h" 'delete-backward-char
@@ -193,7 +193,7 @@
   (text-mode . undo-tree-mode)
   :config
   (add-to-list 'undo-tree-history-directory-alist
-               `(".*" . ,(expand-file-name "undo-tree-history" doom-private-dir))))
+               `(".*" . ,(expand-file-name "undo-tree-history" doom-user-dir))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -380,5 +380,5 @@
 ;; LOCAL CONFIG
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(doom-load-envvars-file (expand-file-name "myenv" doom-private-dir) 'noerror)
-(load! (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir 'noerror)
+(doom-load-envvars-file (expand-file-name "myenv" doom-user-dir) 'noerror)
+(load! (concat "custom-" (file-name-nondirectory load-file-name)) doom-user-dir 'noerror)
