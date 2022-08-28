@@ -236,13 +236,6 @@
 ;; MAJOR MODE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-generic-mode console-mode
-  '("$" "#")
-  '()
-  '()
-  nil nil
-  "console-mode for hilighting console log")
-
 (use-package! go-mode
   :hook
   (go-mode . go-mode-hooks)
@@ -297,6 +290,21 @@
   ;; :init pip install isort
   :hook
   (before-save . py-isort-before-save))
+
+;; c.f. following other implementations
+;; Prism: https://github.com/PrismJS/prism/blob/master/components/prism-shell-session.js
+;; Rouge: https://github.com/rouge-ruby/rouge/blob/master/lib/rouge/lexers/console.rb
+(define-generic-mode shell-session-mode
+  nil nil
+  '(("\\(^.*?\\)\\(\\$\\|#\\|>\\)\\(.*\\)"
+     (1 font-lock-comment-face t)
+     (2 font-lock-comment-face t)
+     (3 font-lock-string-face t))
+    )
+  '("\\.sh-session\\'" "\\.console\\'")
+  nil
+  "shell-session-mode for hilighting console log")
+(define-derived-mode console-mode shell-session-mode "console")
 
 (defun term-mode-quoted-insert (ch)
   "Send any char (as CH) in term mode."
