@@ -11,6 +11,7 @@
 (package! helm-ghq)
 (package! helm-git-grep)
 (package! helm-ls-git)
+(package! init-loader)
 (package! multi-term)
 (package! multi-vterm)
 (package! ssh-agency
