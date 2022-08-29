@@ -1,4 +1,4 @@
-;;; global.el -*- lexical-binding: t; -*-
+;;; -*- lexical-binding: t; -*-
 
 (setq confirm-kill-emacs nil)
 
