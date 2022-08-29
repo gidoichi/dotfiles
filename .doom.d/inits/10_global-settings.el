@@ -119,3 +119,10 @@
   :config
   (add-to-list 'undo-tree-history-directory-alist
                `(".*" . ,(expand-file-name "undo-tree-history" doom-user-dir))))
+
+(use-package! visws
+  :hook
+  (prog-mode . visible-whitespace-mode)
+  (text-mode . visible-whitespace-mode)
+  :config
+  (setq visible-whitespace-mappings '((?\u3000 [?\u25a1]))))
