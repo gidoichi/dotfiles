@@ -7,6 +7,10 @@ if type emacs >/dev/null 2>&1; then
     export EDITOR=emacs
 fi
 
+if [ -d "${HOME}/.cargo/bin" ]; then
+    export PATH="${HOME}/.cargo/bin:${PATH}"
+fi
+
 if [ -d "${HOME}/.emacs.d/bin" ]; then
     export PATH="${HOME}/.emacs.d/bin:${PATH}"
 fi
