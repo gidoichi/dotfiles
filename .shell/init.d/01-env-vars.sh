@@ -16,12 +16,18 @@ if [ -d "${HOME}/.emacs.d/bin" ]; then
 fi
 
 export GOPATH="${GOPATH:-${HOME}/go}"
-if [ -d "${GOPATH}/bin" ] 2>&1; then
+if [ -d "${GOPATH}/bin" ]; then
     export PATH="${GOPATH}/bin:${PATH}"
 fi
 
+if type ghq >/dev/null 2>&1; then
+    if [ -d "$(ghq root)/github.com/Homebrew/brew/bin" ]; then
+        export PATH="$(ghq root)/github.com/Homebrew/brew/bin:${PATH}"
+    fi
+fi
+
 export NPM_HOME="${NPM_HOME:-${HOME}/.npm}"
-if [ -d "${NPM_HOME}/bin" ] 2>&1; then
+if [ -d "${NPM_HOME}/bin" ]; then
     export PATH="${NPM_HOME}/bin:${PATH}"
 fi
 
