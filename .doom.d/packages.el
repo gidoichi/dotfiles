@@ -69,4 +69,6 @@
 ;(unpin! t)
 
 
-(load (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir) 'noerror)
+(load
+ (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir)
+ 'noerror)
