@@ -49,3 +49,7 @@ if [ -d "${HOMEBREW_HOME}/bin" ]; then
 fi
 
 export ONELINE_SELECTOR=1line-select
+
+if [ -d "$(ghq root)/github.com/gidoichi/pmo" ]; then
+    export PATH="$(ghq root)/github.com/gidoichi/pmo:${PATH}"
+fi
