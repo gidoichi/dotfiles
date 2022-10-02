@@ -106,6 +106,7 @@
   :hook
   (vterm-mode . goto-address-mode)
   (vterm-mode . vterm-mode-hooks)
+  (vterm-copy-mode . vterm-copy-mode-hooks)
   :config
   (defun vterm-mode-quoted-insert (ch)
     "Send any char (as CH) in term mode."
@@ -127,6 +128,11 @@
     "Send clipboard to terminal."
     (interactive)
     (vterm-send-string (get-clipboard)))
+  (defun vterm-update-mode-line ()
+    (setq mode-line-process (list ": " (if vterm-copy-mode
+                                           "cp" ;; copy-mode
+                                         "ia" ;; interactive mode
+                                         ))))
   (defun vterm-mode-hooks ()
     (define-key vterm-mode-map (kbd "C-c C-y") 'vterm-send-clipboard)
     (define-key vterm-mode-map (kbd "C-h") 'vterm-send-C-h)
@@ -136,7 +142,10 @@
     (define-key vterm-mode-map (kbd "<C-right>") 'centaur-tabs-forward-tab)
     (face-remap-set-base 'link nil)
     (face-remap-add-relative 'link 'underline 'italic)
+    (vterm-update-mode-line)
     )
+  (defun vterm-copy-mode-hooks ()
+    (vterm-update-mode-line))
   )
 
 (use-package! yaml-mode

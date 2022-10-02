@@ -7,6 +7,8 @@
   (setq tab-bar-close-button-show nil)
   (setq tab-bar-format (delq 'tab-bar-format-add-tab tab-bar-format)))
 
+(advice-add 'hide-mode-line-mode :around (lambda (orig &optional args) nil))
+
 (map! :g
       "C-h" 'delete-backward-char
       "C-c t t" 'toggle-truncate-lines
