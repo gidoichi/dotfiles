@@ -6,7 +6,7 @@
 
 if type powershell.exe >/dev/null 2>&1 &&
    type dart           >/dev/null 2>&1 &&
-   file $(which dart) | grep CRLF >/dev/null; then
+   file "$(which dart)" | grep CRLF >/dev/null; then
     alias dart='powershell.exe -Command dart'
 fi
 
@@ -14,7 +14,7 @@ alias emacs=editor-wrapper
 
 if type powershell.exe >/dev/null 2>&1 &&
    type flutter        >/dev/null 2>&1 &&
-   file $(which flutter) | grep CRLF >/dev/null; then
+   file "$(which flutter)" | grep CRLF >/dev/null; then
     alias flutter='powershell.exe -Command flutter'
 fi
 
@@ -24,6 +24,10 @@ fi
 
 if type javac.exe >/dev/null 2>&1; then
     alias javac.exe='javac.exe -encoding UTF-8'
+fi
+
+if type kubectl >/dev/null 2>&1; then
+    alias k='kubectl'
 fi
 
 # alias ls='ls --color=auto'

@@ -7,8 +7,6 @@
   (setq tab-bar-close-button-show nil)
   (setq tab-bar-format (delq 'tab-bar-format-add-tab tab-bar-format)))
 
-(advice-add 'hide-mode-line-mode :around (lambda (orig &optional args) nil))
-
 (map! :g
       "C-h" 'delete-backward-char
       "C-c t t" 'toggle-truncate-lines
@@ -83,6 +81,13 @@
 (use-package! helm-ls-git
   :config
   (defalias 'git-ls-files 'helm-ls-git))
+
+(use-package! hide-mode-line
+  :config
+  ;; want to just disable hide-mode-line-mode at vterm-mode
+  ;; workaround https://github.com/doomemacs/doomemacs/issues/6209
+  (advice-add 'hide-mode-line-mode :around (lambda (orig &optional args) nil))
+  )
 
 (use-package! server
   :config

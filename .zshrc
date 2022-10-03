@@ -13,11 +13,17 @@ fi
 # Customize to your needs...
 
 # external source
-source "$HOME/.shell/shrc"; source "$HOME/.shell/custom.sh"
+source "$HOME/.shell/shrc"
+source "$HOME/.shell/custom.sh"
 
 # completions
 if type kubectl >/dev/null 2>&1; then
     source <(kubectl completion zsh)
+fi
+
+# prompt
+if type kube_ps1 >/dev/null; then
+    PROMPT="$(printf '%s' "${PROMPT}" | awk '{if($0!=""&&f==0){print $0,"$(kube_ps1)";f=1}else{print}}')"
 fi
 
 # fzf
