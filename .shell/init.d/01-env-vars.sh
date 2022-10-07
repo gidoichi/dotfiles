@@ -50,6 +50,6 @@ fi
 
 export ONELINE_SELECTOR=1line-select
 
-if [ -d "$(ghq root)/github.com/gidoichi/pmo" ]; then
-    export PATH="$(ghq root)/github.com/gidoichi/pmo:${PATH}"
+if [ -d "$(ghq root)/github.com/gidoichi/pmo/bin" ]; then
+    export PATH="$(ghq root)/github.com/gidoichi/pmo/bin:${PATH}"
 fi
