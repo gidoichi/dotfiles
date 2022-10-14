@@ -4,6 +4,7 @@
 if [ -n "$INSIDE_EMACS" ]; then
     # emacs内でemacsを開くときは既存のを使用
     export EDITOR=emacsclient
+    export VISUAL="${EDITOR}"
     alias emacs=editor-wrapper
 
     # データ詰まり解消

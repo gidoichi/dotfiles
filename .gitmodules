@@ -1,0 +1,4 @@
+[submodule ".shell/custom.d/1d5533455d6d80c8dd07b8e4913ef653"]
+	path = .shell/custom.d/1d5533455d6d80c8dd07b8e4913ef653
+	url = git@gist.github.com:1d5533455d6d80c8dd07b8e4913ef653.git
+	branch = main

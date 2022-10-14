@@ -14,7 +14,6 @@ fi
 
 # external source
 source "$HOME/.shell/shrc"
-source "$HOME/.shell/custom.sh"
 
 # completions
 if type kubectl >/dev/null 2>&1; then
