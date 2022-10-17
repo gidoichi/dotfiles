@@ -6,7 +6,7 @@ IFSORG="${IFS}"
 IFS="$(printf '\n_')"
 IFS="${IFS%_}"
 rc=0
-for file in $(find "${PARENT}/" -mindepth 1 -maxdepth 1 -name '.*' -not -name '.git' |
+for file in $(find "${PARENT}/" -mindepth 1 -maxdepth 1 -name '.*' -not -name '.git' -not -name '.gitmodules' |
                sed 's#^.*/##'); do
     if [ -L "${HOME}/${file}" ]; then
         inode_org="$(ls -di "${PARENT}/${file}" | cut -d ' ' -f 1)"
