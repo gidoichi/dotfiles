@@ -25,8 +25,8 @@ if type explorer.exe wslpath >/dev/null 2>&1; then
         # readlinkを用いた方法
         if type readlink >/dev/null 2>&1; then
             local file=$(readlink -f "$file")
-            printf '%s\n' "explorer.exe '$(wslpath -w "$file")'"
-            explorer.exe "$(wslpath -w "$file")"
+            win="$(wslpath -w "$file")"
+            explorer.exe "${win}"
             return
         fi
 
