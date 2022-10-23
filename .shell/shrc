@@ -1,10 +1,7 @@
 #!/bin/sh
 
-# 00-09 : 環境非依存に実行可能なshell標準機能の設定
-# 10-39 : OSに依存する設定
-# 40-79 : コマンドに依存する設定
-# 80-98 : shellに依存する設定
-# 99    : キーバインド
-for f in $(find "$HOME/.shell/init.d" -name '*.sh' | sort); do
-   . "$f"
+PARENT="$(d=${0%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d."; pwd)"
+
+for f in $(find "${PARENT}/init.d" -name '*.sh' | sort); do
+   . "${f}"
 done

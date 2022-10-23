@@ -133,3 +133,10 @@
   (text-mode . visible-whitespace-mode)
   :config
   (setq visible-whitespace-mappings '((?\u3000 [?\u25a1]))))
+
+(use-package! whitespace
+  :hook
+  (whitespace-mode . whitespace-mode-hooks)
+  :config
+  (defun whitespace-mode-hooks ()
+    (add-hook! before-save :local 'doom/delete-trailing-newlines)))
