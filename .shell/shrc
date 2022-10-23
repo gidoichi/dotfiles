@@ -1,7 +1,11 @@
 #!/bin/sh
 
 PARENT="$(d=${0%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d."; pwd)"
+CURRENT_DIR="$(pwd)"
+cd "${PARENT}/init.d"
 
-for f in $(find "${PARENT}/init.d" -name '*.sh' | sort); do
+for f in $(find "${PARENT}/init.d" -name '*.sh' | sort); do 
    . "${f}"
 done
+
+cd "${CURRENT_DIR}"

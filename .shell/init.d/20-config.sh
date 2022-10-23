@@ -5,11 +5,11 @@ case "${CURRENT_SHELL}" in
     *) return 1;;
 esac
 
-if type zprezto-update >/dev/null; then
+if type zprezto-update >/dev/null 2>&1; then
     prompt steeef
 fi
 
-if alias cp >/dev/null; then
+if alias cp >/dev/null 2>&1; then
     alias cp='cp -i'
 fi
 
@@ -19,11 +19,11 @@ if [ -f "${file}" ]; then
     . "${file}"
 fi
 
-if type basher >/dev/null; then
+if type basher >/dev/null 2>&1; then
     eval "$(basher init - "${CURRENT_SHELL}")"
 fi
 
-if type cf >/dev/null; then
+if type cf >/dev/null 2>&1; then
     cf() {
         # $ cf (help|h|--help|-h)
         if [ "$1" = 'help' -o "$1" = 'h' -o "$1" = '--help' -o "$1" = '-h' ] &&
@@ -71,16 +71,16 @@ if type cf >/dev/null; then
 fi
 
 
-if type powershell.exe dart >/dev/null &&
+if type powershell.exe dart >/dev/null 2>&1 &&
    file "$(which dart)" | grep CRLF >/dev/null; then
     alias dart='powershell.exe -Command dart'
 fi
 
-if type direnv >/dev/null; then
+if type direnv >/dev/null 2>&1; then
     eval "$(direnv hook "${CURRENT_SHELL}")"
 fi
 
-if type emacs >/dev/null; then
+if type emacs >/dev/null 2>&1; then
     alias emacs=editor-wrapper
     export EDITOR=emacs
     if [ -n "${INSIDE_EMACS}" ]; then
@@ -89,21 +89,27 @@ if type emacs >/dev/null; then
     export VISUAL="${EDITOR}"
 fi
 
-if type powershell.exe flutter >/dev/null &&
+if type powershell.exe flutter >/dev/null 2>&1 &&
    file "$(which flutter)" | grep CRLF >/dev/null; then
     alias flutter='powershell.exe -Command flutter'
 fi
 
 # fzf
 if [ -d /usr/share/doc/fzf/examples ]; then
-    . /usr/share/doc/fzf/examples/key-bindings.zsh
-    . /usr/share/doc/fzf/examples/completion.zsh
+    if [ "${CURRENT_SHELL}" = 'zsh' ]; then
+        . /usr/share/doc/fzf/examples/key-bindings.zsh
+        . /usr/share/doc/fzf/examples/completion.zsh
+    elif [ "${CURRENT_SHELL}" = 'bash' ]; then
+        . /usr/share/doc/fzf/examples/key-bindings.bash
+    fi
 else
-    . "$HOME/.fzf.zsh"
+    if [ "${CURRENT_SHELL}" = 'zsh' ]; then
+        . "$HOME/.fzf.zsh"
+    fi
 fi
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 
-if type ghq >/dev/null; then
+if type ghq >/dev/null 2>&1; then
     ghq() {
 
         # $ ghq
@@ -200,22 +206,22 @@ if type ghq >/dev/null; then
     }
 fi
 
-if alias grep >/dev/null; then
+if alias grep >/dev/null 2>&1; then
     alias grep='grep --color=auto'
 fi
 
 # java
-if type javac >/dev/null; then
+if type javac >/dev/null 2>&1; then
     alias javac='javac -encoding UTF-8'
 fi
-if type javac.exe >/dev/null; then
+if type javac.exe >/dev/null 2>&1; then
     alias javac.exe='javac.exe -encoding UTF-8'
 fi
 
 # keepassxc
-if type git-credential-keepassxc.exe >/dev/null; then
+if type git-credential-keepassxc.exe >/dev/null 2>&1; then
     GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc.exe'
-elif type git-credential-keepassxc >/dev/null; then 
+elif type git-credential-keepassxc >/dev/null 2>&1; then 
     GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc'
 fi
 if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
@@ -229,7 +235,7 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
     }
 fi
 
-if type kubectl >/dev/null; then
+if type kubectl >/dev/null 2>&1; then
     alias k='kubectl'
 fi
 
@@ -239,13 +245,13 @@ if [ -n "${target}" ]; then
     . "$(brew --prefix kube-ps1)/share/kube-ps1.sh"
     kubeoff
 fi
-if type kube_ps1 >/dev/null; then
+if type kube_ps1 >/dev/null 2>&1; then
     if [ "${CURRENT_SHELL}" = 'zsh' ]; then 
         export PROMPT="$(printf '%s' "${PROMPT}" | awk '{if($0!=""&&f==0){print $0,"$(kube_ps1)";f=1}else{print}}')"
     fi
     kube_ps1_cluster_function() {
         printf '%s' "${1}"
-        if type asdf >/dev/null; then
+        if type asdf >/dev/null 2>&1; then
             set -eu
             versions="$(set -x; kubectl version -o json)"
             client="$(printf '%s' "${versions}" | jq -re '.clientVersion.gitVersion')"
@@ -261,9 +267,9 @@ if type kube_ps1 >/dev/null; then
 fi
 
 # line-selector
-if type fzf >/dev/null; then
+if type fzf >/dev/null 2>&1; then
     export LINE_SELECTOR=fzf
-elif type lnum-select >/dev/null; then
+elif type lnum-select >/dev/null 2>&1; then
     export LINE_SELECTOR=lnum-select
 fi
 export ONELINE_SELECTOR=1line-select
@@ -271,11 +277,11 @@ export ONELINE_SELECTOR=1line-select
 # locale
 export LC_COLLATE=ja_JP.UTF-8
 
-if alias ls >/dev/null; then
+if alias ls >/dev/null 2>&1; then
     alias ls='ls --color=auto'
 fi
 
-if alias mv >/dev/null; then
+if alias mv >/dev/null 2>&1; then
     alias mv='mv -i'
 fi
 
@@ -284,7 +290,7 @@ if [ -e /usr/local/share/java/plantuml.jar ]; then
 fi
 
 # python
-if type py >/dev/null; then
+if type py >/dev/null 2>&1; then
     alias py2='py -2'
     alias py3='py -3'
 fi
@@ -293,15 +299,15 @@ if type R >/dev/null 2>&1; then
     alias R='R -q --no-save'
 fi
 
-if alias rm >/dev/null; then
+if alias rm >/dev/null 2>&1; then
     alias rm='rm -i'
 fi
 
-if type screen >/dev/null; then
+if type screen >/dev/null 2>&1; then
     export SCREENDIR="${HOME}/.screen"
 fi
 
-if type trash-put >/dev/null && [ ! -e "$HOME/.local/share/Trash" ]; then
+if type trash-put >/dev/null 2>&1 && [ ! -e "$HOME/.local/share/Trash" ]; then
     mkdir -p "$HOME/.local/share/Trash"
 fi
 

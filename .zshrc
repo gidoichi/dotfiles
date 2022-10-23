@@ -13,10 +13,10 @@ fi
 # Customize to your needs...
 
 # environment variable
-export CURRENT_SHELL=zsh
+CURRENT_SHELL=zsh
 
 # external source
-source "$HOME/.shell/shrc"
+. "$HOME/.shell/shrc"
 
 # completions
 if type kubectl >/dev/null; then
