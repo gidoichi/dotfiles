@@ -36,6 +36,10 @@
       (setq flycheck-checker 'textlint))
     ))
 
+(use-package! org
+  :config
+  (setq org-startup-folded 'content))
+
 ;; python-mode
 (use-package! elpy
   :hook
