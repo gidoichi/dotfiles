@@ -251,7 +251,7 @@ if type kube_ps1 >/dev/null 2>&1; then
     fi
     kube_ps1_cluster_function() {
         printf '%s' "${1}"
-        if type asdf >/dev/null 2>&1; then
+        if { type asdf && asdf plugin list | grep '^kubectl$'; } >/dev/null 2>&1; then (
             set -eu
             versions="$(set -x; kubectl version -o json)"
             client="$(printf '%s' "${versions}" | jq -re '.clientVersion.gitVersion')"
@@ -261,7 +261,7 @@ if type kube_ps1 >/dev/null 2>&1; then
             (set -x; asdf plugin add kubectl) || true
             (set -x; asdf install kubectl "${version}")
             (set -x; asdf global  kubectl "${version}")
-        fi >&2
+        ) fi >&2
     }
     export KUBE_PS1_CLUSTER_FUNCTION=kube_ps1_cluster_function
 fi
