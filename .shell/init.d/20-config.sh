@@ -9,7 +9,7 @@ if type zprezto-update >/dev/null 2>&1; then
     prompt steeef
 fi
 
-if alias cp >/dev/null 2>&1; then
+if ! alias cp >/dev/null 2>&1; then
     alias cp='cp -i'
 fi
 
@@ -206,7 +206,7 @@ if type ghq >/dev/null 2>&1; then
     }
 fi
 
-if alias grep >/dev/null 2>&1; then
+if ! alias grep >/dev/null 2>&1; then
     alias grep='grep --color=auto'
 fi
 
@@ -277,11 +277,11 @@ export ONELINE_SELECTOR=1line-select
 # locale
 export LC_COLLATE=ja_JP.UTF-8
 
-if alias ls >/dev/null 2>&1; then
+if ! alias ls >/dev/null 2>&1; then
     alias ls='ls --color=auto'
 fi
 
-if alias mv >/dev/null 2>&1; then
+if ! alias mv >/dev/null 2>&1; then
     alias mv='mv -i'
 fi
 
@@ -299,7 +299,7 @@ if type R >/dev/null 2>&1; then
     alias R='R -q --no-save'
 fi
 
-if alias rm >/dev/null 2>&1; then
+if ! alias rm >/dev/null 2>&1; then
     alias rm='rm -i'
 fi
 
