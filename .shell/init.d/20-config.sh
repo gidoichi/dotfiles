@@ -14,9 +14,9 @@ if ! alias cp >/dev/null 2>&1; then
 fi
 
 # asdf
-file="$(brew --prefix asdf)/asdf.sh"
-if [ -f "${file}" ]; then
-    . "${file}"
+_file="$(brew --prefix asdf)/asdf.sh"
+if [ -f "${_file}" ]; then
+    . "${_file}"
 fi
 
 if type basher >/dev/null 2>&1; then
@@ -42,26 +42,26 @@ if type cf >/dev/null 2>&1; then
         # $ cf (target|t) -o
         if [ "${1}" = 'target' -o "${1}" = 't' ] && [ "${2}" = '-o' ] &&
                [ "${#}" -eq 2 ]; then
-            org=$(cf orgs |
+            _org=$(cf orgs |
                       awk 'f{print} !f&&$0!="name"{print>"/dev/stderr"} !f&&$0=="name"{f=!f}' |
                       "${ONELINE_SELECTOR}")
-            if [ "${org}" = '' ]; then
+            if [ "${_org}" = '' ]; then
                 return 1
             fi
-            cf target -o "${org}"
+            cf target -o "${_org}"
             return
         fi
 
         # $ cf (target|t) -s
         if [ "${1}" = 'target' -o "${1}" = 't' ] && [ "${2}" = '-s' ] &&
                [ "${#}" -eq 2 ]; then
-            space=$(cf spaces |
+            _space=$(cf spaces |
                         awk 'f{print} !f&&$0!="name"{print>"/dev/stderr"} !f&&$0=="name"{f=!f}' |
                         "${ONELINE_SELECTOR}")
-            if [ "${space}" = '' ]; then
+            if [ "${_space}" = '' ]; then
                 return 1
             fi
-            cf target -s "${space}"
+            cf target -s "${_space}"
             return
         fi
 
@@ -137,54 +137,54 @@ if type ghq >/dev/null 2>&1; then
         # $ ghq cd
         if [ "$1" = "cd" ] &&
                [ $# -eq 1 ]; then
-            repo=$(ghq list | ${ONELINE_SELECTOR})
-            ghq cd "${repo}"
+            _repo=$(ghq list | ${ONELINE_SELECTOR})
+            ghq cd "${_repo}"
             return
         fi
 
         # $ ghq cd <repository>
         if [ "$1" = 'cd' ] &&
                [ $# -eq 2 ]; then
-            target="$2"
-            repo=$(ghq list | awk '$0=="'"$target"'"')
-            root=$(ghq root)
-            if [ -z "${repo}" ]; then
+            _target="$2"
+            _repo=$(ghq list | awk '$0=="'"${_target}"'"')
+            _root=$(ghq root)
+            if [ -z "${_repo}" ]; then
                 return 1
             fi
-            cd "${root}/${repo}"
+            cd "${_root}/${_repo}"
             return
         fi
 
         # $ ghq (rm|remove)
         if [ "$1" = 'rm' -o "$1" = 'remove' ] &&
                [ $# -eq 1 ]; then
-            repo=$(ghq list | ${ONELINE_SELECTOR})
-            if [ -z "${repo}" ]; then
+            _repo=$(ghq list | ${ONELINE_SELECTOR})
+            if [ -z "${_repo}" ]; then
                 return 1
             fi
-            ghq rm "${repo}"
+            ghq rm "${_repo}"
             return
         fi
 
         # $ ghq (rm|remove) <repository>
         if [ "$1" = "rm" -o "$1" = "remove" ] &&
                [ $# -eq 2 ]; then
-            target="$2"
-            repo=$(ghq list | awk '$0=="'"$target"'"')
-            root=$(ghq root)
-            if [ -z "${repo}" ]; then
+            _target="$2"
+            _repo=$(ghq list | awk '$0=="'"${_target}"'"')
+            _root=$(ghq root)
+            if [ -z "${_repo}" ]; then
                 return 1
             fi
-            if ! [ -d "${root}/${repo}" ]; then
-                echo "no such repository: ${target}" >&2
+            if ! [ -d "${_root}/${_repo}" ]; then
+                echo "no such repository: ${_target}" >&2
                 return 1
             fi
-            rm -rf "${root}/${repo}"
-            mkdir "${root}/${repo}"
-            while rmdir "${root}/${repo}" >/dev/null 2>&1; do
-                echo "remove: ${root}/${repo}" >&2
-                repo=$(dirname "${repo}")
-                if [ "${repo}" = '.' ]; then
+            rm -rf "${_root}/${_repo}"
+            mkdir "${_root}/${_repo}"
+            while rmdir "${_root}/${_repo}" >/dev/null 2>&1; do
+                echo "remove: ${_root}/${_repo}" >&2
+                _repo=$(dirname "${_repo}")
+                if [ "${_repo}" = '.' ]; then
                     break
                 fi
             done
@@ -194,8 +194,8 @@ if type ghq >/dev/null 2>&1; then
         # $ ghq (rm|remove) <repository> <...repository>
         if [ "$1" = 'rm' -o "$1" = 'remove' ] &&
                [ $# -ge 3 ]; then
-            repo="$2"
-            ghq rm "${repo}"
+            _repo="$2"
+            ghq rm "${_repo}"
             shift 2
             ghq rm "$@"
             return
@@ -225,23 +225,23 @@ elif type git-credential-keepassxc >/dev/null 2>&1; then
     GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc'
 fi
 if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
-    git_credential_keepassxc() {
+    git_credential_keepassxc() (
         if ! cred=$(printf "url=%s\nusername=%s\n" "${1}" "${HOST}" |
                         "${GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get --json)
         then
             return 1
         fi
         printf '%s' "${cred}" | jq -r '.password'
-    }
+    )
 fi
 
 if type kubectl >/dev/null 2>&1; then
     alias k='kubectl'
 fi
 
-target="$(brew --prefix kube-ps1)"
-target="${target:+${target}/share/kube-ps1.sh}"
-if [ -n "${target}" ]; then
+_target="$(brew --prefix kube-ps1)"
+_target="${_target:+${_target}/share/kube-ps1.sh}"
+if [ -n "${_target}" ]; then
     . "$(brew --prefix kube-ps1)/share/kube-ps1.sh"
     kubeoff
 fi
@@ -249,7 +249,7 @@ if type kube_ps1 >/dev/null 2>&1; then
     if [ "${CURRENT_SHELL}" = 'zsh' ]; then 
         export PROMPT="$(printf '%s' "${PROMPT}" | awk '{if($0!=""&&f==0){print $0,"$(kube_ps1)";f=1}else{print}}')"
     fi
-    kube_ps1_cluster_function() {
+    kube_ps1_cluster_function() (
         printf '%s' "${1}"
         if { type asdf && asdf plugin list | grep '^kubectl$'; } >/dev/null 2>&1; then (
             set -eu
@@ -262,7 +262,7 @@ if type kube_ps1 >/dev/null 2>&1; then
             (set -x; asdf install kubectl "${version}")
             (set -x; asdf global  kubectl "${version}")
         ) fi >&2
-    }
+    )
     export KUBE_PS1_CLUSTER_FUNCTION=kube_ps1_cluster_function
 fi
 

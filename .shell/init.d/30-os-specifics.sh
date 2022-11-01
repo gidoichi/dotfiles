@@ -20,8 +20,8 @@ if type explorer.exe wslpath >/dev/null; then
         # readlinkを用いた方法
         if type readlink >/dev/null; then
             _file="$(readlink -f "${_file}")"
-            win="$(wslpath -w "${_file}")"
-            explorer.exe "${win}"
+            _win="$(wslpath -w "${_file}")"
+            explorer.exe "${_win}"
             return
         fi
 
