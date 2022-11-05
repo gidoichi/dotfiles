@@ -32,11 +32,6 @@ error_exit() {
     exit $1
 }
 
-print_and_exec() (
-    (set -x; : "${@}")
-    "$@"
-)
-
 
 ######################################################################
 # Argument Parsing
@@ -83,7 +78,7 @@ done
 ######################################################################
 
 if [ $# -eq 0 ]; then
-    print_and_exec "${EDITOR}"
+    "${EDITOR}"
     exit
 fi
 
@@ -114,7 +109,7 @@ for arg in "$@"; do
     if [ "${file}" = '-' ]; then
         file="${target_file}"
     fi
-    print_and_exec "${EDITOR}" "${file}" </dev/tty 1>&2
+    "${EDITOR}" "${file}"
 done
 
 if ! [ -z ${output+_} ]; then
