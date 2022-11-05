@@ -14,7 +14,10 @@ if ! alias cp >/dev/null 2>&1; then
 fi
 
 # asdf
-_file="$(brew --prefix asdf)/asdf.sh"
+_file=''
+if type brew >/dev/null 2>&1; then
+    _file="$(brew --prefix asdf)/asdf.sh"
+fi
 if [ -f "${_file}" ]; then
     . "${_file}"
 fi
@@ -103,8 +106,8 @@ if [ -d /usr/share/doc/fzf/examples ]; then
         . /usr/share/doc/fzf/examples/key-bindings.bash
     fi
 else
-    if [ "${CURRENT_SHELL}" = 'zsh' ]; then
-        . "$HOME/.fzf.zsh"
+    if [ "${CURRENT_SHELL}" = 'zsh' ] && [ -f "${HOME}/.fzf.zsh" ]; then
+        . "${HOME}/.fzf.zsh"
     fi
 fi
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
@@ -239,10 +242,13 @@ if type kubectl >/dev/null 2>&1; then
     alias k='kubectl'
 fi
 
-_target="$(brew --prefix kube-ps1)"
-_target="${_target:+${_target}/share/kube-ps1.sh}"
-if [ -n "${_target}" ]; then
-    . "$(brew --prefix kube-ps1)/share/kube-ps1.sh"
+_file=''
+if type brew >/dev/null 2>&1; then
+    _file="$(brew --prefix kube-ps1)"
+    _file="${_file:+${_file}/share/kube-ps1.sh}"
+fi
+if [ -n "${_file}" ]; then
+    . "${_file}"
     kubeoff
 fi
 if type kube_ps1 >/dev/null 2>&1; then
