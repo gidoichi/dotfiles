@@ -18,8 +18,6 @@
     (shell-command-to-string "pbpaste"))
    ((= 0 (call-process-shell-command "type powershell.exe"))
     (shell-command-to-string "powershell.exe -command Get-Clipboard"))
-   ((= 0 (call-process-shell-command "type xclip"))
-    (shell-command-to-string "xclip -out -target text/plain"))
    ((= 0 (call-process-shell-command "type xsel"))
     (shell-command-to-string "xsel --clipboard --output"))
    (t (error "Cannot use clipboard"))))
