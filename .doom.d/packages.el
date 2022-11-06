@@ -15,8 +15,7 @@
 (package! multi-term)
 (package! multi-vterm)
 (package! ssh-agency
-  :ignore (or (not (eq system-type 'gnu/linux))
-              (= 0 (length (getenv "WSL_DISTRO_NAME")))))
+  :ignore (not (eq system-type 'gnu/linux)))
 (package! switch-buffer-functions)
 (package! undo-tree)
 
