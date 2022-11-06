@@ -50,7 +50,9 @@
 (use-package! flycheck
   :config
   (if (/= 0 (call-process-shell-command "type textlint"))
-      (display-warning load-file-name "cannot find 'textlint' command to use 'flycheck-define-checker textlint'")
+      (display-warning load-file-name
+                       "cannot find 'textlint' command to use 'flycheck-define-checker textlint'"
+                       :warning "*Messages*")
     (setq textlint-config-file (expand-file-name ".textlintrc" (getenv "HOME")))
     (flycheck-define-checker textlint
       "A linter for Markdown."
@@ -67,7 +69,9 @@
   :config
   (setq helm-grep-file-path-style 'relative)
   (if (/= 0 (call-process-shell-command "type ag"))
-      (display-warning load-file-name "cannot find 'ag' command to use 'helm-do-grep-ag'")
+      (display-warning load-file-name
+                       "cannot find 'ag' command to use 'helm-do-grep-ag'"
+                       :warning "*Messages*")
     (defalias 'find-grep 'helm-do-grep-ag)))
 
 (use-package! helm-ghq
