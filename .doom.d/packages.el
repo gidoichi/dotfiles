@@ -17,6 +17,7 @@
 (package! ssh-agency
   :ignore (not (eq system-type 'gnu/linux)))
 (package! switch-buffer-functions)
+(package! tty-format) ;; user42
 (package! undo-tree)
 
 ;; To install a package directly from a remote git repo, you must specify a

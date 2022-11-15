@@ -75,5 +75,8 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(after! package
+  (add-to-list 'package-archives '("user42" . "https://download.tuxfamily.org/user42/elpa/packages/")))
+
 (setq init-loader-show-log-after-init 'error-only)
 (init-loader-load (expand-file-name "inits" doom-user-dir))
