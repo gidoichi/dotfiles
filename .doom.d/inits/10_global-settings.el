@@ -123,6 +123,13 @@
   (treemacs-project-follow-mode t)
   )
 
+(use-package! tty-format
+  :init
+  ;; remove necessarily settings at
+  ;; https://github.com/emacs-mirror/emacs/commit/35ed01dfb3f811a997e26d843e9971eb6b81b125
+  (defconst ansi-color-regexp "\033\\[\\([0-9;]*m\\)"
+    "Regexp that matches SGR control sequences.")
+
 (use-package! undo-tree
   :hook
   (prog-mode . undo-tree-mode)
