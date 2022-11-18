@@ -4,16 +4,19 @@
   :mode
   ("\\.emacs-pager\\'" . emacs-pager-mode)
   :config
+  ;; overwrite mode
   (define-derived-mode emacs-pager-mode fundamental-mode "Pager"
     "Mode for viewing data paged by emacs-pager"
     (setq-local make-backup-files nil)
-    (if (save-excursion
+    (when (save-excursion
           (goto-char (point-min))
           (re-search-forward "[^\b]\b[^\b]" nil t))
-        (format-decode-buffer 'backspace-overstrike))
-    (if (save-excursion
+        (format-decode-buffer 'backspace-overstrike)
+        ;; no error disables format-decode-buffer
+        (error nil))
+    (when (save-excursion
           (goto-char (point-min))
-          (re-search-forward tty-format-ansi-regexp nil t))
+          (re-search-forward ansi-color-regexp nil t))
         (ansi-color-apply-on-region (point-min) (point-max)))
     (read-only-mode)
     (set-buffer-modified-p nil)))
