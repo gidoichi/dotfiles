@@ -223,17 +223,25 @@ fi
 
 # keepassxc
 if type git-credential-keepassxc.exe >/dev/null 2>&1; then
-    GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc.exe'
+    _GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc.exe'
 elif type git-credential-keepassxc >/dev/null 2>&1; then 
-    GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc'
+    _GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc'
 fi
-if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
+if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
     git_credential_keepassxc() (
-        if ! cred=$(printf "url=%s\nusername=%s\n" "${1}" "${HOST}" |
-                        "${GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get --json)
-        then
-            return 1
-        fi
+        GIT_CREDENTIAL_KEEPASSXC_RETRY=${GIT_CREDENTIAL_KEEPASSXC_RETRY:-20}
+        i=0
+        while ! cred=$(printf "url=%s\nusername=%s\n" "${1}" "${HOST}" |
+                        "${_GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get --json); do
+            if [ "${i}" -ge "${GIT_CREDENTIAL_KEEPASSXC_RETRY}" ]; then
+                return 1
+            fi
+            i=$((i+1))
+            if ! type "${KEEPASSXC_GUI}" >/dev/null 2>&1; then
+                return 1
+            fi
+            nohup "${KEEPASSXC_GUI}" >/dev/null 2>&1 &
+        done
         printf '%s' "${cred}" | jq -r '.password'
     )
 fi
