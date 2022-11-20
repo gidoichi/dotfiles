@@ -26,7 +26,9 @@ export HOMEBREW_HOME="${HOMEBREW_HOME:-${HOME}/.homebrew}"
 _target="${HOMEBREW_HOME}/bin"
 if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
 _target="${GHQ_ROOT:+${GHQ_ROOT}/github.com/Homebrew/brew/bin}"
-if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
+if [ -d "${_target}" ]; then
+    export PATH="${PATH}:${_target}"
+fi
 
 _target="${GHQ_ROOT:+${GHQ_ROOT}/github.com/gidoichi/pmo/bin}"
 if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
