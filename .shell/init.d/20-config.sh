@@ -228,7 +228,7 @@ elif type git-credential-keepassxc >/dev/null 2>&1; then
     _GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc'
 fi
 if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
-    git_credential_keepassxc() {(
+    git_credential_keepassxc() { (
         GIT_CREDENTIAL_KEEPASSXC_RETRY=${GIT_CREDENTIAL_KEEPASSXC_RETRY:-20}
         i=0
         while ! cred=$(printf "url=%s\nusername=%s\n" "${1}" "${HOST}" |
@@ -243,7 +243,7 @@ if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
             nohup "${KEEPASSXC_GUI}" >/dev/null 2>&1 &
         done
         printf '%s' "${cred}" | jq -r '.password'
-    )}
+    ) }
 fi
 
 if type kubectl >/dev/null 2>&1; then
@@ -263,7 +263,7 @@ if type kube_ps1 >/dev/null 2>&1; then
     if [ "${CURRENT_SHELL}" = 'zsh' ]; then 
         export PROMPT="$(printf '%s' "${PROMPT}" | awk '{if($0!=""&&f==0){print $0,"$(kube_ps1)";f=1}else{print}}')"
     fi
-    kube_ps1_cluster_function() {(
+    kube_ps1_cluster_function() { (
         printf '%s' "${1}"
         if { type asdf && asdf plugin list | grep '^kubectl$'; } >/dev/null 2>&1; then (
             set -eu
@@ -277,7 +277,7 @@ if type kube_ps1 >/dev/null 2>&1; then
             debug asdf install kubectl "${version}"
             debug asdf global  kubectl "${version}"
         ) fi >&2
-    )}
+    ) }
     export KUBE_PS1_CLUSTER_FUNCTION=kube_ps1_cluster_function
 fi
 
