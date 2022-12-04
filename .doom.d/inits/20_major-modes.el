@@ -35,11 +35,13 @@
 (use-package! magit
   :config
   (unless (getenv "GIT_AUTHOR_NAME")
-    (display-warning 'my-init
+    (display-warning (if load-file-name (intern load-file-name)
+                       'my-init)
                      "cannot find 'GIT_AUTHOR_NAME' env var to use 'magit'"
                      :warning "*Messages*"))
   (unless (getenv "GIT_COMMITTER_NAME")
-    (display-warning 'my-init
+    (display-warning (if load-file-name (intern load-file-name)
+                       'my-init)
                      "cannot find 'GIT_COMMITTER_NAME' env var to use 'magit'"
                      :warning "*Messages*")))
 
@@ -182,7 +184,8 @@
   (yaml-mode . yaml-path-which-func)
   :config
   (if (/= 0 (call-process-shell-command "type yaml-path"))
-      (display-warning 'my-init
+      (display-warning (if load-file-name (intern load-file-name)
+                         'my-init)
                        "cannot find 'yaml-path' command to use 'yaml-path-which-func'"
                        :warning "*Messages*")
     (defalias 'find-grep 'helm-do-grep-ag)))
