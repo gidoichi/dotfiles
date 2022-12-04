@@ -16,7 +16,6 @@
 (package! multi-vterm)
 (package! ssh-agency
   :ignore (not (eq system-type 'gnu/linux)))
-(package! switch-buffer-functions)
 (package! tty-format) ;; from user42
 (package! undo-tree)
 

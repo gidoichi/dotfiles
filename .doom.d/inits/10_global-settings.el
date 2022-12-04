@@ -103,17 +103,6 @@
 (map! :mode special-mode
       "q" 'kill-buffer-and-window)
 
-(use-package! switch-buffer-functions
-  :hook
-  (switch-buffer-functions . switch-buffer-functions-hooks)
-  :config
-  (defun switch-buffer-functions-hooks (prev cur)
-    (if (eq major-mode 'yaml-mode)
-        (which-function-mode +1)
-      (which-function-mode -1))
-    (setq word-wrap nil)
-    (global-visual-line-mode -1)))
-
 (use-package! treemacs
   :config
   (setq doom-themes-treemacs-theme "doom-colors")
@@ -146,6 +135,13 @@
   (text-mode . visible-whitespace-mode)
   :config
   (setq visible-whitespace-mappings '((?\u3000 [?\u25a1]))))
+
+(use-package! which-func
+  :config
+  (if (not (listp which-func-modes))
+      (setq which-func-modes '()))
+  (add-to-list 'which-func-modes 'yaml-mode)
+  (which-func-mode))
 
 (use-package! whitespace
   :hook
