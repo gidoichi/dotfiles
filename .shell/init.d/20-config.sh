@@ -233,10 +233,11 @@ if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
         i=0
         while ! cred=$(printf "url=%s\nusername=%s\n" "${1}" "${HOST}" |
                         "${_GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get --json); do
+            i=$((i+1))
+            printf '[%d/%d] FAILED\n' "${i}" "${GIT_CREDENTIAL_KEEPASSXC_RETRY}" >&2
             if [ "${i}" -ge "${GIT_CREDENTIAL_KEEPASSXC_RETRY}" ]; then
                 return 1
             fi
-            i=$((i+1))
             if ! type "${KEEPASSXC_GUI}" >/dev/null 2>&1; then
                 return 1
             fi
