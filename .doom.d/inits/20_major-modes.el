@@ -63,6 +63,22 @@
       (setq flycheck-checker 'textlint))
     ))
 
+(use-package! nhexl-mode
+  :hook
+  (nhexl-mode . nhexl-mode-hooks)
+  :config
+
+  ;; warkaround https://emacs.stackexchange.com/questions/19290/nhexl-mode-shows-bytes-80-ff-with-6-digit-hex-3fff80-3fffff
+  (defun nhexl-mode-hooks ()
+    (when nhexl-mode
+    ;; Turn off multibyte, otherwise nhexl 0.1 displays non-ASCII characters
+    ;; in hexa as values in the range 3fff80-3fffff instead of 80-ff.
+    (if (and (fboundp 'toggle-enable-multibyte-characters)
+             enable-multibyte-characters)
+        (toggle-enable-multibyte-characters))))
+
+  )
+
 (use-package! org
   :config
   (setq org-startup-folded 'content))

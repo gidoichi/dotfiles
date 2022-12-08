@@ -268,7 +268,7 @@ if type kube_ps1 >/dev/null 2>&1; then
         printf '%s' "${1}"
         if { type asdf && asdf plugin list | grep '^kubectl$'; } >/dev/null 2>&1; then (
             set -eu
-            debug() { (set -x; : "$@"); "$@" }
+            debug() { (set -x; : "$@"); "$@"; }
             versions="$(debug kubectl version -o json)"
             client="$(printf '%s' "${versions}" | jq -re '.clientVersion.gitVersion')"
             server="$(printf '%s' "${versions}" | jq -re '.serverVersion.gitVersion' | sed 's/\(v[0-9]*\.[0-9]*\.[0-9]*\).*/\1/')"

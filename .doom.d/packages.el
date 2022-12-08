@@ -14,6 +14,7 @@
 (package! init-loader)
 (package! multi-term)
 (package! multi-vterm)
+(package! nhexl-mode)
 (package! ssh-agency
   :ignore (not (eq system-type 'gnu/linux)))
 (package! tty-format) ;; from user42
