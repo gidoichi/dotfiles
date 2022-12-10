@@ -157,7 +157,7 @@
   (if (not (listp which-func-modes))
       (setq which-func-modes '()))
   (add-to-list 'which-func-modes 'yaml-mode)
-  (which-func-mode))
+  (which-function-mode))
 
 (use-package! whitespace
   :hook
