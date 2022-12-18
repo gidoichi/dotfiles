@@ -209,6 +209,10 @@ if type ghq >/dev/null 2>&1; then
     }
 fi
 
+if ! alias git >/dev/null 2>&1; then
+    alias git='PAGER= git'
+fi
+
 if ! alias grep >/dev/null 2>&1; then
     alias grep='grep --color=auto'
 fi
