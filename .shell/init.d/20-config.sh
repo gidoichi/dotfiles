@@ -237,7 +237,7 @@ elif type git-credential-keepassxc >/dev/null 2>&1; then
 fi
 if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
     git_credential_keepassxc() { (
-        GIT_CREDENTIAL_KEEPASSXC_RETRY=${GIT_CREDENTIAL_KEEPASSXC_RETRY:-20}
+        GIT_CREDENTIAL_KEEPASSXC_RETRY=${GIT_CREDENTIAL_KEEPASSXC_RETRY:-5}
         i=0
         while ! cred=$(printf "url=%s\nusername=%s\n" "${1}" "${HOST}" |
                         "${_GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get --json); do
@@ -250,6 +250,7 @@ if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
                 return 1
             fi
             nohup "${KEEPASSXC_GUI}" >/dev/null 2>&1 &
+            sleep 1
         done
         printf '%s' "${cred}" | jq -r '.password'
     ) }
