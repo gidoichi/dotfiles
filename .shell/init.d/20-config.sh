@@ -6,7 +6,11 @@ case "${CURRENT_SHELL}" in
 esac
 
 if type zprezto-update >/dev/null 2>&1; then
-    prompt steeef
+    _show_return='✘ '
+    if zstyle -t ':prezto:module:prompt' show-return-val yes; then
+        _show_return="${_show_return}%? "
+    fi
+    export RPROMPT="%(?:: %F{1}${_show_return}%f)"
 fi
 
 if ! alias cp >/dev/null 2>&1; then
