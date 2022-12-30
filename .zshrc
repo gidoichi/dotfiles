@@ -16,7 +16,7 @@ fi
 CURRENT_SHELL=zsh
 
 # external source
-. "$HOME/.shell/shrc"
+. "${HOME}/.shell/shrc"
 
 # completions
 if type kubectl >/dev/null; then

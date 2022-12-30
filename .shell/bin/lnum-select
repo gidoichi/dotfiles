@@ -32,7 +32,7 @@ error_exit() {
 trap 'exit_trap' EXIT HUP INT QUIT PIPE ALRM TERM
 Tmp=`mktemp -d -t "_${0##*/}.$$.XXXXXXXXXXX"` || error_exit 1 'Failed to mktemp'
 
-target_file=$Tmp/${0##/*}_$$
+target_file=$Tmp/${0##*/}_$$
 cat >"${target_file}"
 
 cat "${target_file}" | ${LINUM_INSERT} >&2
