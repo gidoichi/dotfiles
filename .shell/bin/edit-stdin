@@ -73,7 +73,7 @@ Tmp=$(mktemp -d -t "_${0##*/}.$$.XXXXXXXXXXX") || error_exit 1 'Failed to mktemp
 if ! [ -z ${fname+_} ]; then
     target_file="${Tmp}/${fname}"
 else
-    target_file="${Tmp}/tmp_${0##*/}"
+    target_file="${Tmp}/${EDITOR##*/}"
 fi
 if ! [ -z ${ext+_} ]; then
     target_file="${target_file}.${ext}"
