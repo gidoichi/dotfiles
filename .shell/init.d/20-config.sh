@@ -313,7 +313,7 @@ fi
 if ! alias ll >/dev/null 2>&1; then
     alias ll='ls -lh'
 fi
-if ! alias ll >/dev/null 2>&1; then
+if ! alias la >/dev/null 2>&1; then
     alias la='ll -A'
 fi
 
