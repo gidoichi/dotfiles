@@ -306,8 +306,15 @@ export ONELINE_SELECTOR=1line-select
 # locale
 export LC_COLLATE=ja_JP.UTF-8
 
+# ls
 if ! alias ls >/dev/null 2>&1; then
     alias ls='ls --color=auto'
+fi
+if ! alias ll >/dev/null 2>&1; then
+    alias ll='ls -lh'
+fi
+if ! alias ll >/dev/null 2>&1; then
+    alias la='ll -A'
 fi
 
 if ! alias mv >/dev/null 2>&1; then
