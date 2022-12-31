@@ -1,10 +1,5 @@
 #!/bin/sh
 
-case "${CURRENT_SHELL}" in
-    bash|zsh) ;;
-    *) return 1;;
-esac
-
 if type zprezto-update >/dev/null 2>&1; then
     _show_return='✘ '
     if zstyle -t ':prezto:module:prompt' show-return-val yes; then
@@ -27,7 +22,10 @@ if [ -f "${_file}" ]; then
 fi
 
 if type basher >/dev/null 2>&1; then
-    eval "$(basher init - "${CURRENT_SHELL}")"
+    case "${CURRENT_SHELL}" in
+        bash) eval "$(basher init - bash)" ;;
+        zsh)  eval "$(basher init - zsh )" ;;
+    esac
 fi
 
 if type cf >/dev/null 2>&1; then
@@ -84,7 +82,10 @@ if type powershell.exe dart >/dev/null 2>&1 &&
 fi
 
 if type direnv >/dev/null 2>&1; then
-    eval "$(direnv hook "${CURRENT_SHELL}")"
+    case "${CURRENT_SHELL}" in
+        bash) eval "$(direnv hook bash)" ;;
+        zsh)  eval "$(direnv hook zsh )" ;;
+    esac
 fi
 
 if type emacs >/dev/null 2>&1; then
@@ -102,18 +103,19 @@ if type powershell.exe flutter >/dev/null 2>&1 &&
 fi
 
 # fzf
-if [ -d /usr/share/doc/fzf/examples ]; then
-    if [ "${CURRENT_SHELL}" = 'zsh' ]; then
-        . /usr/share/doc/fzf/examples/key-bindings.zsh
-        . /usr/share/doc/fzf/examples/completion.zsh
-    elif [ "${CURRENT_SHELL}" = 'bash' ]; then
+case "${CURRENT_SHELL}" in
+    bash)
         . /usr/share/doc/fzf/examples/key-bindings.bash
-    fi
-else
-    if [ "${CURRENT_SHELL}" = 'zsh' ] && [ -f "${HOME}/.fzf.zsh" ]; then
-        . "${HOME}/.fzf.zsh"
-    fi
-fi
+        ;;
+    zsh)
+        if [ -d /usr/share/doc/fzf/examples ]; then
+            . /usr/share/doc/fzf/examples/key-bindings.zsh
+            . /usr/share/doc/fzf/examples/completion.zsh
+        elif [ -f "${HOME}/.fzf.zsh" ]; then
+            . "${HOME}/.fzf.zsh"
+        fi
+        ;;
+esac
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 
 if type ghq >/dev/null 2>&1; then
@@ -270,9 +272,11 @@ if [ -n "${_file}" ]; then
     kubeoff
 fi
 if type kube_ps1 >/dev/null 2>&1; then
-    if [ "${CURRENT_SHELL}" = 'zsh' ]; then 
-        export PROMPT="$(printf '%s' "${PROMPT}" | awk '{if($0!=""&&f==0){print $0,"$(kube_ps1)";f=1}else{print}}')"
-    fi
+    case "${CURRENT_SHELL}" in
+        zsh)
+            export PROMPT="$(printf '%s' "${PROMPT}" | awk '{if($0!=""&&f==0){print $0,"$(kube_ps1)";f=1}else{print}}')"
+            ;;
+    esac
     kube_ps1_cluster_function() { (
         printf '%s' "${1}"
         if { type asdf && asdf plugin list | grep '^kubectl$'; } >/dev/null 2>&1; then (

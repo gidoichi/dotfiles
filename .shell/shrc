@@ -1,11 +1,11 @@
 #!/bin/sh
 
-PARENT="$(d=${0%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d."; pwd)"
-CURRENT_DIR="$(pwd)"
-cd "${PARENT}/init.d"
+if [ "${0##*/}" = shrc ]; then
+    PARENT="$(d=${0%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d."; pwd)"
+else
+    PARENT="${HOME}/.shell"
+fi
 
-for f in $(find "${PARENT}/init.d" -name '*.sh' | sort); do 
-   . "${f}"
+for _file in $(find "${PARENT}/init.d" -name '*.sh' | sort); do 
+    SOURCE_PATH="${_file}" . "${_file}"
 done
-
-cd "${CURRENT_DIR}"
