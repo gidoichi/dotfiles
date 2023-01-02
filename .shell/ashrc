@@ -1,0 +1,6 @@
+#!/bin/sh
+
+CURRENT_SHELL=ash
+PARENT="${HOME}/.shell"
+SOURCE_PATH="${PARENT}/shrc"
+. "${SOURCE_PATH}"
