@@ -1,5 +1,14 @@
 ;;; -*- lexical-binding: t; -*-
 
+(use-package! elisp-mode
+  :hook
+  (emacs-lisp-mode . emacs-lisp-mode-hooks)
+  :config
+  (defun emacs-lisp-mode-hooks ()
+    (add-hook! before-save
+               :local
+               'indent-buffer)))
+
 (use-package! emacs-pager
   :mode
   ("\\.emacs-pager\\'" . emacs-pager-mode)
@@ -9,15 +18,15 @@
     "Mode for viewing data paged by emacs-pager"
     (setq-local make-backup-files nil)
     (when (save-excursion
-          (goto-char (point-min))
-          (re-search-forward "[^\b]\b[^\b]" nil t))
-        (format-decode-buffer 'backspace-overstrike)
-        ;; no error disables format-decode-buffer
-        (error nil))
+            (goto-char (point-min))
+            (re-search-forward "[^\b]\b[^\b]" nil t))
+      (format-decode-buffer 'backspace-overstrike)
+      ;; no error disables format-decode-buffer
+      (error nil))
     (when (save-excursion
-          (goto-char (point-min))
-          (re-search-forward ansi-color-regexp nil t))
-        (ansi-color-apply-on-region (point-min) (point-max)))
+            (goto-char (point-min))
+            (re-search-forward ansi-color-regexp nil t))
+      (ansi-color-apply-on-region (point-min) (point-max)))
     (read-only-mode)
     (set-buffer-modified-p nil)))
 

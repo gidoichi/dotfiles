@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+;; clipboard functions
+
 (defun save-clipboard-on-region (start end)
   (interactive "r")
   (cond
@@ -32,3 +34,10 @@
   (interactive "r")
   (save-clipboard-on-region (region-beginning) (region-end))
   (kill-region (region-beginning) (region-end)))
+
+
+;; buffer formatting functions
+
+(defun indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
