@@ -29,6 +29,14 @@
       "M-%" 'anzu-query-replace
       "C-M-%" 'anzu-query-replace-regexp)
 
+(use-package! browse-url
+  :config
+  (advice-add 'browse-url-can-use-xdg-open
+              :after-until (lambda ()
+                             (and (getenv "WSL_DISTRO_NAME")
+                                  (executable-find "wsl-open"))))
+  )
+
 (use-package! centaur-tabs
   :hook
   (special-mode . centaur-tabs-mode)
@@ -92,7 +100,7 @@
   :config
   ;; want to just disable hide-mode-line-mode at vterm-mode
   ;; workaround https://github.com/doomemacs/doomemacs/issues/6209
-  (advice-add 'hide-mode-line-mode :around (lambda (orig &optional args) nil))
+  (advice-add 'hide-mode-line-mode :around #'ignore)
   )
 
 (use-package! nhexl-mode
@@ -144,13 +152,6 @@
   :config
   (add-to-list 'undo-tree-history-directory-alist
                `(".*" . ,(expand-file-name "undo-tree-history" doom-user-dir))))
-
-(use-package! visws
-  :hook
-  (prog-mode . visible-whitespace-mode)
-  (text-mode . visible-whitespace-mode)
-  :config
-  (setq visible-whitespace-mappings '((?\u3000 [?\u25a1]))))
 
 (use-package! which-func
   :config

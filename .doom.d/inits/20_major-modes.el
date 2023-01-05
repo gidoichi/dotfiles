@@ -1,14 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
 
-(use-package! elisp-mode
-  :hook
-  (emacs-lisp-mode . emacs-lisp-mode-hooks)
-  :config
-  (defun emacs-lisp-mode-hooks ()
-    (add-hook! before-save
-               :local
-               'indent-buffer)))
-
 (use-package! emacs-pager
   :mode
   ("\\.emacs-pager\\'" . emacs-pager-mode)
