@@ -238,14 +238,14 @@ elif type git-credential-keepassxc >/dev/null 2>&1; then
     _GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc'
 fi
 if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
-    git_credential_keepassxc() { (
-        GIT_CREDENTIAL_KEEPASSXC_RETRY=${GIT_CREDENTIAL_KEEPASSXC_RETRY:-5}
+    keepassxc_client() { (
+        KEEPASSXC_CLIENT_RETRY=${KEEPASSXC_CLIENT_RETRY:-5}
         i=0
-        while ! cred=$(printf "url=%s\nusername=%s\n" "${1}" "${HOST}" |
+        while ! cred=$(printf 'url=%s\nusername=%s\n' "${1}" "$(hostname)" |
                         "${_GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get --json); do
             i=$((i+1))
-            printf '[%d/%d] FAILED\n' "${i}" "${GIT_CREDENTIAL_KEEPASSXC_RETRY}" >&2
-            if [ "${i}" -ge "${GIT_CREDENTIAL_KEEPASSXC_RETRY}" ]; then
+            printf '[%d/%d] FAILED\n' "${i}" "${KEEPASSXC_CLIENT_RETRY}" >&2
+            if [ "${i}" -ge "${KEEPASSXC_CLIENT_RETRY}" ]; then
                 return 1
             fi
             if ! type "${KEEPASSXC_GUI}" >/dev/null 2>&1; then
@@ -264,8 +264,12 @@ fi
 
 _file=''
 if type brew >/dev/null 2>&1; then
-    _file="$(brew --prefix kube-ps1)"
-    _file="${_file:+${_file}/share/kube-ps1.sh}"
+    case "${CURRENT_SHELL}" in
+        bash|zsh)
+            _file="$(brew --prefix kube-ps1)"
+            _file="${_file:+${_file}/share/kube-ps1.sh}"
+            ;;
+    esac
 fi
 if [ -n "${_file}" ]; then
     . "${_file}"
@@ -348,6 +352,10 @@ fi
 if type trash-put >/dev/null 2>&1 && [ ! -e "$HOME/.local/share/Trash" ]; then
     mkdir -p "$HOME/.local/share/Trash"
 fi
+
+# ssh
+export SSH_ASKPASS=keepassxc-ssh-askpass
+export SSH_ASKPASS_REQUIRE=force
 
 alias watch='watch '
 
