@@ -252,9 +252,13 @@ if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
                 return 1
             fi
             nohup "${KEEPASSXC_GUI}" >/dev/null 2>&1 &
+            guipid="$!"
             sleep 1
         done
         printf '%s' "${cred}" | jq -r '.password'
+        # Program this function called don't terminate with background process.
+        # To terminate, kill the process explicitly.
+        kill "${guipid}"
     ) }
 fi
 
@@ -354,8 +358,8 @@ if type trash-put >/dev/null 2>&1 && [ ! -e "$HOME/.local/share/Trash" ]; then
 fi
 
 # ssh
-export SSH_ASKPASS=keepassxc-ssh-askpass
-export SSH_ASKPASS_REQUIRE=force
+export SSH_ASKPASS='keepassxc-ssh-askpass'
+export SSH_ASKPASS_REQUIRE='force'
 
 alias watch='watch '
 
