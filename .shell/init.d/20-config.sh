@@ -240,6 +240,7 @@ fi
 if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
     keepassxc_client() { (
         KEEPASSXC_CLIENT_RETRY=${KEEPASSXC_CLIENT_RETRY:-5}
+        guipid=''
         i=0
         while ! cred=$(printf 'url=%s\nusername=%s\n' "${1}" "$(hostname)" |
                         "${_GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get --json); do
@@ -258,7 +259,9 @@ if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
         printf '%s' "${cred}" | jq -r '.password'
         # Program this function called don't terminate with background process.
         # To terminate, kill the process explicitly.
-        kill "${guipid}"
+        if [ -n "${guipid}" ]; then
+            kill "${guipid}"
+        fi
     ) }
 fi
 
