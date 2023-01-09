@@ -116,7 +116,7 @@ case "${CURRENT_SHELL}" in
         fi
         ;;
 esac
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --exit-0'
 
 if type ghq >/dev/null 2>&1; then
     ghq() {
