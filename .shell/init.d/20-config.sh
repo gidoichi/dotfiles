@@ -257,7 +257,7 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
         while ! cred=$(printf 'url=%s\nusername=%s\n' "${1}" "$(hostname)" |
                         "${GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get 2> "${Tmp}/stderr"); do
             i=$((i+1))
-            if ! grep 'Failed to connect to named pipe' "${Tmp}/stderr" >/dev/null; then
+            if ! grep 'Failed to connect to ' "${Tmp}/stderr" >/dev/null; then
                 cat "${Tmp}/stderr" 1>&2
                 return 1
             fi
@@ -276,9 +276,7 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
         printf '%s' "${cred}" | sed -n 's/^password=//p'
         # Program this function called don't terminate with background process.
         # To terminate, kill the process explicitly.
-        if [ -n "${guipid}" ]; then
-            kill "${guipid}"
-        fi
+        kill "${guipid}" >/dev/null 2>&1
     ) }
 fi
 
