@@ -82,19 +82,19 @@
                          'my-init)
                        "cannot find 'ag' command to use 'helm-do-grep-ag'"
                        :warning "*Messages*")
-    (defalias 'find-grep 'helm-do-grep-ag)))
+    (fset 'find-grep 'helm-do-grep-ag)))
 
 (use-package! helm-ghq
   :config
-  (defalias 'ghq 'helm-ghq))
+  (fset 'ghq 'helm-ghq))
 
 (use-package! helm-git-grep
   :config
-  (defalias 'git-grep 'helm-git-grep))
+  (fset 'git-grep 'helm-git-grep))
 
 (use-package! helm-ls-git
   :config
-  (defalias 'git-ls-files 'helm-ls-git))
+  (fset 'git-ls-files 'helm-ls-git))
 
 (use-package! hide-mode-line
   :config
