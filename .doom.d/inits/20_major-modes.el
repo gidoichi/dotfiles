@@ -216,4 +216,4 @@
                          'my-init)
                        "cannot find 'yaml-path' command to use 'yaml-path-which-func'"
                        :warning "*Messages*")
-    (defalias 'find-grep 'helm-do-grep-ag)))
+    (add-to-list 'which-func-modes 'yaml-mode)))
