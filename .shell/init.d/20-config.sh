@@ -232,20 +232,36 @@ if type javac.exe >/dev/null 2>&1; then
 fi
 
 # keepassxc
-if type git-credential-keepassxc.exe >/dev/null 2>&1; then
-    _GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc.exe'
+if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
+    :
+elif type git-credential-keepassxc.exe >/dev/null 2>&1; then
+    export GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc.exe'
 elif type git-credential-keepassxc >/dev/null 2>&1; then 
-    _GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc'
+    export GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc'
 fi
-if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
+if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
     keepassxc_client() { (
+        exit_trap() {
+            set -- ${1:-} $?  # $? is set as $1 if no argument given
+            trap '' EXIT HUP INT QUIT PIPE ALRM TERM
+            [ -d "${Tmp:-}" ] && rm -rf "${Tmp%/*}/_${Tmp##*/_}"
+            trap -  EXIT HUP INT QUIT PIPE ALRM TERM
+            exit $1
+        }
+        trap 'exit_trap' EXIT HUP INT QUIT PIPE ALRM TERM
+        Tmp=$(mktemp -d -t "_${0##*/}.$$.XXXXXXXXXXX") || error_exit 1 'Failed to mktemp'
+
         KEEPASSXC_CLIENT_RETRY=${KEEPASSXC_CLIENT_RETRY:-5}
         guipid=''
         i=0
         while ! cred=$(printf 'url=%s\nusername=%s\n' "${1}" "$(hostname)" |
-                        "${_GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get --json); do
+                        "${GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get 2> "${Tmp}/stderr"); do
             i=$((i+1))
-            printf '[%d/%d] FAILED\n' "${i}" "${KEEPASSXC_CLIENT_RETRY}" >&2
+            if ! grep 'Failed to connect to named pipe' "${Tmp}/stderr" >/dev/null; then
+                cat "${Tmp}/stderr" 1>&2
+                return 1
+            fi
+            printf '[%d/%d]: %s\n' "${i}" "${KEEPASSXC_CLIENT_RETRY}" "$(cat "${Tmp}/stderr")" >&2
             if [ "${i}" -ge "${KEEPASSXC_CLIENT_RETRY}" ]; then
                 return 1
             fi
@@ -254,9 +270,10 @@ if [ -n "${_GIT_CREDENTIAL_KEEPASSXC}" ]; then
             fi
             nohup "${KEEPASSXC_GUI}" >/dev/null 2>&1 &
             guipid="$!"
+            rm -rf "${Tmp}/stderr"
             sleep 1
         done
-        printf '%s' "${cred}" | jq -r '.password'
+        printf '%s' "${cred}" | sed -n 's/^password=//p'
         # Program this function called don't terminate with background process.
         # To terminate, kill the process explicitly.
         if [ -n "${guipid}" ]; then
