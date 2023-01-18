@@ -1,6 +1,6 @@
 #!/bin/sh
 
 PARENT="$(d=${0%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d."; pwd)"
-file="$(find "${PARENT}/../init.d/20-config.sh" -maxdepth 1 -name '*-config.sh')"
+file="$(find "${PARENT}/../init.d/" -maxdepth 1 -name '*-config.sh')"
 . "${file}"
 keepassxc_client 'https://ssh.home'

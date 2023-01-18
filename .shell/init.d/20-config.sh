@@ -252,7 +252,6 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
         Tmp=$(mktemp -d -t "_${0##*/}.$$.XXXXXXXXXXX") || error_exit 1 'Failed to mktemp'
 
         KEEPASSXC_CLIENT_RETRY=${KEEPASSXC_CLIENT_RETRY:-5}
-        guipid=''
         i=0
         while ! cred=$(printf 'url=%s\nusername=%s\n' "${1}" "$(hostname)" |
                         "${GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get 2> "${Tmp}/stderr"); do
@@ -269,14 +268,10 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
                 return 1
             fi
             nohup "${KEEPASSXC_GUI}" >/dev/null 2>&1 &
-            guipid="$!"
             rm -rf "${Tmp}/stderr"
             sleep 1
         done
         printf '%s' "${cred}" | sed -n 's/^password=//p'
-        # Program this function called don't terminate with background process.
-        # To terminate, kill the process explicitly.
-        kill "${guipid}" >/dev/null 2>&1
     ) }
 fi
 
