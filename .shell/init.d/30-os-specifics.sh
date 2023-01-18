@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # windows
-if type explorer.exe wslpath >/dev/null; then
+if type explorer.exe wslpath >/dev/null 2>&1; then
     # explorerの引数に与えるファイルをWindows用のパスに変換する
     explorer() {
         if [ $# -eq 0 ]; then
