@@ -7,6 +7,8 @@
   (setq tab-bar-close-button-show nil)
   (setq tab-bar-format (delq 'tab-bar-format-add-tab tab-bar-format)))
 
+(setq max-specpdl-size 5000)
+
 (map! :g
       "C-h" 'delete-backward-char
       "C-c t t" 'toggle-truncate-lines
