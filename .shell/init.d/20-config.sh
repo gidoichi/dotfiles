@@ -236,7 +236,7 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
     :
 elif type git-credential-keepassxc.exe >/dev/null 2>&1; then
     export GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc.exe'
-elif type git-credential-keepassxc >/dev/null 2>&1; then 
+elif type git-credential-keepassxc >/dev/null 2>&1; then
     export GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc'
 fi
 if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then

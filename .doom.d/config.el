@@ -77,7 +77,7 @@
 
 (after! package
   ;; execute: HOMEDIR=<package-gnupg-homedir>
-  ;; execute: gpg --homedir "${HOMEDIR}" --keyserver pgp.mit.edu --receive-keys F8D0B4E7D2D21191 
+  ;; execute: gpg --homedir "${HOMEDIR}" --keyserver pgp.mit.edu --receive-keys F8D0B4E7D2D21191
   (add-to-list 'package-archives '("user42" . "https://download.tuxfamily.org/user42/elpa/packages/")))
 
 (setq init-loader-show-log-after-init 'error-only)

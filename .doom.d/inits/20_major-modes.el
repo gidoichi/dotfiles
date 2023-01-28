@@ -43,7 +43,8 @@
     (display-warning (if load-file-name (intern load-file-name)
                        'my-init)
                      "cannot find 'GIT_COMMITTER_NAME' env var to use 'magit'"
-                     :warning "*Messages*")))
+                     :warning "*Messages*"))
+  (setq magit-diff-paint-whitespace-lines 'all))
 
 (use-package! markdown-mode
   :hook

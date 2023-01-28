@@ -7,7 +7,7 @@
 - https://github.com/google/mozc
 
 #### config1.db
-- enter Henkan then enable IME 
+- enter Henkan then enable IME
 - enter Muhenkan then disable IME
 
 ### .npmrc

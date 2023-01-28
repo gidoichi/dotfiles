@@ -121,6 +121,13 @@
 
     ))
 
+(use-package! prog-mode
+  :hook
+  (prog-mode . prog-mode-hooks)
+  :config
+  (defun prog-mode-hooks ()
+    (setq show-trailing-whitespace t)))
+
 (use-package! server
   :config
   (unless (server-running-p)
@@ -139,6 +146,13 @@
   (treemacs-follow-mode t)
   (treemacs-project-follow-mode t)
   )
+
+(use-package! text-mode
+  :hook
+  (text-mode . text-mode-hooks)
+  :config
+  (defun text-mode-hooks ()
+    (setq show-trailing-whitespace t)))
 
 (use-package! tty-format
   :init
