@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "${SOURCE_PATH}" ]; then return 1; fi
-_PARENT="$(d=${SOURCE_PATH%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d."; pwd)"
+_PARENT="$(d=${SOURCE_PATH%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d." >/dev/null; pwd)"
 _p="${_PARENT}/../custom.d"
 
 export PATH="$(find "${_p}" -mindepth 2 -maxdepth 2 -type d -name 'bin' -not -path "${_p}/sample/*" | tr '\n' ':' | sed 's/:$//'):${PATH}"

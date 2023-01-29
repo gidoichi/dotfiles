@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "${SOURCE_PATH}" ]; then return 1; fi
-_PARENT="$(d=${SOURCE_PATH%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d."; pwd)"
+_PARENT="$(d=${SOURCE_PATH%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d." >/dev/null; pwd)"
 
 PATH="${HOME}/.local/bin:${PATH}"
 PATH="${_PARENT}/../bin:${PATH}"

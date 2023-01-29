@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "${0##*/}" = shrc ]; then
-    PARENT="$(d=${0%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d."; pwd)"
+    PARENT="$(d=${0%/*}/; [ "_$d" = "_$0/" ] && d='./'; cd "$d." >/dev/null; pwd)"
 else
     PARENT="${HOME}/.shell"
 fi
