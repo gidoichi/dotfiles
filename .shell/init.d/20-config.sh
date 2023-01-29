@@ -88,6 +88,7 @@ if type direnv >/dev/null 2>&1; then
     esac
 fi
 
+# emacs
 if type emacs >/dev/null 2>&1; then
     alias emacs=editor-wrapper
     export EDITOR=emacs
@@ -95,6 +96,8 @@ if type emacs >/dev/null 2>&1; then
         export EDITOR=emacsclient
     fi
     export VISUAL="${EDITOR}"
+fi
+if [ -n "${INSIDE_EMACS}" ]; then
     case "${CURRENT_SHELL}" in
         bash)
             _file="${HOME}/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm-bash.sh"
