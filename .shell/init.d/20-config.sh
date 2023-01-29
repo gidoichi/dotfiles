@@ -95,6 +95,20 @@ if type emacs >/dev/null 2>&1; then
         export EDITOR=emacsclient
     fi
     export VISUAL="${EDITOR}"
+    case "${CURRENT_SHELL}" in
+        bash)
+            _file="${HOME}/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm-bash.sh"
+            if [ -e "${_file}" ]; then
+                . "${_file}"
+            fi
+            ;;
+        zsh)
+            _file="${HOME}/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm-zsh.sh"
+            if [ -e "${_file}" ]; then
+                . "${_file}"
+            fi
+            ;;
+    esac
 fi
 
 if type powershell.exe flutter >/dev/null 2>&1 &&
