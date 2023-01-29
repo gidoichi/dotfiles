@@ -74,11 +74,31 @@
   (advice-add 'org-agenda-switch-to :around
               (lambda (orig-fun &rest args)
                 "Open org file and close buffers used to visit agenda."
-                (let ((marker (org-get-at-bol 'org-marker)))
-                  (apply orig-fun args)
-                  (org-release-buffers
-                   (remove (marker-buffer marker) org-agenda-new-buffers)))
-                (setq org-agenda-new-buffers nil)))
+                (let ((orig-buffer (current-buffer))
+                      (orig-point (point))
+                      (marker (org-get-at-bol 'org-marker))
+                      (buffer-updated))
+                  (if (or (not marker) (marker-buffer marker))
+                      (apply orig-fun args)
+                    (with-temp-buffer
+                      (let ((temp-buffer (current-buffer)))
+                        (with-current-buffer orig-buffer
+                          (copy-to-buffer temp-buffer (point-min) (point-max)))
+                        (org-todo-list)
+                        (setq buffer-updated
+                              (not (string= (with-current-buffer temp-buffer (buffer-string))
+                                            (with-current-buffer orig-buffer (buffer-string)))))))
+                    (goto-char orig-point)
+                    (if buffer-updated
+                        (progn
+                          (org-release-buffers org-agenda-new-buffers)
+                          (setq org-agenda-new-buffers nil)
+                          (error "Update org-todo-list"))
+
+                      (setq marker (org-get-at-bol 'org-marker))
+                      (org-release-buffers (remove (marker-buffer marker) org-agenda-new-buffers))
+                      (setq org-agenda-new-buffers nil)
+                      (apply orig-fun args))))))
 
   ;; Call org-todo-list without new buffers when it called from org-agenda.
   ;; Using advice-remove is to avoid to call this cusomized org-todo-list recursively.
