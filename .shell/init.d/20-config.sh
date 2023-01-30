@@ -108,7 +108,7 @@ if [ -n "${INSIDE_EMACS}" ]; then
         zsh)
             _file="${HOME}/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm-zsh.sh"
             if [ -e "${_file}" ]; then
-                . "${_file}"
+                eval "$(cat "${_file}" | grep -v add-zsh-hook)"
             fi
             ;;
     esac
