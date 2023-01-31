@@ -74,12 +74,16 @@
   (advice-add 'org-agenda-switch-to :around
               (lambda (orig-fun &rest args)
                 "Open org file and close buffers used to visit agenda."
-                (let ((orig-buffer (current-buffer))
-                      (orig-point (point))
-                      (marker (org-get-at-bol 'org-marker))
-                      (buffer-updated))
-                  (if (or (not marker) (marker-buffer marker))
-                      (apply orig-fun args)
+                (let* ((orig-buffer (current-buffer))
+                       (orig-point (point))
+                       (marker (org-get-at-bol 'org-marker))
+                       (target-buffer (marker-buffer marker))
+                       (buffer-updated))
+                  (if target-buffer
+                      (progn
+                        (org-release-buffers (remove target-buffer org-agenda-new-buffers))
+                        (setq org-agenda-new-buffers nil)
+                        (apply orig-fun args))
                     (with-temp-buffer
                       (let ((temp-buffer (current-buffer)))
                         (with-current-buffer orig-buffer
@@ -95,8 +99,9 @@
                           (setq org-agenda-new-buffers nil)
                           (error "Update org-todo-list"))
 
-                      (setq marker (org-get-at-bol 'org-marker))
-                      (org-release-buffers (remove (marker-buffer marker) org-agenda-new-buffers))
+                      (setq marker (org-get-at-bol 'org-marker)
+                            target-buffer (marker-buffer marker))
+                      (org-release-buffers (remove target-buffer org-agenda-new-buffers))
                       (setq org-agenda-new-buffers nil)
                       (apply orig-fun args))))))
 

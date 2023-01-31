@@ -100,14 +100,21 @@ fi
 if [ -n "${INSIDE_EMACS}" ]; then
     case "${CURRENT_SHELL}" in
         bash)
-            _file="${HOME}/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm-bash.sh"
+            _file=$(emacsclient -e '(expand-file-name
+                                      "straight/repos/emacs-libvterm/etc/emacs-vterm-bash.sh"
+                                      straight-base-dir)' |
+                        sed -e 's/^"//' -e 's/"$//')
             if [ -e "${_file}" ]; then
                 . "${_file}"
             fi
             ;;
         zsh)
-            _file="${HOME}/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm-zsh.sh"
+            _file=$(emacsclient -e '(expand-file-name
+                                      "straight/repos/emacs-libvterm/etc/emacs-vterm-zsh.sh"
+                                      straight-base-dir)' |
+                        sed -e 's/^"//' -e 's/"$//')
             if [ -e "${_file}" ]; then
+                # workaround: using add-zsh-hook prevents latter registration
                 eval "$(cat "${_file}" | grep -v add-zsh-hook)"
             fi
             ;;
