@@ -95,11 +95,13 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
     (let ((helm-ghq-command-ghq-arg-list-bak helm-ghq-command-ghq-arg-list))
       (setq helm-ghq-command-ghq-arg-list '("list"))
       (unwind-protect
-          (let ((repo (helm-comp-read "ghq-list: "
-                                      (helm-ghq--list-candidates)
-                                      :name "ghq list"
-                                      :must-match t)))
-            (let ((default-directory (file-name-as-directory (expand-file-name repo (helm-ghq--root)))))
+          (let ((repo (expand-file-name
+                       (helm-comp-read "ghq-list: "
+                                       (helm-ghq--list-candidates)
+                                       :name "ghq list"
+                                       :must-match t)
+                       (helm-ghq--root))))
+            (let ((default-directory (file-name-as-directory repo)))
               (helm :sources (list (helm-ghq--source default-directory)
                                    (helm-ghq--source-update repo))
                     :buffer "*helm-ghq-list*")))
