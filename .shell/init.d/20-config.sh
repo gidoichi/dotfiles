@@ -212,7 +212,7 @@ if type ghq >/dev/null 2>&1; then
                 echo "no such repository: ${_target}" >&2
                 return 1
             fi
-            printf "remove: ${_root}/${_repo}: ok? (y/N): "; read yn
+            printf "remove: ${_repo}: ok? (y/N): "; read yn
             case "$yn" in
                 [yY]*) ;;
                 *) return ;;
