@@ -212,6 +212,11 @@ if type ghq >/dev/null 2>&1; then
                 echo "no such repository: ${_target}" >&2
                 return 1
             fi
+            printf "remove: ${_root}/${_repo}: ok? (y/N): "; read yn
+            case "$yn" in
+                [yY]*) ;;
+                *) return ;;
+            esac
             rm -rf "${_root}/${_repo}"
             mkdir "${_root}/${_repo}"
             while rmdir "${_root}/${_repo}" >/dev/null 2>&1; do
@@ -326,7 +331,7 @@ if type kube_ps1 >/dev/null 2>&1; then
         printf '%s' "${1}"
         if { type asdf && asdf plugin list | grep '^kubectl$'; } >/dev/null 2>&1; then (
             set -eu
-            debug() { (set -x; : "$@"); "$@"; }
+            debug() { (PS4=':'; set -x; : "$@"); "$@"; }
             versions="$(debug kubectl version -o json)"
             client="$(printf '%s' "${versions}" | jq -re '.clientVersion.gitVersion')"
             server="$(printf '%s' "${versions}" | jq -re '.serverVersion.gitVersion' | sed 's/\(v[0-9]*\.[0-9]*\.[0-9]*\).*/\1/')"
