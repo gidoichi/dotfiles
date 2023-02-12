@@ -30,6 +30,12 @@ _target="${GHQ_ROOT:+${GHQ_ROOT}/github.com/Homebrew/brew/bin}"
 if [ -d "${_target}" ]; then
     export PATH="${PATH}:${_target}"
 fi
+if type brew >/dev/null 2>&1; then
+    _target="$(brew --prefix asdf)/libexec/asdf.sh"
+    if [ "${?}" -eq 0 ] && [ -f "${_target}" ]; then
+        . "${_target}"
+    fi
+fi
 
 _target="${GHQ_ROOT:+${GHQ_ROOT}/github.com/gidoichi/pmo/bin}"
 if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
