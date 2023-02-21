@@ -176,6 +176,13 @@
   )
 (add-hook 'term-mode-hook 'term-mode-hooks)
 
+(use-package! terraform-mode
+  :hook
+  (terraform-mode . terraform-mode-hooks)
+  :config
+  (defun terraform-mode-hooks ()
+    (add-hook! before-save :local 'terraform-format-buffer)))
+
 (use-package! typescript-mode
   :hook
   (typescript-mode . lsp-deferred)
@@ -193,22 +200,19 @@
   (vterm-mode . vterm-mode-hooks)
   (vterm-copy-mode . vterm-copy-mode-hooks)
   :config
+  (advice-add 'vterm-send-C-k :before
+              (lambda (&rest _)
+                "Save to kill-ring."
+                (kill-ring-save (point) (save-excursion (vterm-end-of-line)))))
+  (defun vterm-mode-helm-show-kill-ring ()
+    "Send kill-ring to vterm again after helm."
+    (interactive)
+    (helm-show-kill-ring)
+    (vterm-send-string (car kill-ring)))
   (defun vterm-mode-quoted-insert (ch)
     "Send any char (as CH) in term mode."
     (interactive "c")
     (vterm-send-string (char-to-string ch)))
-  (defun vterm-not-copy-mode-kill-line ()
-    "Kill line in vterm mode with the possibility to paste it like in a normal shell."
-    (interactive)
-    (when vterm-copy-mode
-      (user-error "This command is effective only not in vterm-copy-mode"))
-    (vterm-copy-mode 1)
-    (set-mark-command nil)
-    (goto-char (vterm--get-end-of-line))
-    (if vterm-copy-exclude-prompt
-        (vterm-copy-mode-done nil)
-      (vterm-copy-mode-done t))
-    (vterm-send-C-k))
   (defun vterm-send-clipboard ()
     "Send clipboard to terminal."
     (interactive)
@@ -221,8 +225,8 @@
   (defun vterm-mode-hooks ()
     (define-key vterm-mode-map (kbd "C-c C-y") 'vterm-send-clipboard)
     (define-key vterm-mode-map (kbd "C-h") 'vterm-send-C-h)
-    (define-key vterm-mode-map (kbd "C-k") 'vterm-not-copy-mode-kill-line)
     (define-key vterm-mode-map (kbd "C-q") 'vterm-mode-quoted-insert)
+    (define-key vterm-mode-map (kbd "M-y") 'vterm-mode-helm-show-kill-ring)
     (define-key vterm-mode-map (kbd "<C-left>") 'centaur-tabs-backward-tab)
     (define-key vterm-mode-map (kbd "<C-right>") 'centaur-tabs-forward-tab)
     (face-remap-set-base 'link nil)
