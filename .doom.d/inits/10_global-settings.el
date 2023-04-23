@@ -178,8 +178,11 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   :hook
   (text-mode . text-mode-hooks)
   :config
+  (remove-hook 'text-mode-hook 'visual-line-mode)
   (defun text-mode-hooks ()
-    (setq show-trailing-whitespace t)))
+    (setq show-trailing-whitespace t)
+    (setq word-wrap nil)
+    (setq truncate-lines nil)))
 
 (use-package! tty-format
   :init
