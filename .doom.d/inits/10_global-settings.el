@@ -34,9 +34,7 @@
 (use-package! browse-url
   :config
   (advice-add 'browse-url-can-use-xdg-open
-              :after-until (lambda ()
-                             (and (getenv "WSL_DISTRO_NAME")
-                                  (executable-find "wsl-open"))))
+              :after-until 'on-wsl)
   )
 
 (use-package! centaur-tabs
@@ -160,8 +158,18 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   (unless (server-running-p)
   (server-start)))
 
-(map! :mode special-mode
-      "q" 'kill-buffer-and-window)
+(use-package! simple
+  :config
+  (if (on-wsl)
+      (advice-add 'kill-new
+                  :after (lambda (&rest _)
+                           "Get latest one form kill-ring and save to clipboard."
+                           (with-temp-buffer
+                             (insert (current-kill 0 t))
+                             (save-clipboard-on-region (point-min) (point-max))))))
+  (map! :mode special-mode
+        "q" 'kill-buffer-and-window)
+  )
 
 (use-package! treemacs
   :config

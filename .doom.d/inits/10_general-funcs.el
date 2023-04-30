@@ -6,11 +6,11 @@
   (interactive "r")
   (cond
    ((= 0 (call-process-shell-command "type clip.exe"))
-    (shell-command-on-region (region-beginning) (region-end) "clip.exe" nil nil))
+    (shell-command-on-region start end "clip.exe" nil nil))
    ((= 0 (call-process-shell-command "type pbcopy"))
-    (shell-command-on-region (region-beginning) (region-end) "pbcopy" nil nil))
+    (shell-command-on-region start end "pbcopy" nil nil))
    ((= 0 (call-process-shell-command "type xsel"))
-    (shell-command-on-region (region-beginning) (region-end) "xsel --clipboard --input" nil nil))
+    (shell-command-on-region start end "xsel --clipboard --input" nil nil))
    (t (error "Cannot use clipboard"))))
 
 (defun get-clipboard ()
@@ -28,12 +28,12 @@
 
 (defun clipboard-kill-ring-save (start end)
   (interactive "r")
-  (save-clipboard-on-region (region-beginning) (region-end)))
+  (save-clipboard-on-region start end))
 
 (defun clipboard-kill-region (start end)
   (interactive "r")
-  (save-clipboard-on-region (region-beginning) (region-end))
-  (kill-region (region-beginning) (region-end)))
+  (save-clipboard-on-region start end)
+  (kill-region start end))
 
 
 ;; buffer formatting functions
@@ -41,3 +41,13 @@
 (defun indent-buffer ()
   (interactive)
   (indent-region (point-min) (point-max)))
+
+
+;; environment detection functions
+
+(defun on-wsl ()
+  "Whether emacs running on WSL or not.
+
+Returns non-nil if on WSL, others not."
+  (and (getenv "WSL_DISTRO_NAME")
+       (executable-find "wsl-open")))
