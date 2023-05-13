@@ -192,6 +192,10 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
     (setq truncate-lines nil)
     (setq word-wrap nil)))
 
+(use-package! transient
+  :init
+  (setq transient-values-file (expand-file-name "etc/transient/values.el" doom-user-dir)))
+
 (use-package! tty-format
   :init
   ;; remove necessarily settings at

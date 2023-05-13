@@ -2,5 +2,6 @@
 !/inits
 !/.gitignore
 !/config.el
+!/etc
 !/init.el
 !/packages.el
