@@ -109,7 +109,7 @@ for arg in "$@"; do
     if [ "${file}" = '-' ]; then
         file="${target_file}"
     fi
-    "${EDITOR}" "${file}"
+    "${EDITOR}" "${file}" </dev/tty 1>&2
 done
 
 if ! [ -z ${output+_} ]; then
