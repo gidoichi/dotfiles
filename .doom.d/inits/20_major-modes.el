@@ -44,7 +44,20 @@
                        'my-init)
                      "cannot find 'GIT_COMMITTER_NAME' env var to use 'magit'"
                      :warning "*Messages*"))
-  (setq magit-diff-paint-whitespace-lines 'all))
+  (setq magit-diff-paint-whitespace-lines 'all)
+  (defun magit-open-repo ()
+    "open remote repo URL in browser."
+    (interactive)
+    (let* ((remote (magit-get "remote" "origin" "url"))
+           (url (if (string-match "^http" remote)
+                    remote
+                  (replace-regexp-in-string "\\(.*\\)@\\(.*\\)\\(:\\|/\\)\\(.*\\)\\(\\.git?\\)"
+                                            "https://\\2/\\4"
+                                            remote))))
+      (browse-url url)
+      (message "opening repo %s" url)))
+  (map! :mode magit-mode "C-o" 'magit-open-repo)
+  )
 
 (use-package! markdown-mode
   :hook
