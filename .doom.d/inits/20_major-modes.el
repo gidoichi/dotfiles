@@ -168,26 +168,33 @@
   "shell-session-mode for hilighting console log")
 (define-derived-mode console-mode shell-session-mode "console")
 
-(defun term-mode-quoted-insert (ch)
-  "Send any char (as CH) in term mode."
-  (interactive "c")
-  (term-send-raw-string (char-to-string ch)))
-(defun term-send-clipboard ()
-  "Send clipboard to terminal."
-  (interactive)
-  (term-send-raw-string (get-clipboard)))
-(defun term-mode-hooks ()
-  (read-only-mode t)
-  (setq term-bind-key-alist (delq (assoc "C-r" term-bind-key-alist) term-bind-key-alist))
-  (add-to-list 'term-bind-key-alist '("C-c C-j" . term-line-mode))
-  (add-to-list 'term-bind-key-alist '("C-c C-k" . term-char-mode))
-  (add-to-list 'term-bind-key-alist '("C-c C-y" . term-send-clipboard))
-  (add-to-list 'term-bind-key-alist '("C-h" . term-send-backspace))
-  (add-to-list 'term-bind-key-alist '("C-q" . term-mode-quoted-insert))
-  (add-to-list 'term-bind-key-alist '("<C-left>" . centaur-tabs-backward-tab))
-  (add-to-list 'term-bind-key-alist '("<C-right>" . centaur-tabs-forward-tab))
+(use-package! term
+  :hook
+  (term-mode . term-mode-hooks)
+  :config
+  (defun term-mode-quoted-insert (ch)
+    "Send any char (as CH) in term mode."
+    (interactive "c")
+    (term-send-raw-string (char-to-string ch)))
+  (defun term-send-clipboard ()
+    "Send clipboard to terminal."
+    (interactive)
+    (term-send-raw-string (get-clipboard)))
+  (defun term-mode-hooks ()
+    (read-only-mode t)
+
+    ;; term-bind-key-alist is only used in multi-term not term
+    (when (boundp 'term-bind-key-alist)
+      (setq term-bind-key-alist (delq (assoc "C-r" term-bind-key-alist) term-bind-key-alist))
+      (add-to-list 'term-bind-key-alist '("C-c C-j" . term-line-mode))
+      (add-to-list 'term-bind-key-alist '("C-c C-k" . term-char-mode))
+      (add-to-list 'term-bind-key-alist '("C-c C-y" . term-send-clipboard))
+      (add-to-list 'term-bind-key-alist '("C-h" . term-send-backspace))
+      (add-to-list 'term-bind-key-alist '("C-q" . term-mode-quoted-insert))
+      (add-to-list 'term-bind-key-alist '("<C-left>" . centaur-tabs-backward-tab))
+      (add-to-list 'term-bind-key-alist '("<C-right>" . centaur-tabs-forward-tab)))
+    )
   )
-(add-hook 'term-mode-hook 'term-mode-hooks)
 
 (use-package! terraform-mode
   :hook
@@ -235,13 +242,14 @@
                                            "cp" ;; copy-mode
                                          "ia" ;; interactive mode
                                          ))))
+  (map! :mode vterm-mode
+        "C-c C-y" 'vterm-send-clipboard
+        "C-h" 'vterm-send-C-h
+        "C-q" 'vterm-mode-quoted-insert
+        "M-y" 'vterm-mode-helm-show-kill-ring
+        "<C-left>" 'centaur-tabs-backward-tab
+        "<C-right>" 'centaur-tabs-forward-tab)
   (defun vterm-mode-hooks ()
-    (define-key vterm-mode-map (kbd "C-c C-y") 'vterm-send-clipboard)
-    (define-key vterm-mode-map (kbd "C-h") 'vterm-send-C-h)
-    (define-key vterm-mode-map (kbd "C-q") 'vterm-mode-quoted-insert)
-    (define-key vterm-mode-map (kbd "M-y") 'vterm-mode-helm-show-kill-ring)
-    (define-key vterm-mode-map (kbd "<C-left>") 'centaur-tabs-backward-tab)
-    (define-key vterm-mode-map (kbd "<C-right>") 'centaur-tabs-forward-tab)
     (face-remap-set-base 'link nil)
     (face-remap-add-relative 'link 'underline 'italic)
     (vterm-update-mode-line)

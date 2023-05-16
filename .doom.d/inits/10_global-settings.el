@@ -1,35 +1,19 @@
 ;;; -*- lexical-binding: t; -*-
 
 (setq confirm-kill-emacs nil)
-
-(setq tab-bar-show 1)
-(unless window-system
-  (setq tab-bar-close-button-show nil)
-  (setq tab-bar-format (delq 'tab-bar-format-add-tab tab-bar-format)))
-
 (setq max-specpdl-size 5000)
-
-(map! :g
-      "C-h" 'delete-backward-char
-      "C-c t t" 'toggle-truncate-lines
-      "C-x b" 'helm-buffers-list
-      "C-x j" 'goto-line
-      "C-x m" 'multi-vterm
-      "<C-left>" 'centaur-tabs-backward-tab
-      "<C-right>" 'centaur-tabs-forward-tab
-      "M-y" 'helm-show-kill-ring
-      )
 
 (use-package! anzu-mode
   :hook
   (after-init . global-anzu-mode)
+  :init
+  (map! :g
+        "M-%" 'anzu-query-replace
+        "C-M-%" 'anzu-query-replace-regexp)
   :config
   (setq anzu-search-threshold 1000)
   (setq anzu-minimum-input-length 3)
   )
-(map! :g
-      "M-%" 'anzu-query-replace
-      "C-M-%" 'anzu-query-replace-regexp)
 
 (use-package! browse-url
   :config
@@ -41,14 +25,16 @@
   :hook
   (special-mode . centaur-tabs-mode)
   :config
-
+  (map! :g
+        "<C-left>" 'centaur-tabs-backward-tab
+        "<C-right>" 'centaur-tabs-forward-tab)
   ;; workaround https://github.com/doomemacs/doomemacs/issues/6280
   (centaur-tabs-group-by-projectile-project)
 
   (unless window-system
     (setq centaur-tabs-set-close-button nil)
-    (setq centaur-tabs-show-new-tab-button nil)
-    ))
+    (setq centaur-tabs-show-new-tab-button nil))
+  )
 
 (use-package! eaw
   :config
@@ -76,6 +62,9 @@
 
 (use-package! helm
   :config
+  (map! :g
+        "C-x b" 'helm-buffers-list
+        "M-y" 'helm-show-kill-ring)
   (setq helm-grep-file-path-style 'relative)
   (if (/= 0 (call-process-shell-command "type ag"))
       (display-warning (if load-file-name (intern load-file-name)
@@ -130,6 +119,10 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   (advice-add 'hide-mode-line-mode :around #'ignore)
   )
 
+(use-package! multi-vterm
+  :config
+  (map! :g "C-x m" 'multi-vterm))
+
 (use-package! nhexl-mode
   :hook
   (nhexl-mode . nhexl-mode-hooks)
@@ -160,6 +153,11 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
 
 (use-package! simple
   :config
+  (map! :g
+        "C-h" 'delete-backward-char
+        "C-c t t" 'toggle-truncate-lines
+        "C-x j" 'goto-line)
+  (map! :mode special-mode "q" 'kill-buffer-and-window)
   (if (on-wsl)
       (advice-add 'kill-new
                   :after (lambda (&rest _)
@@ -167,8 +165,14 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
                            (with-temp-buffer
                              (insert (current-kill 0 t))
                              (save-clipboard-on-region (point-min) (point-max))))))
-  (map! :mode special-mode
-        "q" 'kill-buffer-and-window)
+  )
+
+(use-package! tab-bar
+  :config
+  (setq tab-bar-show 1)
+  (unless window-system
+    (setq tab-bar-close-button-show nil)
+    (setq tab-bar-format (delq 'tab-bar-format-add-tab tab-bar-format)))
   )
 
 (use-package! treemacs
