@@ -49,11 +49,14 @@
     "open remote repo URL in browser."
     (interactive)
     (let* ((remote (magit-get "remote" "origin" "url"))
+           ;; assumed "remote" are:
+           ;; - https://github.com/user/repository.git
+           ;; - ssh://git@github.com/user/repository.git
+           ;; - git@github.com:user/repository.git
+           ;; then url="https://github.com/user/repository.git"
            (url (if (string-match "^http" remote)
                     remote
-                  (replace-regexp-in-string "\\(.*\\)@\\(.*\\)\\(:\\|/\\)\\(.*\\)\\(\\.git?\\)"
-                                            "https://\\2/\\4"
-                                            remote))))
+                  (replace-regexp-in-string "\\(.*\\)@\\([^:/]*\\)[:/]\\(.*\\)" "https://\\2/\\3" remote))))
       (browse-url url)
       (message "opening repo %s" url)))
   (map! :mode magit-mode "C-o" 'magit-open-repo)
