@@ -2,6 +2,8 @@
 
 (setq confirm-kill-emacs nil)
 (setq max-specpdl-size 5000)
+(map! :g
+        "S-<insert>" 'clipboard-yank)
 
 (use-package! anzu-mode
   :hook
