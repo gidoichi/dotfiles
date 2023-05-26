@@ -261,6 +261,11 @@
     (vterm-update-mode-line))
   )
 
+(use-package! wgrep
+  :config
+  (setq wgrep-enable-key (kbd "e")
+        wgrep-auto-save-buffer t))
+
 (use-package! yaml-mode
   :hook
   (yaml-mode . yaml-path-which-func)
