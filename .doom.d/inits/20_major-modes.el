@@ -87,7 +87,7 @@
 (use-package! org
   :config
   (setq org-startup-folded 'content)
-  (advice-add 'org-agenda-switch-to :around
+  (advice-add #'org-agenda-switch-to :around
               (lambda (orig-fun &rest args)
                 "Open org file and close buffers used to visit agenda."
                 (let* ((orig-buffer (current-buffer))
@@ -123,17 +123,17 @@
 
   ;; Call org-todo-list without new buffers when it called from org-agenda.
   ;; Using advice-remove is to avoid to call this cusomized org-todo-list recursively.
-  (advice-add 'org-agenda :around
+  (advice-add #'org-agenda :around
               (lambda (orig-fun &rest args)
-                (advice-add 'org-todo-list :override 'my-org-todo-list-without-new-burrers)
+                (advice-add #'org-todo-list :override #'my-org-todo-list-without-new-burrers)
                 (apply orig-fun args)
-                (advice-remove 'org-todo-list 'my-org-todo-list-without-new-burrers)))
+                (advice-remove #'org-todo-list #'my-org-todo-list-without-new-burrers)))
   (defun my-org-todo-list-without-new-burrers (&rest _)
     (advice-remove 'org-todo-list 'my-org-todo-list-without-new-burrers)
     (org-todo-list)
     (org-release-buffers org-agenda-new-buffers)
     (setq org-agenda-new-buffers nil)
-    (advice-add 'org-todo-list :override 'my-org-todo-list-without-new-burrers)
+    (advice-add #'org-todo-list :override #'my-org-todo-list-without-new-burrers)
     )
   )
 
@@ -223,7 +223,7 @@
   (vterm-mode . vterm-mode-hooks)
   (vterm-copy-mode . vterm-copy-mode-hooks)
   :config
-  (advice-add 'vterm-send-C-k :before
+  (advice-add #'vterm-send-C-k :before
               (lambda (&rest _)
                 "Save to kill-ring."
                 (kill-ring-save (point) (save-excursion (vterm-end-of-line)))))

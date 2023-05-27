@@ -19,8 +19,8 @@
 
 (use-package! browse-url
   :config
-  (advice-add 'browse-url-can-use-xdg-open
-              :after-until 'on-wsl)
+  (advice-add #'browse-url-can-use-xdg-open
+              :after-until #'on-wsl)
   )
 
 (use-package! centaur-tabs
@@ -96,7 +96,7 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
 
   ;; In vterm-mode, default-directory is overwritten by current directory indicator inside terminal.
   ;; To avoid this, remove default-directory from helm-ghq function.
-  (advice-add 'helm-ghq--source
+  (advice-add #'helm-ghq--source
               :around (lambda (_ repo)
                         "Refactored version of the original helm-ghq--source."
                         (let ((name (file-name-nondirectory (directory-file-name repo))))
@@ -119,7 +119,7 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   :config
   ;; want to just disable hide-mode-line-mode at vterm-mode
   ;; workaround https://github.com/doomemacs/doomemacs/issues/6209
-  (advice-add 'hide-mode-line-mode :around #'ignore)
+  (advice-add #'hide-mode-line-mode :around #'ignore)
   )
 
 (use-package! multi-vterm
@@ -162,7 +162,7 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
         "C-x j" 'goto-line)
   (map! :mode special-mode "q" 'kill-buffer-and-window)
   (if (on-wsl)
-      (advice-add 'kill-new
+      (advice-add #'kill-new
                   :after (lambda (&rest _)
                            "Get latest one form kill-ring and save to clipboard."
                            (with-temp-buffer
