@@ -76,9 +76,16 @@
 ;; they are implemented.
 
 (after! package
-  ;; execute: HOMEDIR=<package-gnupg-homedir>
-  ;; execute: gpg --homedir "${HOMEDIR}" --keyserver pgp.mit.edu --receive-keys F8D0B4E7D2D21191
-  (add-to-list 'package-archives '("user42" . "https://download.tuxfamily.org/user42/elpa/packages/")))
+  (add-to-list 'package-archives '("user42" . "https://download.tuxfamily.org/user42/elpa/packages/"))
+  (cond
+   ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "gpg") " ")))
+    (let ((keyid "F8D0B4E7D2D21191"))
+      (unless (string-match-p
+               (concat "/" keyid " ")
+               (shell-command-to-string
+                (mapconcat #'shell-quote-argument `("gpg" "--homedir" ,package-gnupghome-dir "--list-keys" "--keyid-format=long") " ")))
+        (process-lines "gpg" "--homedir" package-gnupghome-dir "--keyserver" "pgp.mit.edu" "--receive-keys" keyid))))
+   (t (error "Cannot save gpg keys"))))
 
 (setq init-loader-show-log-after-init 'error-only)
 (init-loader-load (expand-file-name "inits" doom-user-dir))

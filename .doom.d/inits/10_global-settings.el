@@ -46,7 +46,7 @@
 
 (use-package! flycheck
   :config
-  (if (/= 0 (call-process-shell-command "type textlint"))
+  (if (not (zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "textlint") " "))))
       (display-warning (if load-file-name (intern load-file-name)
                          'my-init)
                        "cannot find 'textlint' command to use 'flycheck-define-checker textlint'"
@@ -69,7 +69,7 @@
         "C-x b" 'helm-buffers-list
         "M-y" 'helm-show-kill-ring)
   (setq helm-grep-file-path-style 'relative)
-  (if (/= 0 (call-process-shell-command "type ag"))
+  (if (not (zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "ag") " "))))
       (display-warning (if load-file-name (intern load-file-name)
                          'my-init)
                        "cannot find 'ag' command to use 'helm-do-grep-ag'"

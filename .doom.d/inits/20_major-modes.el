@@ -270,7 +270,7 @@
   :hook
   (yaml-mode . yaml-path-which-func)
   :config
-  (if (/= 0 (call-process-shell-command "type yaml-path"))
+  (if (not (zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "yaml-path") " "))))
       (display-warning (if load-file-name (intern load-file-name)
                          'my-init)
                        "cannot find 'yaml-path' command to use 'yaml-path-which-func'"
