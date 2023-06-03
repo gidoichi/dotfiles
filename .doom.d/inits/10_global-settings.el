@@ -158,7 +158,7 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
 (use-package! projectile
   :config
   (when (and (on-mac) window-system)
-    (define-key global-map [menu-bar projectile] nil)))
+    (define-key projectile-mode-map [menu-bar projectile] nil)))
 
 (use-package! server
   :config
@@ -245,4 +245,4 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
 (use-package! yasnippet
   :config
   (when (and (on-mac) window-system)
-    (define-key global-map [menu-bar yasnippet] nil)))
+    (define-key yas-minor-mode-map [menu-bar yasnippet] nil)))
