@@ -10,7 +10,7 @@ _LF='
 '
 _IFS_BAK="${IFS}"
 IFS="${_LF}"
-for _file in $(find "${_p}" -mindepth 3 -maxdepth 3 -type f -name '*.sh' -path "${_p}/*/init.d/*" -not -path "${_p}/sample/*"); do
+for _file in $(find -L "${_p}" -mindepth 3 -maxdepth 3 -type f -name '*.sh' -path "${_p}/*/init.d/*" -not -path "${_p}/sample/*"); do
     SOURCE_PATH="${_file}" . "${_file}"
 done
 IFS="${_IFS_BAK}"

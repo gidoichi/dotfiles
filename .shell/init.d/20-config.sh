@@ -129,7 +129,11 @@ fi
 # fzf
 case "${CURRENT_SHELL}" in
     bash)
-        . /usr/share/doc/fzf/examples/key-bindings.bash
+        if [ -d /usr/share/doc/fzf/examples ]; then
+            . /usr/share/doc/fzf/examples/key-bindings.bash
+        elif [ -f "${HOME}/.fzf.bash" ]; then
+            . "${HOME}/.fzf.bash"
+        fi
         ;;
     zsh)
         if [ -d /usr/share/doc/fzf/examples ]; then

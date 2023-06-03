@@ -51,3 +51,9 @@
 Returns non-nil if on WSL, others not."
   (and (getenv "WSL_DISTRO_NAME")
        (executable-find "wsl-open")))
+
+(defun on-mac ()
+  "Whether emacs running on Mac or not.
+
+Returns non-nil if on Mac, others not."
+  (equal "Darwin" (shell-command-to-string (shell-quote-argument "uname"))))

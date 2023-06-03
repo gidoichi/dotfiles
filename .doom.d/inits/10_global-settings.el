@@ -5,6 +5,12 @@
 (map! :g
         "S-<insert>" 'clipboard-yank)
 
+(when (and (on-mac) window-system)
+  (define-key global-map [menu-bar buffer] nil)
+  (define-key global-map [menu-bar edit] nil)
+  (define-key global-map [menu-bar help-menu] nil)
+  (define-key global-map [menu-bar options] nil))
+
 (use-package! anzu-mode
   :hook
   (after-init . global-anzu-mode)
@@ -149,6 +155,11 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   (defun prog-mode-hooks ()
     (setq show-trailing-whitespace t)))
 
+(use-package! projectile
+  :config
+  (when (and (on-mac) window-system)
+    (define-key global-map [menu-bar projectile] nil)))
+
 (use-package! server
   :config
   (unless (server-running-p)
@@ -230,3 +241,8 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   :config
   (defun whitespace-mode-hooks ()
     (add-hook! before-save :local 'doom/delete-trailing-newlines)))
+
+(use-package! yasnippet
+  :config
+  (when (and (on-mac) window-system)
+    (define-key global-map [menu-bar yasnippet] nil)))
