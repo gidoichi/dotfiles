@@ -99,7 +99,7 @@
                       (progn
                         (org-release-buffers (remove target-buffer org-agenda-new-buffers))
                         (setq org-agenda-new-buffers nil)
-                        (apply orig-fun args))
+                        (apply #'orig-fun args))
                     (with-temp-buffer
                       (let ((temp-buffer (current-buffer)))
                         (with-current-buffer orig-buffer
@@ -119,14 +119,14 @@
                             target-buffer (marker-buffer marker))
                       (org-release-buffers (remove target-buffer org-agenda-new-buffers))
                       (setq org-agenda-new-buffers nil)
-                      (apply orig-fun args))))))
+                      (apply #'orig-fun args))))))
 
   ;; Call org-todo-list without new buffers when it called from org-agenda.
   ;; Using advice-remove is to avoid to call this cusomized org-todo-list recursively.
   (advice-add #'org-agenda :around
               (lambda (orig-fun &rest args)
                 (advice-add #'org-todo-list :override #'my-org-todo-list-without-new-burrers)
-                (apply orig-fun args)
+                (apply #'orig-fun args)
                 (advice-remove #'org-todo-list #'my-org-todo-list-without-new-burrers)))
   (defun my-org-todo-list-without-new-burrers (&rest _)
     (advice-remove 'org-todo-list 'my-org-todo-list-without-new-burrers)
@@ -176,7 +176,7 @@
   (term-mode . term-mode-hooks)
   :config
   (defun term-mode-quoted-insert (ch)
-    "Send any char (as CH) in term mode."
+    "Send char CH in term mode."
     (interactive "c")
     (term-send-raw-string (char-to-string ch)))
   (defun term-send-clipboard ()
@@ -223,17 +223,27 @@
   (vterm-mode . vterm-mode-hooks)
   (vterm-copy-mode . vterm-copy-mode-hooks)
   :config
-  (advice-add #'vterm-send-C-k :before
-              (lambda (&rest _)
-                "Save to kill-ring."
-                (kill-ring-save (point) (save-excursion (vterm-end-of-line)))))
+  (setq vterm-copy-mode-remove-fake-newlines t)
+  (defun before-vterm-send-C-k (&rest _)
+    "Save to kill-ring."
+    (let* ((whole-content (buffer-substring (point) (vterm-end-of-line)))
+           (trimmed-content (string-trim-right whole-content)))
+      (with-temp-buffer
+        (insert trimmed-content)
+        (kill-ring-save (point-min) (point-max)))))
+  (advice-add #'vterm-send-C-k :before #'before-vterm-send-C-k)
+  (advice-add #'vterm-send-key :before
+              (lambda (&rest r)
+                "Save to kill-ring with C-k."
+                (when (equal r '("k" nil nil (control)))
+                  (apply #' #'before-vterm-send-C-k r))))
   (defun vterm-mode-helm-show-kill-ring ()
     "Send kill-ring to vterm again after helm."
     (interactive)
     (helm-show-kill-ring)
     (vterm-send-string (car kill-ring)))
   (defun vterm-mode-quoted-insert (ch)
-    "Send any char (as CH) in term mode."
+    "Send char CH in term mode."
     (interactive "c")
     (vterm-send-string (char-to-string ch)))
   (defun vterm-send-clipboard ()
@@ -246,12 +256,12 @@
                                          "ia" ;; interactive mode
                                          ))))
   (map! :mode vterm-mode
-        "C-c C-y" 'vterm-send-clipboard
-        "C-h" 'vterm-send-C-h
-        "C-q" 'vterm-mode-quoted-insert
-        "M-y" 'vterm-mode-helm-show-kill-ring
-        "<C-left>" 'centaur-tabs-backward-tab
-        "<C-right>" 'centaur-tabs-forward-tab)
+        "C-c C-y" #'vterm-send-clipboard
+        "C-h" #'vterm-send-C-h
+        "C-q" #'vterm-mode-quoted-insert
+        "M-y" #'vterm-mode-helm-show-kill-ring
+        "<C-left>" #'centaur-tabs-backward-tab
+        "<C-right>" #'centaur-tabs-forward-tab)
   (defun vterm-mode-hooks ()
     (face-remap-set-base 'link nil)
     (face-remap-add-relative 'link 'underline 'italic)
