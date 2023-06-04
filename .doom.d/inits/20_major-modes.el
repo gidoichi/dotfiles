@@ -236,7 +236,7 @@
               (lambda (&rest r)
                 "Save to kill-ring with C-k."
                 (when (equal r '("k" nil nil (control)))
-                  (apply #' #'before-vterm-send-C-k r))))
+                  (apply #'before-vterm-send-C-k r))))
   (defun vterm-mode-helm-show-kill-ring ()
     "Send kill-ring to vterm again after helm."
     (interactive)
