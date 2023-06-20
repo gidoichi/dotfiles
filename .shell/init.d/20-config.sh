@@ -273,39 +273,42 @@ elif type git-credential-keepassxc >/dev/null 2>&1; then
     export GIT_CREDENTIAL_KEEPASSXC='git-credential-keepassxc'
 fi
 if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
-    keepassxc_client() { (
-        exit_trap() {
-            set -- ${1:-} $?  # $? is set as $1 if no argument given
-            trap '' EXIT HUP INT QUIT PIPE ALRM TERM
-            [ -d "${Tmp:-}" ] && rm -rf "${Tmp%/*}/_${Tmp##*/_}"
-            trap -  EXIT HUP INT QUIT PIPE ALRM TERM
-            exit $1
-        }
-        trap 'exit_trap' EXIT HUP INT QUIT PIPE ALRM TERM
-        Tmp=$(mktemp -d -t "_${0##*/}.$$.XXXXXXXXXXX") || error_exit 1 'Failed to mktemp'
+    keepassxc_client() {
+        (
+            set -eu
+            exit_trap() {
+                set -- ${1:-} $?  # $? is set as $1 if no argument given
+                trap '' EXIT HUP INT QUIT PIPE ALRM TERM
+                [ -d "${Tmp:-}" ] && rm -rf "${Tmp%/*}/_${Tmp##*/_}"
+                trap -  EXIT HUP INT QUIT PIPE ALRM TERM
+                exit $1
+            }
+            trap 'exit_trap' EXIT HUP INT QUIT PIPE ALRM TERM
+            Tmp=$(mktemp -d -t "_${0##*/}.$$.XXXXXXXXXXX") || error_exit 1 'Failed to mktemp'
 
-        KEEPASSXC_CLIENT_RETRY=${KEEPASSXC_CLIENT_RETRY:-5}
-        i=0
-        while ! cred=$(printf 'url=%s\nusername=%s\n' "${1}" "$(hostname)" |
-                        "${GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get 2> "${Tmp}/stderr"); do
-            i=$((i+1))
-            if ! grep 'Failed to connect to ' "${Tmp}/stderr" >/dev/null; then
-                cat "${Tmp}/stderr" 1>&2
-                return 1
-            fi
-            printf '[%d/%d]: %s\n' "${i}" "${KEEPASSXC_CLIENT_RETRY}" "$(cat "${Tmp}/stderr")" >&2
-            if [ "${i}" -ge "${KEEPASSXC_CLIENT_RETRY}" ]; then
-                return 1
-            fi
-            if ! type "${KEEPASSXC_GUI}" >/dev/null 2>&1; then
-                return 1
-            fi
-            nohup "${KEEPASSXC_GUI}" >/dev/null 2>&1 &
-            rm -rf "${Tmp}/stderr"
-            sleep 1
-        done
-        printf '%s' "${cred}" | sed -n 's/^password=//p'
-    ) }
+            KEEPASSXC_CLIENT_RETRY=${KEEPASSXC_CLIENT_RETRY:-5}
+            i=0
+            while ! cred=$(printf 'url=%s\nusername=%s\n' "${1}" "$(hostname)" |
+                               "${GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get 2> "${Tmp}/stderr"); do
+                i=$((i+1))
+                if ! grep 'Failed to connect to ' "${Tmp}/stderr" >/dev/null; then
+                    cat "${Tmp}/stderr" 1>&2
+                    return 1
+                fi
+                printf '[%d/%d]: %s\n' "${i}" "${KEEPASSXC_CLIENT_RETRY}" "$(cat "${Tmp}/stderr")" >&2
+                if [ "${i}" -ge "${KEEPASSXC_CLIENT_RETRY}" ]; then
+                    return 1
+                fi
+                if [ "${i}" -eq 1 ]; then
+                    : "${KEEPASSXC_GUI}"
+                    nohup "${KEEPASSXC_GUI}" >/dev/null 2>&1 &
+                fi
+                rm -rf "${Tmp}/stderr"
+                sleep 1
+            done
+            printf '%s' "${cred}" | sed -n 's/^password=//p'
+        )
+    }
 fi
 
 if type kubectl >/dev/null 2>&1; then
