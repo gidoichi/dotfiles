@@ -99,7 +99,7 @@
                       (progn
                         (org-release-buffers (remove target-buffer org-agenda-new-buffers))
                         (setq org-agenda-new-buffers nil)
-                        (apply #'orig-fun args))
+                        (apply orig-fun args))
                     (with-temp-buffer
                       (let ((temp-buffer (current-buffer)))
                         (with-current-buffer orig-buffer
@@ -119,14 +119,14 @@
                             target-buffer (marker-buffer marker))
                       (org-release-buffers (remove target-buffer org-agenda-new-buffers))
                       (setq org-agenda-new-buffers nil)
-                      (apply #'orig-fun args))))))
+                      (apply orig-fun args))))))
 
   ;; Call org-todo-list without new buffers when it called from org-agenda.
   ;; Using advice-remove is to avoid to call this cusomized org-todo-list recursively.
   (advice-add #'org-agenda :around
               (lambda (orig-fun &rest args)
                 (advice-add #'org-todo-list :override #'my-org-todo-list-without-new-burrers)
-                (apply #'orig-fun args)
+                (apply orig-fun args)
                 (advice-remove #'org-todo-list #'my-org-todo-list-without-new-burrers)))
   (defun my-org-todo-list-without-new-burrers (&rest _)
     (advice-remove 'org-todo-list 'my-org-todo-list-without-new-burrers)
