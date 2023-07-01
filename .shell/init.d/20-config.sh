@@ -311,6 +311,7 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
     }
 fi
 
+export KUBECTL_EXTERNAL_DIFF='diff --color --new-file --unified'
 if type kubectl >/dev/null 2>&1; then
     alias k='kubectl'
 fi
