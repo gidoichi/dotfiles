@@ -45,6 +45,10 @@
     (setq centaur-tabs-show-new-tab-button nil))
   )
 
+(use-package! column-marker
+  :config
+  (require 'column-marker))
+
 (use-package! eaw
   :config
   (unless window-system
