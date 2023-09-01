@@ -393,7 +393,7 @@ if ! alias mv >/dev/null 2>&1; then
     alias mv='mv -i'
 fi
 
-export PAGER='edit-stdin -e emacs-pager'
+export PAGER='editor-wrapper -e emacs-pager -'
 
 if [ -e /usr/local/share/java/plantuml.jar ]; then
     alias plantuml='java -jar /usr/local/share/java/plantuml.jar'
