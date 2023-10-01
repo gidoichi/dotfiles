@@ -31,8 +31,7 @@ fi
 if type cf >/dev/null 2>&1; then
     cf() {
         # $ cf (help|h|--help|-h)
-        if [ "$1" = 'help' -o "$1" = 'h' -o "$1" = '--help' -o "$1" = '-h' ] &&
-               [ "${#}" -eq 1 ]; then
+        if { [ "$1" = 'help' ] || [ "$1" = 'h' ] || [ "$1" = '--help' ] || [ "$1" = '-h' ]; } && [ "${#}" -eq 1 ]; then
             command cf --help 2>&1
             cat <<-EOF
 	
@@ -45,8 +44,7 @@ if type cf >/dev/null 2>&1; then
         fi
 
         # $ cf (target|t) -o
-        if [ "${1}" = 'target' -o "${1}" = 't' ] && [ "${2}" = '-o' ] &&
-               [ "${#}" -eq 2 ]; then
+        if { [ "${1}" = 'target' ] || [ "${1}" = 't' ]; } && [ "${2}" = '-o' ] && [ "${#}" -eq 2 ]; then
             _org=$(cf orgs |
                       awk 'f{print} !f&&$0!="name"{print>"/dev/stderr"} !f&&$0=="name"{f=!f}' |
                       "${ONELINE_SELECTOR}")
@@ -58,8 +56,7 @@ if type cf >/dev/null 2>&1; then
         fi
 
         # $ cf (target|t) -s
-        if [ "${1}" = 'target' -o "${1}" = 't' ] && [ "${2}" = '-s' ] &&
-               [ "${#}" -eq 2 ]; then
+        if { [ "${1}" = 'target' ] || [ "${1}" = 't' ]; } && [ "${2}" = '-s' ] && [ "${#}" -eq 2 ]; then
             _space=$(cf spaces |
                         awk 'f{print} !f&&$0!="name"{print>"/dev/stderr"} !f&&$0=="name"{f=!f}' |
                         "${ONELINE_SELECTOR}")
@@ -156,7 +153,7 @@ if type ghq >/dev/null 2>&1; then
         fi
 
         # $ ghq (help|h|--help|-h)
-        if [ "$1" = 'help' -o "$1" = 'h' -o "$1" = '--help' -o "$1" = '-h' ]; then
+        if [ "$1" = 'help' ] || [ "$1" = 'h' ] || [ "$1" = '--help' ] || [ "$1" = '-h' ]; then
             command ghq --help 2>&1
             cat <<-EOF
 	
@@ -172,16 +169,14 @@ if type ghq >/dev/null 2>&1; then
         fi
 
         # $ ghq cd
-        if [ "$1" = "cd" ] &&
-               [ $# -eq 1 ]; then
+        if [ "$1" = "cd" ] && [ $# -eq 1 ]; then
             _repo=$(ghq list | ${ONELINE_SELECTOR})
             ghq cd "${_repo}"
             return
         fi
 
         # $ ghq cd <repository>
-        if [ "$1" = 'cd' ] &&
-               [ $# -eq 2 ]; then
+        if [ "$1" = 'cd' ] && [ $# -eq 2 ]; then
             _target="$2"
             _repo=$(ghq list | awk '$0=="'"${_target}"'"')
             _root=$(ghq root)
@@ -193,8 +188,7 @@ if type ghq >/dev/null 2>&1; then
         fi
 
         # $ ghq (rm|remove)
-        if [ "$1" = 'rm' -o "$1" = 'remove' ] &&
-               [ $# -eq 1 ]; then
+        if { [ "$1" = 'rm' ] || [ "$1" = 'remove' ]; } && [ $# -eq 1 ]; then
             _repo=$(ghq list | ${ONELINE_SELECTOR})
             if [ -z "${_repo}" ]; then
                 return 1
@@ -204,8 +198,7 @@ if type ghq >/dev/null 2>&1; then
         fi
 
         # $ ghq (rm|remove) <repository>
-        if [ "$1" = "rm" -o "$1" = "remove" ] &&
-               [ $# -eq 2 ]; then
+        if { [ "$1" = "rm" ] || [ "$1" = "remove" ]; } && [ $# -eq 2 ]; then
             _target="$2"
             _repo=$(ghq list | awk '$0=="'"${_target}"'"')
             _root=$(ghq root)
@@ -234,8 +227,7 @@ if type ghq >/dev/null 2>&1; then
         fi
 
         # $ ghq (rm|remove) <repository> <...repository>
-        if [ "$1" = 'rm' -o "$1" = 'remove' ] &&
-               [ $# -ge 3 ]; then
+        if { [ "$1" = 'rm' ] || [ "$1" = 'remove' ]; } && [ $# -ge 3 ]; then
             _repo="$2"
             ghq rm "${_repo}"
             shift 2
