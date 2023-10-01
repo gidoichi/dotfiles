@@ -337,32 +337,9 @@ if type kube_ps1 >/dev/null 2>&1; then
     esac
     kube_ps1_cluster_function() { (
         printf '%s' "${1}"
-        if { type asdf && asdf plugin list | grep '^kubectl$'; } >/dev/null 2>&1; then (
-            set -eu
-            debug() { (PS4=':'; set -x; : "$@"); "$@"; }
-            versions="$(kubectl version -o json)"
-            client="$(printf '%s' "${versions}" | jq -re '.clientVersion.gitVersion')"
-            server_orig="$(printf '%s' "${versions}" | jq -re '.serverVersion.gitVersion')"
-            server="$(printf '%s' "${server_orig}" | sed 's/\(v[0-9]*\.[0-9]*\.[0-9]*\).*/\1/')"
-            [ "${server}" = "${client}" ] && return
-
-            (PS4=':'; set -x; : kubectl version -o json)
-            printf '%s' "${versions}" | jq -cM '{cilentVersion: .clientVersion.gitVersion, serverVersion: .serverVersion.gitVersion}'
-            version="$(printf '%s' "${server}" | sed 's/^v//')"
-            if ! asdf list kubectl | grep "${version}" >/dev/null 2>&1; then
-                debug asdf install kubectl "${version}"
-            fi
-
-            debug asdf global kubectl "${version}"
-            client="$(kubectl version --client=true -o json | jq -re '.clientVersion.gitVersion')"
-            if [ "${client}" = "v${version}" ]; then
-                echo succeeded
-            else
-                echo failed
-                jq -cnM --arg client "${client}" --arg server "${server_orig}" \
-                    '{cilentVersion: $client, serverVersion: $server}'
-            fi
-        ) fi >&2
+        if type asdf >/dev/null 2>&1; then
+            asdf-match kubectl
+        fi >&2
     ) }
     export KUBE_PS1_CLUSTER_FUNCTION=kube_ps1_cluster_function
 fi
