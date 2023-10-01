@@ -330,7 +330,7 @@ if type kube_ps1 >/dev/null 2>&1; then
     kube_ps1_cluster_function() { (
         printf '%s' "${1}"
         if type asdf >/dev/null 2>&1; then
-            asdf-match kubectl
+            asdf-match --log=notice kubectl
         fi >&2
     ) }
     export KUBE_PS1_CLUSTER_FUNCTION=kube_ps1_cluster_function
