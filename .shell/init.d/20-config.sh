@@ -363,6 +363,7 @@ if ! alias mv >/dev/null 2>&1; then
 fi
 
 export PAGER='editor-wrapper -e emacs-pager -'
+export DOOMPAGER="$PAGER"
 
 if [ -e /usr/local/share/java/plantuml.jar ]; then
     alias plantuml='java -jar /usr/local/share/java/plantuml.jar'
