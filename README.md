@@ -1,7 +1,6 @@
 # dotfiles
 
-### .doom.d == 07fca786154551f90f36535bfb21f8ca4abd5027
-- Next commit [refactor!: replace all-the-icons with nerd-icons](https://github.com/doomemacs/doomemacs/commit/9787022b839d2d22cb772c6d61cc7f35b9dd5e95) contains breaking changes for fonts. And because of no codes imprelemted instead of `doom--disable-all-the-icons-in-tty-a` function, some fonts are garbled at tty mode. c.f. [lisp/doom-ui.el](https://github.com/doomemacs/doomemacs/commit/9787022b839d2d22cb772c6d61cc7f35b9dd5e95#diff-96c45fa1a7673916aa7e62d9b58e9b364efaf1a52f93191c95a7c1b3534d43c0L441-L456)
+### .doom.d == 8ee0872db57ffd786033b9db860c91939c15506a
 - https://github.com/doomemacs/doomemacs
 
 ### .mozc

@@ -263,6 +263,7 @@
         "<C-left>" #'centaur-tabs-backward-tab
         "<C-right>" #'centaur-tabs-forward-tab)
   (defun vterm-mode-hooks ()
+    (setq confirm-kill-processes t)
     (face-remap-set-base 'link nil)
     (face-remap-add-relative 'link 'underline 'italic)
     (vterm-update-mode-line)
