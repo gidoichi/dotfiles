@@ -92,7 +92,8 @@
                          'my-init)
                        "cannot find 'ag' command to use 'helm-do-grep-ag'"
                        :warning "*Messages*")
-    (fset 'find-grep 'helm-do-grep-ag)))
+    (fset 'find-grep 'helm-do-grep-ag)
+    (fmakunbound 'grep-find)))
 
 (use-package! helm-ghq
   :config
