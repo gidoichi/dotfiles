@@ -45,10 +45,6 @@
     (setq centaur-tabs-show-new-tab-button nil))
   )
 
-(use-package! column-marker
-  :config
-  (require 'column-marker))
-
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
