@@ -60,10 +60,6 @@
 ;; Use `:pin' to specify a particular commit to install.
 ;(package! builtin-package :pin "1a2b3c4d5e")
 
-;; workaround for https://github.com/doomemacs/doomemacs/issues/7191#issuecomment-1503431493
-(package! closql :pin "0a7226331ff1f96142199915c0ac7940bac4afdd")
-;; workaround for https://github.com/doomemacs/doomemacs/issues/7244#issuecomment-1643370848
-(package! forge :pin "ce212f8f95838889c51d0327eb8c3979bec6665c")
 
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
