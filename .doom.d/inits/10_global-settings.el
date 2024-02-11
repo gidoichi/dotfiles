@@ -138,8 +138,13 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   )
 
 (use-package! multi-vterm
-  :config
-  (map! :g "C-x m" 'multi-vterm))
+  :init
+  (map! :g "C-x m" 'multi-vterm)
+  :hook
+  ;; multi-vterm "requires" vterm and vterm tries to compile vterm-module when loading.
+  ;; To avoid compile at emacs startup, a hook is needed to defer loading package until use.
+  (multi-vterm-mode . multi-vterm)
+  )
 
 (use-package! nhexl-mode
   :hook
