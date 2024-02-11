@@ -9,7 +9,6 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 (package! helm-ghq)
-(package! helm-git-grep)
 (package! helm-ls-git)
 (package! init-loader)
 (package! multi-term)
@@ -30,6 +29,10 @@
   :recipe (:host github :repo "hamano/locale-eaw"))
 (package! emacs-pager
   :recipe (:host github :repo "mbriggs/emacs-pager"))
+(package! helm-git-grep
+  ;; use unofficial forked repository
+  :recipe (:host github :repo "PythonNut/helm-git-grep")
+  :pin "2af218934b6e98b37a1501613717c18b0c1f0d6c")
 
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
