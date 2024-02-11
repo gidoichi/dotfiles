@@ -8,6 +8,7 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
+(package! ghq)
 (package! helm-ghq)
 (package! helm-ls-git)
 (package! init-loader)

@@ -77,6 +77,10 @@
       :modes (text-mode markdown-mode gfm-mode))
     ))
 
+(use-package! ghq
+  :config
+  (defalias 'ghq-get (symbol-function 'ghq)))
+
 (use-package! helm
   :config
   (map! :g
