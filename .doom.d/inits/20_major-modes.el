@@ -60,6 +60,7 @@
       (browse-url url)
       (message "opening repo %s" url)))
   (map! :mode magit-mode "C-o" 'magit-open-repo)
+  (add-to-list 'helm-boring-buffer-regexp-list "\\`\\magit-[a-z0-9-]+: ")
   )
 
 (use-package! markdown-mode
