@@ -305,8 +305,25 @@ fi
 
 export KUBECTL_EXTERNAL_DIFF='diff --color --new-file --unified'
 if type kubectl >/dev/null 2>&1; then
-    alias k='kubectl'
+    alias k=kubectl
 fi
+kubectl() {
+    if type kubecolor >/dev/null 2>&1; then
+        kubecolor "$@"
+        return
+    fi
+
+    if type kubectl-colorize_applied >/dev/null 2>&1; then
+        subcmd="$1"
+        case "$subcmd" in
+            apply|create)
+                command kubectl "$@" | kubectl colorize-applied
+                return
+        esac
+    fi
+
+    command kubectl "$@"
+}
 
 _file=''
 if type brew >/dev/null 2>&1; then
