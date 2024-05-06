@@ -1,6 +1,6 @@
 # dotfiles
 
-### .doom.d == 8ee0872db57ffd786033b9db860c91939c15506a
+### .doom.d
 - https://github.com/doomemacs/doomemacs
 
 ### .mozc
