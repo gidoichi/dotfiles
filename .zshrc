@@ -19,6 +19,6 @@ CURRENT_SHELL=zsh
 . "${HOME}/.shell/shrc"
 
 # completions
-if type kubectl >/dev/null; then
+if type kubectl >/dev/null 2>&1; then
     source <(kubectl completion zsh)
 fi
