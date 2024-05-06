@@ -46,14 +46,17 @@
   )
 
 (use-package! copilot
-  :hook (prog-mode . copilot-mode)
+  :hook (prog-mode . copilot-mode-hooks)
   :bind (:map copilot-completion-map
               ("<tab>" . 'copilot-accept-completion)
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word))
   :config
-  (setq copilot-indent-offset-warning-disable t))
+  (setq copilot-indent-offset-warning-disable t)
+  (defun nhexl-mode-hooks ()
+    (when (file-exists-p copilot-install-dir)
+      (copilot-mode))))
 
 (use-package! eaw
   :config
