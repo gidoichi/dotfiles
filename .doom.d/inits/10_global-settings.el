@@ -54,7 +54,7 @@
               ("C-<tab>" . 'copilot-accept-completion-by-word))
   :config
   (setq copilot-indent-offset-warning-disable t)
-  (defun nhexl-mode-hooks ()
+  (defun copilot-mode-hooks ()
     (when (file-exists-p copilot-install-dir)
       (copilot-mode))))
 
