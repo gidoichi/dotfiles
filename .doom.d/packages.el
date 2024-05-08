@@ -44,7 +44,7 @@
 (package! yaml-path
   :recipe (:host github :repo "gidoichi/yaml-path" :files ("emacs/yaml-path.el")))
 (package! copilot
-  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
 
 ;; If you'd like to disable a package included with Doom, you can do so here
 ;; with the `:disable' property:
