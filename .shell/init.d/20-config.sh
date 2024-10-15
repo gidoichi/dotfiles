@@ -304,12 +304,19 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
 fi
 
 if type kubectl >/dev/null 2>&1; then
-    export KUBECTL_EXTERNAL_DIFF='diff --color --new-file --unified'
+    if type colordiff >/dev/null 2>&1; then
+        export KUBECTL_EXTERNAL_DIFF='colordiff --new-file --unified'
+    else
+        export KUBECTL_EXTERNAL_DIFF='diff --color --new-file --unified'
+    fi
     alias k=kubectl
     kubectl() {
         if type kubecolor >/dev/null 2>&1; then
-            kubecolor "$@"
-            return
+            subcmd="$1"
+            case "$subcmd" in
+                diff) ;;
+                *)    kubecolor "$@"; return
+            esac
         fi
 
         if type kubectl-colorize_applied >/dev/null 2>&1; then
