@@ -180,6 +180,11 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
 
 (use-package! projectile
   :config
+  ;; disable doom setting to exclude git submodules
+  ;; https://github.com/doomemacs/doomemacs/blob/8b9168de6e6a9cabf13d1c92558e2ef71aa37a72/lisp/doom-projects.el#L164-L177
+  (advice-remove #'projectile-get-ext-command #'doom--only-use-generic-command-a)
+  (setq projectile-git-use-fd nil)
+
   (when (and (on-mac) window-system)
     (define-key projectile-mode-map [menu-bar projectile] nil)))
 
