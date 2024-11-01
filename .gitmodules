@@ -4,3 +4,6 @@
 [submodule ".shell/custom.d/shrc-Dimension-8300"]
 	path = .shell/custom.d/shrc-Dimension-8300
 	url = git@github.com:gidoichi/shrc-Dimension-8300.git
+[submodule ".emacs.d"]
+	path = .emacs.d
+	url = https://github.com/doomemacs/doomemacs.git
