@@ -22,5 +22,5 @@
 ### .textlinerc
 - https://github.com/textlint/textlint
 
-### .zpreztorc, .zshrc
+### .zprezto, .zpreztorc, .zshrc
 - https://github.com/sorin-ionescu/prezto
