@@ -1,0 +1,41 @@
+--- .emacs.d/templates/packages.example.el	2024-11-02 01:40:25.287987118 +0000
++++ .doom.d/packages.el	2024-11-02 01:40:22.887980851 +0000
+@@ -48,3 +48,38 @@
+ ;; (unpin! pinned-package another-pinned-package)
+ ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
+ ;; (unpin! t)
++
++
++(package! centaur-tabs
++  ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
++  :pin "d6009c295a4363930247ae9a4d1125aea4d3fd74"
++  :recipe (:build (:not compile)))
++(package! copilot
++  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
++(package! eaw
++  :recipe (:host github :repo "hamano/locale-eaw" :files ("dist/*.el")))
++(package! emacs-pager
++  :recipe (:host github :repo "mbriggs/emacs-pager"))
++(package! ghq)
++(package! helm-ghq)
++(package! helm-git-grep
++  ;; use unofficial forked repository
++  :recipe (:host github :repo "PythonNut/helm-git-grep")
++  :pin "2af218934b6e98b37a1501613717c18b0c1f0d6c")
++(package! helm-ls-git)
++(package! init-loader)
++(package! multi-term)
++(package! multi-vterm)
++(package! nhexl-mode)
++(package! seq) ;; > Emergency (magit): Magit requires 'seq' >= 2.24,
++(package! ssh-agency
++  :ignore (not (eq system-type 'gnu/linux)))
++(package! tty-format) ;; from user42
++(package! undo-tree)
++(package! wgrep)
++(package! yaml-path
++  :recipe (:host github :repo "gidoichi/yaml-path" :files ("emacs/yaml-path.el")))
++
++(load
++ (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir)
++ 'noerror)
