@@ -58,10 +58,8 @@
     (when (file-exists-p copilot-install-dir)
       (copilot-mode))))
 
-(use-package! eaw
-  :config
-  (unless window-system
-    (eaw-fullwidth)))
+(use-package! eaw-fullwidth
+  :if (not window-system))
 
 (use-package! flycheck
   :config

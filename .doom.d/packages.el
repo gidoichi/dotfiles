@@ -57,7 +57,7 @@
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
 (package! eaw
-  :recipe (:host github :repo "hamano/locale-eaw"))
+  :recipe (:host github :repo "hamano/locale-eaw" :files ("dist/*.el")))
 (package! emacs-pager
   :recipe (:host github :repo "mbriggs/emacs-pager"))
 (package! ghq)
