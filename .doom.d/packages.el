@@ -52,18 +52,20 @@
 
 (package! centaur-tabs
   ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
-  :pin "d6009c295a4363930247ae9a4d1125aea4d3fd74"
-  :recipe (:build (:not compile)))
+  :recipe (:build (:not compile))
+  :pin "d6009c295a4363930247ae9a4d1125aea4d3fd74")
 (package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
+  :recipe (:host github :repo "copilot-emacs/copilot.el"))
 (package! eaw
   :recipe (:host github :repo "hamano/locale-eaw" :files ("dist/*.el")))
+(package! edit-indirect)
 (package! emacs-pager
   :recipe (:host github :repo "mbriggs/emacs-pager"))
 (package! ghq)
 (package! helm-ghq)
 (package! helm-ls-git)
 (package! init-loader)
+(package! language-detection) ;; used in edit-indirect
 (package! multi-term)
 (package! multi-vterm)
 (package! nhexl-mode)

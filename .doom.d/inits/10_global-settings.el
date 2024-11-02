@@ -62,6 +62,29 @@
 (use-package! eaw-fullwidth
   :if (not window-system))
 
+(use-package! edit-indirect
+  :config
+
+  ;; This function is based on the forked version of edit-indirect.el:
+  ;; https://github.com/a13/edit-indirect/blob/0c3ce3d3a16ec669123a208a4966f5a3bd6f1ab7/edit-indirect.el#L231-L243
+  ;; However, the original does not include a mapping between language and major mode.
+  (defun edit-indirect-language-detection-guess-mode (parent-buffer beg end)
+    "Guess the major mode from the PARENT-BUFFER substring from BEG to END using `language-detection.el'."
+    (if (fboundp #'language-detection-string)
+        (let* ((indirect-substring (with-current-buffer parent-buffer
+                                   (buffer-substring-no-properties beg end)))
+               (mode (with-temp-buffer
+                       (insert indirect-substring)
+                       (language-detection-buffer-auto-detect-mode))))
+          (if (fboundp mode)
+              (funcall mode)
+            (message "Mode %s detected, but isn't available." mode)
+            (normal-mode)))
+      (message "`language-detection' package is not installed.")
+      (normal-mode)))
+
+  (setq edit-indirect-guess-mode-function #'edit-indirect-language-detection-guess-mode))
+
 (use-package! flycheck
   :config
   (if (not (zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "textlint") " "))))
@@ -143,6 +166,61 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   ;; want to just disable hide-mode-line-mode at vterm-mode
   ;; workaround https://github.com/doomemacs/doomemacs/issues/6209
   (advice-add #'hide-mode-line-mode :around #'ignore)
+  )
+
+(use-package! language-detection
+  :config
+  ;; This function is introduced in the README:
+  ;; https://github.com/andreasjansson/language-detection.el/blob/54a6ecf55304fba7d215ef38a4ec96daff2f35a4/README.md#L143-L191
+  (defun language-detection-buffer-auto-detect-mode ()
+    (let* ((map '((ada ada-mode)
+                  (awk awk-mode)
+                  (c c-mode)
+                  (cpp c++-mode)
+                  (clojure clojure-mode lisp-mode)
+                  (csharp csharp-mode java-mode)
+                  (css css-mode)
+                  (dart dart-mode)
+                  (delphi delphi-mode)
+                  (emacslisp emacs-lisp-mode)
+                  (erlang erlang-mode)
+                  (fortran fortran-mode)
+                  (fsharp fsharp-mode)
+                  (go go-mode)
+                  (groovy groovy-mode)
+                  (haskell haskell-mode)
+                  (html html-mode)
+                  (java java-mode)
+                  (javascript javascript-mode)
+                  (json json-mode javascript-mode)
+                  (latex latex-mode)
+                  (lisp lisp-mode)
+                  (lua lua-mode)
+                  (matlab matlab-mode octave-mode)
+                  (objc objc-mode c-mode)
+                  (perl perl-mode)
+                  (php php-mode)
+                  (prolog prolog-mode)
+                  (python python-mode)
+                  (r r-mode)
+                  (ruby ruby-mode)
+                  (rust rust-mode)
+                  (scala scala-mode)
+                  (shell shell-script-mode)
+                  (smalltalk smalltalk-mode)
+                  (sql sql-mode)
+                  (swift swift-mode)
+                  (visualbasic visual-basic-mode)
+                  (xml sgml-mode)))
+           (language (language-detection-string
+                      (buffer-substring-no-properties (point-min) (point-max))))
+           (modes (cdr (assoc language map)))
+           (mode (cl-loop for mode in modes
+                          when (fboundp mode)
+                          return mode)))
+      (message (format "%s" language))
+      (when (fboundp mode)
+        mode)))
   )
 
 (use-package! multi-vterm
