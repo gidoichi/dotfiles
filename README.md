@@ -1,6 +1,6 @@
 # dotfiles
 
-### .doom.d
+### .emacs.d, .doom.d
 - https://github.com/doomemacs/doomemacs
 
 ### .mozc
