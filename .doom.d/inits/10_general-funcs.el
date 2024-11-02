@@ -56,4 +56,4 @@ Returns non-nil if on WSL, others not."
   "Whether emacs running on Mac or not.
 
 Returns non-nil if on Mac, others not."
-  (equal "Darwin" (string-trim-right (shell-command-to-string (shell-quote-argument "uname")))))
+  (featurep :system 'macos))
