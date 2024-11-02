@@ -2,38 +2,8 @@
 
 ;; clipboard functions
 
-(defun save-clipboard-on-region (start end)
-  (interactive "r")
-  (cond
-   ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "clip.exe") " ")))
-    (shell-command-on-region start end (shell-quote-argument "clip.exe") nil nil))
-   ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "pbcopy") " ")))
-    (shell-command-on-region start end (shell-quote-argument "pbcopy") nil nil))
-   ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "xsel") " ")))
-    (shell-command-on-region start end (mapconcat #'shell-quote-argument '("xsel" "--clipboard" "--input") " ") nil nil))
-   (t (error "Cannot use clipboard"))))
-
 (defun get-clipboard ()
-  (interactive)
-  (cond
-   ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "pbpaste") " ")))
-    (shell-command-to-string (shell-quote-argument "pbpaste")))
-   ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "powershell.exe") " ")))
-    (shell-command-to-string (mapconcat #'shell-quote-argument '("powershell.exe" "-command" "Get-Clipboard") " ")))
-   ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "xclip") " ")))
-    (shell-command-to-string (mapconcat #'shell-quote-argument '("xclip" "-out" "-selection" "clipboard") " ")))
-   ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "xsel") " ")))
-    (shell-command-to-string (mapconcat #'shell-quote-argument '("xsel" "--clipboard" "--output") " ")))
-   (t (error "Cannot use clipboard"))))
-
-(defun clipboard-kill-ring-save (start end)
-  (interactive "r")
-  (save-clipboard-on-region start end))
-
-(defun clipboard-kill-region (start end)
-  (interactive "r")
-  (save-clipboard-on-region start end)
-  (kill-region start end))
+  (xclip-get-selection 'clipboard))
 
 
 ;; buffer formatting functions
