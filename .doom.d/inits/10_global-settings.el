@@ -39,6 +39,11 @@
   (unless window-system
     (setq centaur-tabs-set-close-button nil)
     (setq centaur-tabs-show-new-tab-button nil))
+  (advice-add #'centaur-tabs-buffer-groups
+              :before-until (lambda (&rest _)
+                              "Assign user defined group."
+                              (if (derived-mode-p 'vterm-mode)
+                                  (list "Vterm"))))
   )
 
 (use-package! copilot
