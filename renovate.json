@@ -1,0 +1,10 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "branchConcurrentLimit": 0,
+  "labels": ["dependencies"],
+  "schedule": "* * * * 6",
+  "git-submodules": {
+    "enabled": true
+  }
+}
