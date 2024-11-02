@@ -1,5 +1,5 @@
---- .emacs.d/templates/config.example.el	2024-11-02 01:40:25.287987118 +0000
-+++ .doom.d/config.el	2024-11-02 01:40:22.887980851 +0000
+--- .emacs.d/templates/config.example.el
++++ .doom.d/config.el
 @@ -6,8 +6,8 @@
  
  ;; Some functionality uses this to identify you, e.g. GPG configuration, email

@@ -1,5 +1,5 @@
---- .emacs.d/templates/init.example.el	2024-11-02 01:40:25.287987118 +0000
-+++ .doom.d/init.el	2024-11-02 01:40:22.887980851 +0000
+--- .emacs.d/templates/init.example.el
++++ .doom.d/init.el
 @@ -21,12 +21,12 @@
         ;;layout            ; auie,ctsrnm is the superior home row
  
@@ -62,7 +62,7 @@
         magit             ; a git porcelain for Emacs
         ;;make              ; run make tasks from Emacs
         ;;pass              ; password manager for nerds
-@@ -104,7 +104,7 @@
+@@ -104,12 +104,12 @@
         ;;prodigy           ; FIXME managing external services & code builders
         ;;terraform         ; infrastructure as code
         ;;tmux              ; an API for interacting with tmux
@@ -71,6 +71,12 @@
         ;;upload            ; map local to remote projects via ssh/ftp
  
         :os
+        (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
+-       ;;tty               ; improve the terminal Emacs experience
++       tty               ; improve the terminal Emacs experience
+ 
+        :lang
+        ;;agda              ; types of types of types of types...
 @@ -134,12 +134,12 @@
         ;;fsharp            ; ML stands for Microsoft's Language
         ;;fstar             ; (dependent) types and (monadic) effects and Z3
