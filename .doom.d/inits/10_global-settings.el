@@ -129,9 +129,9 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
                             :action helm-ghq--action))))
   )
 
-(use-package! helm-git-grep
+(use-package! helm-grep
   :config
-  (fset 'git-grep 'helm-git-grep))
+  (fset 'git-grep 'helm-grep-do-git-grep))
 
 (use-package! helm-ls-git
   :config

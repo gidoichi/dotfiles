@@ -62,10 +62,6 @@
   :recipe (:host github :repo "mbriggs/emacs-pager"))
 (package! ghq)
 (package! helm-ghq)
-(package! helm-git-grep
-  ;; use unofficial forked repository
-  :recipe (:host github :repo "PythonNut/helm-git-grep")
-  :pin "2af218934b6e98b37a1501613717c18b0c1f0d6c")
 (package! helm-ls-git)
 (package! init-loader)
 (package! multi-term)
@@ -76,7 +72,8 @@
   :ignore (not (eq system-type 'gnu/linux)))
 (package! tty-format) ;; from user42
 (package! undo-tree)
-(package! wgrep)
+(package! wgrep
+  :recipe (:files ("*.el")))
 (package! yaml-path
   :recipe (:host github :repo "gidoichi/yaml-path" :files ("emacs/yaml-path.el")))
 
