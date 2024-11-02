@@ -36,10 +36,6 @@
   (map! :g
         "<C-left>" 'centaur-tabs-backward-tab
         "<C-right>" 'centaur-tabs-forward-tab)
-
-  ;; workaround https://github.com/doomemacs/doomemacs/issues/6280
-  (centaur-tabs-group-by-projectile-project)
-
   (unless window-system
     (setq centaur-tabs-set-close-button nil)
     (setq centaur-tabs-show-new-tab-button nil))
