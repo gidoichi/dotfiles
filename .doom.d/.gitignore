@@ -2,6 +2,9 @@
 !/inits
 !/.gitignore
 !/config.el
+!/config.el.diff
 !/etc
 !/init.el
+!/init.el.diff
 !/packages.el
+!/packages.el.diff
