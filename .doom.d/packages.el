@@ -54,6 +54,8 @@
   ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
   :recipe (:build (:not compile))
   :pin "d6009c295a4363930247ae9a4d1125aea4d3fd74")
+(package! centaur-tabs
+  :disable (not (doom-module-active-p :ui 'tabs)))
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el"))
 (package! eaw
@@ -76,6 +78,8 @@
 (package! undo-tree)
 (package! wgrep
   :recipe (:files ("*.el")))
+(package! xclip
+  :disable (not (doom-module-active-p :os 'tty)))
 (package! yaml-path
   :recipe (:host github :repo "gidoichi/yaml-path" :files ("emacs/yaml-path.el")))
 

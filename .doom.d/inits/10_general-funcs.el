@@ -3,7 +3,13 @@
 ;; clipboard functions
 
 (defun get-clipboard ()
-  (xclip-get-selection 'clipboard))
+  (cond
+   ((functionp 'xclip-get-selection)
+    (xclip-get-selection 'clipboard))
+   ((functionp 'clipboard-yank)
+    (with-temp-buffer
+      (clipboard-yank)
+      (buffer-string)))))
 
 
 ;; buffer formatting functions
