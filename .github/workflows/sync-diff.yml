@@ -15,10 +15,14 @@ jobs:
             command diff -uN --label "$original" --label "$modified" "$original" "$modified" || true
           }
 
+          set -eux
+
           git submodule update --init .emacs.d
           diff .emacs.d/templates/init.example.el     .doom.d/init.el     > .doom.d/init.el.diff
           diff .emacs.d/templates/packages.example.el .doom.d/packages.el > .doom.d/packages.el.diff
           diff .emacs.d/templates/config.example.el   .doom.d/config.el   > .doom.d/config.el.diff
+
+          git submodule update --init .zprezto
           diff .zprezto/runcoms/zpreztorc .zpreztorc > .zpreztorc.diff
       - uses: peter-evans/create-pull-request@main
         with:
