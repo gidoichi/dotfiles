@@ -354,6 +354,7 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   ;; HACK: https://github.com/emacs-straight/xclip/blob/9ab22517f3f2044e1c8c19be263da9803fbca26a/xclip.el#L192-L196
   ;; A newline is inserted at the end of the pipeline output.
   ;; Retrieve the raw clipboard content without additional newline.
+  ;; FIXME: This workaround is too slow for processing.
   (advice-add
    #'xclip-get-selection
    :before-until (lambda (type)
@@ -363,7 +364,7 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
                        (when (memq type '(clipboard CLIPBOARD))
                          (let ((coding-system-for-read 'dos)) ;Convert CR->LF.
                            (call-process "powershell.exe" nil `(,standard-output nil) nil
-                                         "-command" "$a" "=" "Get-Clipboard" ";" "Write-Host" "$a" "-NoNewline")))))))
+                                         "-command" "$a = Get-Clipboard -Raw ; Write-Host $a -NoNewline")))))))
   )
 
 (use-package! yasnippet
