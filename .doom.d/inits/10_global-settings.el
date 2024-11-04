@@ -155,7 +155,11 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
 
 (use-package! helm-grep
   :config
-  (fset 'git-grep 'helm-grep-do-git-grep))
+  (defun git-grep ()
+    "Search all files in the repository."
+    (interactive)
+    (helm-grep-do-git-grep 'all))
+  )
 
 (use-package! helm-ls-git
   :config
