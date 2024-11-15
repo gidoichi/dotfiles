@@ -20,6 +20,9 @@ if type ghq >/dev/null; then
     GHQ_ROOT="$(ghq root)"
 fi
 
+_target='/opt/homebrew/bin'
+if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
+
 _target="${HOME}/.npm/bin"
 if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
 
