@@ -126,12 +126,25 @@ fi
 # fzf
 case "${CURRENT_SHELL}" in
     bash)
-        # https://github.com/junegunn/fzf/releases/tag/0.48.0
-        eval "$(fzf --bash)"
+        if fzf --bash >/dev/null 2>&1; then
+            # introduced in https://github.com/junegunn/fzf/releases/tag/0.48.0
+            eval "$(fzf --bash)"
+        elif [ -d /usr/share/doc/fzf/examples ]; then
+            . /usr/share/doc/fzf/examples/key-bindings.bash
+        elif [ -f "${HOME}/.fzf.bash" ]; then
+            . "${HOME}/.fzf.bash"
+        fi
         ;;
     zsh)
-        # https://github.com/junegunn/fzf/releases/tag/0.48.0
-        eval "$(fzf --zsh)"
+        if fzf --zsh >/dev/null 2>&1; then
+            # introduced in https://github.com/junegunn/fzf/releases/tag/0.48.0
+            eval "$(fzf --zsh)"
+        elif [ -d /usr/share/doc/fzf/examples ]; then
+            . /usr/share/doc/fzf/examples/key-bindings.zsh
+            . /usr/share/doc/fzf/examples/completion.zsh
+        elif [ -f "${HOME}/.fzf.zsh" ]; then
+            . "${HOME}/.fzf.zsh"
+        fi
         ;;
 esac
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --exit-0'
