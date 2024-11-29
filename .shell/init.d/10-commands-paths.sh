@@ -22,6 +22,9 @@ fi
 
 _target='/opt/homebrew/bin'
 if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
+if type brew >/dev/null 2>&1; then
+    eval "$(brew shellenv)"
+fi
 
 _target="${HOME}/.npm/bin"
 if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
@@ -34,6 +37,7 @@ if [ -d "${_target}" ]; then
     export PATH="${PATH}:${_target}"
 fi
 if type brew >/dev/null 2>&1; then
+    ASDF_FORCE_PREPEND=yes
     _target="$(brew --prefix asdf)/libexec/asdf.sh"
     if [ "${?}" -eq 0 ] && [ -f "${_target}" ]; then
         . "${_target}"

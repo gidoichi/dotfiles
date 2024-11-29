@@ -340,7 +340,6 @@ fi
 
 _file=''
 if type brew >/dev/null 2>&1; then
-    eval "$(brew shellenv)"
     case "${CURRENT_SHELL}" in
         bash|zsh)
             _file="$(brew --prefix kube-ps1)"
