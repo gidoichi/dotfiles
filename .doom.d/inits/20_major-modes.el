@@ -277,14 +277,3 @@
   :config
   (setq wgrep-enable-key (kbd "e")
         wgrep-auto-save-buffer t))
-
-(use-package! yaml-mode
-  :hook
-  (yaml-mode . yaml-path-which-func)
-  :config
-  (if (not (zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "yaml-path") " "))))
-      (display-warning (if load-file-name (intern load-file-name)
-                         'my-init)
-                       "cannot find 'yaml-path' command to use 'yaml-path-which-func'"
-                       :warning "*Messages*")
-    (add-to-list 'which-func-modes 'yaml-mode)))

@@ -227,6 +227,11 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
         mode)))
   )
 
+(use-package! lsp-headerline
+  :config
+  (setq lsp-headerline-breadcrumb-enable t)
+  (setq lsp-headerline-breadcrumb-segments '(symbols)))
+
 (use-package! multi-vterm
   :init
   (map! :g "C-x m" 'multi-vterm)
