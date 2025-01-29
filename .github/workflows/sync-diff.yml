@@ -18,9 +18,9 @@ jobs:
           set -eux
 
           git submodule update --init .emacs.d
-          diff .emacs.d/templates/init.example.el     .doom.d/init.el     > .doom.d/init.el.diff
-          diff .emacs.d/templates/packages.example.el .doom.d/packages.el > .doom.d/packages.el.diff
-          diff .emacs.d/templates/config.example.el   .doom.d/config.el   > .doom.d/config.el.diff
+          diff .emacs.d/static/init.example.el     .doom.d/init.el     > .doom.d/init.el.diff
+          diff .emacs.d/static/packages.example.el .doom.d/packages.el > .doom.d/packages.el.diff
+          diff .emacs.d/static/config.example.el   .doom.d/config.el   > .doom.d/config.el.diff
 
           git submodule update --init .zprezto
           diff .zprezto/runcoms/zpreztorc .zpreztorc > .zpreztorc.diff

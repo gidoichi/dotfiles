@@ -1,4 +1,4 @@
---- .emacs.d/templates/config.example.el
+--- .emacs.d/static/config.example.el
 +++ .doom.d/config.el
 @@ -6,8 +6,8 @@
  
