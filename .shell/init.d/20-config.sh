@@ -99,7 +99,7 @@ if [ -n "${INSIDE_EMACS}" ]; then
         bash)
             _file=$(emacsclient -e '(expand-file-name
                                       "straight/repos/emacs-libvterm/etc/emacs-vterm-bash.sh"
-                                      straight-base-dir)' |
+                                      doom-local-dir)' |
                         sed -e 's/^"//' -e 's/"$//')
             if [ -e "${_file}" ]; then
                 . "${_file}"
@@ -108,7 +108,7 @@ if [ -n "${INSIDE_EMACS}" ]; then
         zsh)
             _file=$(emacsclient -e '(expand-file-name
                                       "straight/repos/emacs-libvterm/etc/emacs-vterm-zsh.sh"
-                                      straight-base-dir)' |
+                                      doom-local-dir)' |
                         sed -e 's/^"//' -e 's/"$//')
             if [ -e "${_file}" ]; then
                 # workaround: using add-zsh-hook prevents latter registration
