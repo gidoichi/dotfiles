@@ -24,6 +24,7 @@
 (use-package! go-mode
   :hook
   (go-mode . go-mode-hooks)
+  (go-mode . lsp-mode)
   :config
   (defun go-mode-hooks ()
     (add-hook! before-save
@@ -277,3 +278,7 @@
   :config
   (setq wgrep-enable-key (kbd "e")
         wgrep-auto-save-buffer t))
+
+(use-package! yaml-mode
+  :hook
+  (yaml-mode . lsp-mode))
