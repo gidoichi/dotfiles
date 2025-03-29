@@ -1,6 +1,6 @@
 --- .emacs.d/static/packages.example.el
 +++ .doom.d/packages.el
-@@ -47,3 +47,61 @@
+@@ -47,3 +47,56 @@
  ;; (unpin! pinned-package another-pinned-package)
  ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
  ;; (unpin! t)
@@ -9,16 +9,16 @@
 +(package! centaur-tabs
 +  ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
 +  :recipe (:build (:not compile))
-+  :pin "d6009c295a4363930247ae9a4d1125aea4d3fd74")
++  :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0")
 +(package! centaur-tabs
 +  :disable (not (doom-module-active-p :ui 'tabs))
-+  :pin "63eb35cf42062ed19e9fc8cc5e971038c884f50f")
++  :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0")
 +(package! copilot
 +  :recipe (:host github :repo "copilot-emacs/copilot.el")
-+  :pin "867a3debf907cbd7c5b0eb8837354a1efc7c2db9")
++  :pin "7d105d708a23d16cdfd5240500be8bb02f95a46e")
 +(package! eaw
 +  :recipe (:host github :repo "hamano/locale-eaw" :files ("dist/*.el"))
-+  :pin "6f8d5ddb29da3bde73e3d617ece5ba9fd16c335c")
++  :pin "ba1256a002334024cd733938bff81e6abfc2b104")
 +(package! edit-indirect
 +  :pin "82a28d8a85277cfe453af464603ea330eae41c05")
 +(package! emacs-pager
@@ -29,9 +29,9 @@
 +(package! helm-ghq
 +  :pin "7b47ac91e42762f2ecbbceeaadc05b86c9fe5f14")
 +(package! helm-ls-git
-+  :pin "d6d061704f375f809a2ee7644149a28e8770b35f")
++  :pin "640cc6ccd8720462ac949d75de9bc99883830d92")
 +(package! init-loader
-+  :pin "c4842b1f6695ce77daf94fd085456aeb37ed37e1")
++  :pin "1837769c872b6453c7c02490f50a6eb322156c2c")
 +(package! language-detection ;; used in edit-indirect
 +  :pin "54a6ecf55304fba7d215ef38a4ec96daff2f35a4")
 +(package! multi-term
@@ -40,8 +40,6 @@
 +  :pin "36746d85870dac5aaee6b9af4aa1c3c0ef21a905")
 +(package! nhexl-mode
 +  :pin "0b27339bdb3e5255353de457ad99724b0d83dcaf")
-+(package! seq ;; > Emergency (magit): Magit requires 'seq' >= 2.24,
-+  :pin "da86da9bf111f68fb81efd466d76d53af5aebc00")
 +(package! ssh-agency
 +  :ignore (not (eq system-type 'gnu/linux))
 +  :pin "a5377e4317365a3d5442e06d5c255d4a7c7618db")
@@ -55,9 +53,6 @@
 +(package! xclip
 +  :disable (not (doom-module-active-p :os 'tty))
 +  :pin "9ab22517f3f2044e1c8c19be263da9803fbca26a")
-+(package! yaml-path
-+  :recipe (:host github :repo "gidoichi/yaml-path" :files ("emacs/yaml-path.el"))
-+  :pin "43bbde773efd2f66faee238b68a0e00a67e001a1")
 +
 +(load
 + (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir)
