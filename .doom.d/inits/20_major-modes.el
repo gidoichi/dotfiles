@@ -157,14 +157,14 @@
   :hook
   (before-save . py-isort-before-save))
 
-;; c.f. following other implementations
+;; cf. following other implementations
 ;; Prism: https://github.com/PrismJS/prism/blob/master/components/prism-shell-session.js
 ;; Rouge: https://github.com/rouge-ruby/rouge/blob/master/lib/rouge/lexers/console.rb
 (define-generic-mode shell-session-mode
   nil nil
   '(("\\(^.*?\\)\\(\\$\\|#\\|>\\)\\(.*\\)"
-     (1 font-lock-comment-face t)
-     (2 font-lock-comment-face t)
+     (1 font-lock-doc-face t)
+     (2 font-lock-keyword-face t)
      (3 font-lock-string-face t))
     )
   '("\\.sh-session\\'" "\\.console\\'")
