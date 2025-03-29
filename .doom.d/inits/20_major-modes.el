@@ -69,15 +69,14 @@
   (markdown-mode . markdown-mode-hooks)
   :mode
   ("\\.Rmd\\'" . markdown-mode)
-  :init
-  (when window-system
-    (setq markdown-header-scaling t))
+  :custom
+  (markdown-header-scaling t)
+  (markdown-hide-urls t)
   :config
   (setq markdown-fontify-code-blocks-natively t)
   (unless window-system
     (add-to-ordered-list 'markdown-url-compose-char 8943 1))
   (defun markdown-mode-hooks ()
-    (setq markdown-hide-urls t)
     (when (flycheck-registered-checker-p 'textlint)
       (setq flycheck-checker 'textlint))
     ))
