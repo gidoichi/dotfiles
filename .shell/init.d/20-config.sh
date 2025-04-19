@@ -74,7 +74,7 @@ fi
 
 
 if type powershell.exe dart >/dev/null 2>&1 &&
-   file "$(which dart)" | grep CRLF >/dev/null; then
+   file "$(which dart)" | grep -q CRLF; then
     alias dart='powershell.exe -Command dart'
 fi
 
@@ -119,7 +119,7 @@ if [ -n "${INSIDE_EMACS}" ]; then
 fi
 
 if type powershell.exe flutter >/dev/null 2>&1 &&
-   file "$(which flutter)" | grep CRLF >/dev/null; then
+   file "$(which flutter)" | grep -q CRLF; then
     alias flutter='powershell.exe -Command flutter'
 fi
 
@@ -289,7 +289,7 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
             while ! cred=$(printf 'url=%s\nusername=%s\n' "${1}" "$(hostname)" |
                                "${GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get 2> "${Tmp}/stderr"); do
                 i=$((i+1))
-                if ! grep 'Failed to connect to ' "${Tmp}/stderr" >/dev/null; then
+                if ! grep -q 'Failed to connect to ' "${Tmp}/stderr"; then
                     cat "${Tmp}/stderr" 1>&2
                     return 1
                 fi
