@@ -28,6 +28,11 @@ if type basher >/dev/null 2>&1; then
     esac
 fi
 
+_file='/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'
+if type "$file" >/dev/null 2>&1; then
+    export BROWSER="$file"
+fi
+
 if type cf >/dev/null 2>&1; then
     cf() {
         # $ cf (help|h|--help|-h)
