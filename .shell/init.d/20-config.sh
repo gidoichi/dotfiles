@@ -294,7 +294,7 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
             while ! cred=$(printf 'url=%s\nusername=%s\n' "${1}" "$(hostname)" |
                                "${GIT_CREDENTIAL_KEEPASSXC}" --unlock 0 get 2> "${Tmp}/stderr"); do
                 i=$((i+1))
-                if ! grep -q 'Failed to connect to ' "${Tmp}/stderr"; then
+                if ! grep -q -e 'Failed to connect to ' -e 'Failed to locate socket' "${Tmp}/stderr"; then
                     cat "${Tmp}/stderr" 1>&2
                     return 1
                 fi
