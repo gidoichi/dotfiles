@@ -54,10 +54,11 @@
  
         :checkers
         syntax              ; tasing you for every semicolon you forget
-@@ -97,14 +96,15 @@
+@@ -97,15 +96,15 @@
         ;;ein               ; tame Jupyter notebooks with emacs
         (eval +overlay)     ; run code, run (also, repls)
         lookup              ; navigate your code and its documentation
+-       ;;llm               ; when I said you needed friends, I didn't mean...
 -       ;;lsp               ; M-x vscode
 +       lsp               ; M-x vscode
         magit             ; a git porcelain for Emacs
@@ -72,7 +73,7 @@
         ;;upload            ; map local to remote projects via ssh/ftp
  
         :os
-@@ -134,12 +134,12 @@
+@@ -135,13 +134,12 @@
         ;;fsharp            ; ML stands for Microsoft's Language
         ;;fstar             ; (dependent) types and (monadic) effects and Z3
         ;;gdscript          ; the language you waited for
@@ -83,11 +84,12 @@
         ;;hy                ; readability of scheme w/ speed of python
         ;;idris             ; a language you can depend on
 -       ;;json              ; At least it ain't XML
+-       ;;janet             ; Fun fact: Janet is me!
 +       json              ; At least it ain't XML
         ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
         ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
         ;;julia             ; a better, faster MATLAB
-@@ -173,7 +173,7 @@
+@@ -175,7 +173,7 @@
         ;;swift             ; who asked for emoji variables?
         ;;terra             ; Earth and Moon in alignment for performance.
         ;;web               ; the tubes
@@ -96,7 +98,7 @@
         ;;zig               ; C, but simpler
  
         :email
-@@ -191,3 +191,6 @@
+@@ -193,3 +191,6 @@
         :config
         ;;literate
         (default +bindings +smartparens))
