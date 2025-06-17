@@ -24,7 +24,7 @@
 (use-package! go-mode
   :hook
   (go-mode . go-mode-hooks)
-  (go-mode . lsp-mode)
+  (go-mode . lsp-deferred)
   :config
   (defun go-mode-hooks ()
     (add-hook! before-save
@@ -35,7 +35,7 @@
 
 (use-package! json
   :hook
-  (json-mode . lsp-mode))
+  (json-mode . lsp-deferred))
 
 (use-package! magit
   :config
@@ -284,4 +284,4 @@
 
 (use-package! yaml-mode
   :hook
-  (yaml-mode . lsp-mode))
+  (yaml-mode . lsp-deferred))
