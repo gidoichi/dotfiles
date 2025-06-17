@@ -77,12 +77,16 @@
   :pin "1837769c872b6453c7c02490f50a6eb322156c2c")
 (package! language-detection ;; used in edit-indirect
   :pin "54a6ecf55304fba7d215ef38a4ec96daff2f35a4")
+(package! lsp-pyright
+  :pin "73377169beff8fe22cc6d52d65099db88bf49679")
 (package! multi-term
   :pin "017c77c550115936860e2ea71b88e585371475d5")
 (package! multi-vterm
   :pin "36746d85870dac5aaee6b9af4aa1c3c0ef21a905")
 (package! nhexl-mode
   :pin "0b27339bdb3e5255353de457ad99724b0d83dcaf")
+(package! py-isort
+  :pin "e67306f459c47c53a65604e4eea88a3914596560")
 (package! ssh-agency
   :ignore (not (eq system-type 'gnu/linux))
   :pin "a5377e4317365a3d5442e06d5c255d4a7c7618db")

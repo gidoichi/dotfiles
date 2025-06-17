@@ -142,22 +142,18 @@
     )
   )
 
-;; python-mode
-(use-package! elpy
+(use-package! python
+  ;; :init pipx install jedi-language-server
   :hook
-  (python-mode . elpy-enable)
-  (python-mode . elpy-mode-hooks)
-  :config
-  (defun elpy-mode-hooks ()
-    (assq-delete-all 'elpy-mode minor-mode-map-alist))
+  (python-mode . eglot-ensure)
   )
 (use-package! lsp-pyright
-  ;; :init npm install pyright
+  ;; :init npm install -g pyright
   :hook
   (python-mode . lsp-deferred)
   )
 (use-package! py-isort
-  ;; :init pip install isort
+  ;; :init pipx install isort
   :hook
   (before-save . py-isort-before-save))
 
