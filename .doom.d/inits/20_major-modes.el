@@ -33,6 +33,10 @@
                'lsp-organize-imports
                )))
 
+(use-package! json
+  :hook
+  (json-mode . lsp-mode))
+
 (use-package! magit
   :config
   (unless (getenv "GIT_AUTHOR_NAME")
