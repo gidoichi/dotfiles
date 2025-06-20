@@ -27,6 +27,12 @@
   :config
   (advice-add #'browse-url-can-use-xdg-open
               :after-until #'on-wsl)
+  (setq browse-url-browser-function
+        (lambda (url &rest args)
+          (let ((browser-cmd (getenv "BROWSER")))
+            (if browser-cmd
+                (start-process (concat "open " url) nil browser-cmd url)
+              (browse-url-default-browser url args)))))
   )
 
 (use-package! centaur-tabs
