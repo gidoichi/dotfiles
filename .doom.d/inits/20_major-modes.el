@@ -171,6 +171,7 @@
   nil
   "shell-session-mode for hilighting console log")
 (define-derived-mode console-mode shell-session-mode "console")
+(define-derived-mode shellsession-mode shell-session-mode "shellsession")
 
 (use-package! term
   :hook
