@@ -430,6 +430,6 @@ fi
 export SSH_ASKPASS='keepassxc-ssh-askpass'
 export SSH_ASKPASS_REQUIRE='force'
 
-alias watch='watch '
+alias watch='watch --color '
 
 alias wgetp='wget -P ~/Downloads/'
