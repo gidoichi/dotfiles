@@ -78,7 +78,7 @@
   (markdown-hide-urls t)
   :config
   (setq markdown-fontify-code-blocks-natively t)
-  (unless window-system
+  (unless (display-graphic-p)
     (add-to-ordered-list 'markdown-url-compose-char 8943 1))
   (defun markdown-mode-hooks ()
     (when (flycheck-registered-checker-p 'textlint)

@@ -5,7 +5,7 @@
 (map! :g
         "S-<insert>" 'clipboard-yank)
 
-(when (and (on-mac) window-system)
+(when (and (on-mac) (display-graphic-p))
   (define-key global-map [menu-bar buffer] nil)
   (define-key global-map [menu-bar edit] nil)
   (define-key global-map [menu-bar help-menu] nil)
@@ -42,7 +42,7 @@
   (map! :g
         "<C-left>" 'centaur-tabs-backward-tab
         "<C-right>" 'centaur-tabs-forward-tab)
-  (unless window-system
+  (unless (display-graphic-p)
     (setq centaur-tabs-set-close-button nil)
     (setq centaur-tabs-show-new-tab-button nil))
   (advice-add #'centaur-tabs-buffer-groups
@@ -66,7 +66,7 @@
       (copilot-mode))))
 
 (use-package! eaw-fullwidth
-  :if (not window-system))
+  :if (not (display-graphic-p)))
 
 (use-package! edit-indirect
   :config
@@ -277,7 +277,7 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   (advice-remove #'projectile-get-ext-command #'doom--only-use-generic-command-a)
   (setq projectile-git-use-fd nil)
 
-  (when (and (on-mac) window-system)
+  (when (and (on-mac) (display-graphic-p))
     (define-key projectile-mode-map [menu-bar projectile] nil)))
 
 (use-package! server
@@ -304,7 +304,7 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
 (use-package! tab-bar
   :config
   (setq tab-bar-show 1)
-  (unless window-system
+  (unless (display-graphic-p)
     (setq tab-bar-close-button-show nil)
     (setq tab-bar-format (delq 'tab-bar-format-add-tab tab-bar-format)))
   )
@@ -364,5 +364,5 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
 
 (use-package! yasnippet
   :config
-  (when (and (on-mac) window-system)
+  (when (and (on-mac) (display-graphic-p))
     (define-key yas-minor-mode-map [menu-bar yasnippet] nil)))
