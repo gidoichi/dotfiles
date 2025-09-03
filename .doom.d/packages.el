@@ -94,6 +94,9 @@
   :pin "557d5137766f011f72a9324902ee23e650fa4c80")
 (package! undo-tree
   :pin "d8f72bbe7d3c3a2808986febd3bb1a46d4da7f51")
+(package! valign
+  :disable (not (display-graphic-p))
+  :pin "8b0002844cb6012ac4f8952e255c165e0e3be5b6")
 (package! wgrep
   :recipe (:files ("*.el"))
   :pin "49f09ab9b706d2312cab1199e1eeb1bcd3f27f6f")

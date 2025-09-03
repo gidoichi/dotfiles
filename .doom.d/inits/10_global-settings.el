@@ -349,6 +349,9 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   (add-to-list 'undo-tree-history-directory-alist
                `(".*" . ,(expand-file-name "undo-tree-history" doom-user-dir))))
 
+(use-package! valign
+  :hook (markdown-mode org-mode))
+
 (use-package! which-func
   :config
   (if (not (listp which-func-modes))
