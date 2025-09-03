@@ -350,6 +350,7 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
                `(".*" . ,(expand-file-name "undo-tree-history" doom-user-dir))))
 
 (use-package! valign
+  :if (display-graphic-p)
   :hook (markdown-mode org-mode))
 
 (use-package! which-func
