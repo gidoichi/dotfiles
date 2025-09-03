@@ -19,7 +19,7 @@
    ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "pbpaste") " ")))
     (shell-command-to-string (shell-quote-argument "pbpaste")))
    ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "powershell.exe") " ")))
-    (shell-command-to-string (mapconcat #'shell-quote-argument '("powershell.exe" "-command" "Get-Clipboard") " ")))
+    (shell-command-to-string (mapconcat #'shell-quote-argument '("powershell.exe" "-command" "(Get-Clipboard) -join \"`n\"") " ")))
    ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "xclip") " ")))
     (shell-command-to-string (mapconcat #'shell-quote-argument '("xclip" "-out" "-selection" "clipboard") " ")))
    ((zerop (call-process-shell-command (mapconcat #'shell-quote-argument '("type" "xsel") " ")))
