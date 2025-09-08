@@ -1,62 +1,42 @@
 --- .emacs.d/static/packages.example.el
 +++ .doom.d/packages.el
-@@ -47,3 +47,60 @@
+@@ -47,3 +47,40 @@
  ;; (unpin! pinned-package another-pinned-package)
  ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
  ;; (unpin! t)
 +
 +
-+(package! centaur-tabs
++(package! centaur-tabs :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0"
 +  ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
-+  :recipe (:build (:not compile))
-+  :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0")
-+(package! centaur-tabs
-+  :disable (not (doom-module-active-p :ui 'tabs))
-+  :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0")
-+(package! copilot
-+  :recipe (:host github :repo "copilot-emacs/copilot.el")
-+  :pin "7d105d708a23d16cdfd5240500be8bb02f95a46e")
-+(package! eaw
-+  :recipe (:host github :repo "hamano/locale-eaw" :files ("dist/*.el"))
-+  :pin "ba1256a002334024cd733938bff81e6abfc2b104")
-+(package! edit-indirect
-+  :pin "82a28d8a85277cfe453af464603ea330eae41c05")
-+(package! emacs-pager
-+  :recipe (:host github :repo "mbriggs/emacs-pager")
-+  :pin "7e1ee467b0f905fbdd3d208b480acaadab8410b9")
-+(package! ghq
-+  :pin "e9d7346c693af6b9473fa8ca3abc729692f582b1")
-+(package! helm-ghq
-+  :pin "7b47ac91e42762f2ecbbceeaadc05b86c9fe5f14")
-+(package! helm-ls-git
-+  :pin "640cc6ccd8720462ac949d75de9bc99883830d92")
-+(package! init-loader
-+  :pin "1837769c872b6453c7c02490f50a6eb322156c2c")
-+(package! language-detection ;; used in edit-indirect
-+  :pin "54a6ecf55304fba7d215ef38a4ec96daff2f35a4")
-+(package! lsp-pyright
-+  :pin "73377169beff8fe22cc6d52d65099db88bf49679")
-+(package! multi-term
-+  :pin "017c77c550115936860e2ea71b88e585371475d5")
-+(package! multi-vterm
-+  :pin "36746d85870dac5aaee6b9af4aa1c3c0ef21a905")
-+(package! nhexl-mode
-+  :pin "0b27339bdb3e5255353de457ad99724b0d83dcaf")
-+(package! py-isort
-+  :pin "e67306f459c47c53a65604e4eea88a3914596560")
-+(package! ssh-agency
-+  :ignore (not (eq system-type 'gnu/linux))
-+  :pin "a5377e4317365a3d5442e06d5c255d4a7c7618db")
-+(package! tty-format ;; from user42
-+  :pin "557d5137766f011f72a9324902ee23e650fa4c80")
-+(package! undo-tree
-+  :pin "d8f72bbe7d3c3a2808986febd3bb1a46d4da7f51")
-+(package! wgrep
-+  :recipe (:files ("*.el"))
-+  :pin "49f09ab9b706d2312cab1199e1eeb1bcd3f27f6f")
-+(package! xclip
-+  :disable (not (doom-module-active-p :os 'tty))
-+  :pin "9ab22517f3f2044e1c8c19be263da9803fbca26a")
++  :recipe (:build (:not compile)))
++(package! centaur-tabs :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0"
++  :disable (not (doom-module-active-p :ui 'tabs)))
++(package! copilot :pin "7d105d708a23d16cdfd5240500be8bb02f95a46e"
++  :recipe (:host github :repo "copilot-emacs/copilot.el"))
++(package! eaw :pin "ba1256a002334024cd733938bff81e6abfc2b104"
++  :recipe (:host github :repo "hamano/locale-eaw" :files ("dist/*.el")))
++(package! edit-indirect :pin "82a28d8a85277cfe453af464603ea330eae41c05")
++(package! emacs-pager :pin "7e1ee467b0f905fbdd3d208b480acaadab8410b9"
++  :recipe (:host github :repo "mbriggs/emacs-pager"))
++(package! ghq :pin "e9d7346c693af6b9473fa8ca3abc729692f582b1")
++(package! helm-ghq :pin "7b47ac91e42762f2ecbbceeaadc05b86c9fe5f14")
++(package! helm-ls-git :pin "640cc6ccd8720462ac949d75de9bc99883830d92")
++(package! init-loader :pin "1837769c872b6453c7c02490f50a6eb322156c2c")
++(package! language-detection :pin "54a6ecf55304fba7d215ef38a4ec96daff2f35a4") ;; used in edit-indirect
++(package! lsp-pyright :pin "73377169beff8fe22cc6d52d65099db88bf49679")
++(package! multi-term :pin "017c77c550115936860e2ea71b88e585371475d5")
++(package! multi-vterm :pin "36746d85870dac5aaee6b9af4aa1c3c0ef21a905")
++(package! nhexl-mode :pin "0b27339bdb3e5255353de457ad99724b0d83dcaf")
++(package! py-isort :pin "e67306f459c47c53a65604e4eea88a3914596560")
++(package! ssh-agency :pin "a5377e4317365a3d5442e06d5c255d4a7c7618db"
++  :ignore (not (eq system-type 'gnu/linux)))
++(package! tty-format :pin "557d5137766f011f72a9324902ee23e650fa4c80") ;; from user42
++(package! undo-tree :pin "d8f72bbe7d3c3a2808986febd3bb1a46d4da7f51")
++(package! valign :pin "8b0002844cb6012ac4f8952e255c165e0e3be5b6")
++(package! wgrep :pin "49f09ab9b706d2312cab1199e1eeb1bcd3f27f6f"
++  :recipe (:files ("*.el")))
++(package! xclip :pin "9ab22517f3f2044e1c8c19be263da9803fbca26a"
++  :disable (not (doom-module-active-p :os 'tty)))
 +
 +(load
 + (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir)
