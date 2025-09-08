@@ -6,5 +6,18 @@
   "schedule": "* * * * 6",
   "git-submodules": {
     "enabled": true
-  }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^\\.doom\\.d/packages\\.el$/"
+      ],
+      "matchStrings": [";; renovate: datasource=(?<datasource>[^\\s]+) packageName=(?<packageName>[^\\s]+) currentValue=(?<currentValue>[^\\s]+)\\s+\\(package! [^\\s]+ :pin \"(?<currentDigest>[^\\s]+)\""],
+      "currentValueTemplate": "{{{currentValue}}}",
+      "depNameTemplate": "{{{packageName}}}",
+      "packageNameTemplate": "{{{packageName}}}",
+      "datasourceTemplate": "{{{datasource}}}"
+    }
+  ]
 }
