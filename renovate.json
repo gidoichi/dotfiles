@@ -19,5 +19,12 @@
       "packageNameTemplate": "{{{packageName}}}",
       "datasourceTemplate": "{{{datasource}}}"
     }
+  ],
+  "packageRules": [
+    {
+      "matchFileNames": [
+        ".doom.d/**"
+      ]
+    }
   ]
 }
