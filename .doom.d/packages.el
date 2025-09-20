@@ -78,7 +78,7 @@
 ;; renovate: datasource=git-refs packageName=https://github.com/andreasjansson/language-detection.el currentValue=master
 (package! language-detection :pin "54a6ecf55304fba7d215ef38a4ec96daff2f35a4") ;; used in edit-indirect
 ;; renovate: datasource=git-refs packageName=https://github.com/emacs-lsp/lsp-pyright currentValue=master
-(package! lsp-pyright :pin "73377169beff8fe22cc6d52d65099db88bf49679")
+(package! lsp-pyright :pin "3756ff971797ae04fc43ca29c66ba4d854eff038")
 (package! multi-term :pin "017c77c550115936860e2ea71b88e585371475d5")
 ;;renovate: datasource=git-refs packageName=https://github.com/suonlight/multi-vterm currentValue=master
 (package! multi-vterm :pin "36746d85870dac5aaee6b9af4aa1c3c0ef21a905")
