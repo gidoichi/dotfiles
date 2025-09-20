@@ -50,11 +50,11 @@
 
 
 ;; renovate: datasource=git-refs packageName=https://github.com/ema2159/centaur-tabs currentValue=master
-(package! centaur-tabs :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0"
+(package! centaur-tabs :pin "7013a9a2ddfce4cf9c6d7128b8b3c02649e5aa85"
   ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
   :recipe (:build (:not compile)))
 ;; renovate: datasource=git-refs packageName=https://github.com/ema2159/centaur-tabs currentValue=master
-(package! centaur-tabs :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0"
+(package! centaur-tabs :pin "7013a9a2ddfce4cf9c6d7128b8b3c02649e5aa85"
   :disable (not (doom-module-active-p :ui 'tabs)))
 ;; renovate: datasource=git-refs packageName=https://github.com/copilot-emacs/copilot.el currentValue=main
 (package! copilot :pin "7d105d708a23d16cdfd5240500be8bb02f95a46e"
