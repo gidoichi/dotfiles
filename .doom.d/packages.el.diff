@@ -14,7 +14,7 @@
 +(package! centaur-tabs :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0"
 +  :disable (not (doom-module-active-p :ui 'tabs)))
 +;; renovate: datasource=git-refs packageName=https://github.com/copilot-emacs/copilot.el currentValue=main
-+(package! copilot :pin "7d105d708a23d16cdfd5240500be8bb02f95a46e"
++(package! copilot :pin "6a2ad80489b8a0d021df95293eb7ac370aea140b"
 +  :recipe (:host github :repo "copilot-emacs/copilot.el"))
 +;; renovate: datasource=git-refs packageName=https://github.com/hamano/locale-eaw currentValue=master
 +(package! eaw :pin "ba1256a002334024cd733938bff81e6abfc2b104"
