@@ -72,7 +72,7 @@
 ;; renovate: datasource=git-refs packageName=https://github.com/masutaka/emacs-helm-ghq currentValue=master
 (package! helm-ghq :pin "7b47ac91e42762f2ecbbceeaadc05b86c9fe5f14")
 ;; renovate: datasource=git-refs packageName=https://github.com/emacs-helm/helm-ls-git currentValue=master
-(package! helm-ls-git :pin "640cc6ccd8720462ac949d75de9bc99883830d92")
+(package! helm-ls-git :pin "04680c2d605283b53b81facf002daaa6ccb5d700")
 ;; renovate: datasource=git-refs packageName=https://github.com/emacs-jp/init-loader currentValue=master
 (package! init-loader :pin "1837769c872b6453c7c02490f50a6eb322156c2c")
 ;; renovate: datasource=git-refs packageName=https://github.com/andreasjansson/language-detection.el currentValue=master
