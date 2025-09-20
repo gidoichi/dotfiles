@@ -60,7 +60,7 @@
 (package! copilot :pin "7d105d708a23d16cdfd5240500be8bb02f95a46e"
   :recipe (:host github :repo "copilot-emacs/copilot.el"))
 ;; renovate: datasource=git-refs packageName=https://github.com/hamano/locale-eaw currentValue=master
-(package! eaw :pin "ba1256a002334024cd733938bff81e6abfc2b104"
+(package! eaw :pin "0e219660af6e4734fdbd3a52620147640a2f97b7"
   :recipe (:host github :repo "hamano/locale-eaw" :files ("dist/*.el")))
 ;; renovate: datasource=git-refs packageName=https://github.com/Fanael/edit-indirect currentValue=master
 (package! edit-indirect :pin "82a28d8a85277cfe453af464603ea330eae41c05")
