@@ -70,7 +70,7 @@
 ;;renovate: datasource=git-refs packageName=https://github.com/lafrenierejm/emacs-ghq currentValue=master
 (package! ghq :pin "e9d7346c693af6b9473fa8ca3abc729692f582b1")
 ;; renovate: datasource=git-refs packageName=https://github.com/masutaka/emacs-helm-ghq currentValue=master
-(package! helm-ghq :pin "7b47ac91e42762f2ecbbceeaadc05b86c9fe5f14")
+(package! helm-ghq :pin "4d25fa9af579500ecc793a7292bf242221ed38a7")
 ;; renovate: datasource=git-refs packageName=https://github.com/emacs-helm/helm-ls-git currentValue=master
 (package! helm-ls-git :pin "640cc6ccd8720462ac949d75de9bc99883830d92")
 ;; renovate: datasource=git-refs packageName=https://github.com/emacs-jp/init-loader currentValue=master
