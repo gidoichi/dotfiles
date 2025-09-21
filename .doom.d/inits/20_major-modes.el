@@ -213,12 +213,9 @@
   (javascript-mode . typescript-mode)
   (js-mode . typescript-mode)
   (typescript-mode . lsp-deferred)
-  (typescript-mode . prettier-mode)
   (typescript-mode . typescript-mode-hooks)
   :config
   (defun typescript-mode-hooks ()
-    (add-hook! before-save
-               :local 'prettier-prettify)
     (setq treesit-language-source-alist
           '((tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
             (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")))
