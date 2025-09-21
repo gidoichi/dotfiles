@@ -315,12 +315,19 @@ if [ -n "${GIT_CREDENTIAL_KEEPASSXC}" ]; then
 fi
 
 if type kubectl >/dev/null 2>&1; then
+    alias k=kubectl
+    if type kubecolor >/dev/null 2>&1; then
+        alias kwatch='watch --color kubecolor --force-colors'
+    else
+        alias kwatch='watch --color kubectl'
+    fi
+
     if type colordiff >/dev/null 2>&1; then
         export KUBECTL_EXTERNAL_DIFF='colordiff --new-file --unified'
     else
         export KUBECTL_EXTERNAL_DIFF='diff --color --new-file --unified'
     fi
-    alias k=kubectl
+
     kubectl() {
         if type kubecolor >/dev/null 2>&1; then
             subcmd="$1"
