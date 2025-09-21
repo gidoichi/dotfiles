@@ -210,13 +210,24 @@
 
 (use-package! typescript-mode
   :hook
+  (javascript-mode . typescript-mode)
+  (js-mode . typescript-mode)
   (typescript-mode . lsp-deferred)
   (typescript-mode . prettier-mode)
   (typescript-mode . typescript-mode-hooks)
   :config
   (defun typescript-mode-hooks ()
     (add-hook! before-save
-               :local 'prettier-prettify))
+               :local 'prettier-prettify)
+    (setq treesit-language-source-alist
+          '((tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+            (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")))
+    (dolist (element treesit-language-source-alist)
+      (let* ((lang (car element)))
+        (unless (treesit-language-available-p lang)
+          (treesit-install-language-grammar lang))))
+    (typescript-ts-mode)
+    )
   )
 
 (use-package! vterm
