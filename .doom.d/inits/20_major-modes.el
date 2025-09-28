@@ -210,8 +210,6 @@
 
 (use-package! typescript-mode
   :hook
-  (javascript-mode . typescript-mode)
-  (js-mode . typescript-mode)
   (typescript-mode . lsp-deferred)
   (typescript-mode . typescript-mode-hooks)
   :config
