@@ -50,17 +50,17 @@
 
 
 ;; renovate: datasource=git-refs packageName=https://github.com/ema2159/centaur-tabs currentValue=master
-(package! centaur-tabs :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0"
+(package! centaur-tabs :pin "7013a9a2ddfce4cf9c6d7128b8b3c02649e5aa85"
   ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
   :recipe (:build (:not compile)))
 ;; renovate: datasource=git-refs packageName=https://github.com/ema2159/centaur-tabs currentValue=master
-(package! centaur-tabs :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0"
+(package! centaur-tabs :pin "7013a9a2ddfce4cf9c6d7128b8b3c02649e5aa85"
   :disable (not (doom-module-active-p :ui 'tabs)))
 ;; renovate: datasource=git-refs packageName=https://github.com/copilot-emacs/copilot.el currentValue=main
-(package! copilot :pin "7d105d708a23d16cdfd5240500be8bb02f95a46e"
+(package! copilot :pin "6a2ad80489b8a0d021df95293eb7ac370aea140b"
   :recipe (:host github :repo "copilot-emacs/copilot.el"))
 ;; renovate: datasource=git-refs packageName=https://github.com/hamano/locale-eaw currentValue=master
-(package! eaw :pin "ba1256a002334024cd733938bff81e6abfc2b104"
+(package! eaw :pin "0e219660af6e4734fdbd3a52620147640a2f97b7"
   :recipe (:host github :repo "hamano/locale-eaw" :files ("dist/*.el")))
 ;; renovate: datasource=git-refs packageName=https://github.com/Fanael/edit-indirect currentValue=master
 (package! edit-indirect :pin "82a28d8a85277cfe453af464603ea330eae41c05")
@@ -70,15 +70,15 @@
 ;;renovate: datasource=git-refs packageName=https://github.com/lafrenierejm/emacs-ghq currentValue=master
 (package! ghq :pin "e9d7346c693af6b9473fa8ca3abc729692f582b1")
 ;; renovate: datasource=git-refs packageName=https://github.com/masutaka/emacs-helm-ghq currentValue=master
-(package! helm-ghq :pin "7b47ac91e42762f2ecbbceeaadc05b86c9fe5f14")
+(package! helm-ghq :pin "4d25fa9af579500ecc793a7292bf242221ed38a7")
 ;; renovate: datasource=git-refs packageName=https://github.com/emacs-helm/helm-ls-git currentValue=master
-(package! helm-ls-git :pin "640cc6ccd8720462ac949d75de9bc99883830d92")
+(package! helm-ls-git :pin "fcf49200204c90444e2938f00fd147a4a1e89f4a")
 ;; renovate: datasource=git-refs packageName=https://github.com/emacs-jp/init-loader currentValue=master
 (package! init-loader :pin "1837769c872b6453c7c02490f50a6eb322156c2c")
 ;; renovate: datasource=git-refs packageName=https://github.com/andreasjansson/language-detection.el currentValue=master
 (package! language-detection :pin "54a6ecf55304fba7d215ef38a4ec96daff2f35a4") ;; used in edit-indirect
 ;; renovate: datasource=git-refs packageName=https://github.com/emacs-lsp/lsp-pyright currentValue=master
-(package! lsp-pyright :pin "73377169beff8fe22cc6d52d65099db88bf49679")
+(package! lsp-pyright :pin "3756ff971797ae04fc43ca29c66ba4d854eff038")
 (package! multi-term :pin "017c77c550115936860e2ea71b88e585371475d5")
 ;;renovate: datasource=git-refs packageName=https://github.com/suonlight/multi-vterm currentValue=master
 (package! multi-vterm :pin "36746d85870dac5aaee6b9af4aa1c3c0ef21a905")
