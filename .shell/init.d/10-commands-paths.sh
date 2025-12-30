@@ -21,21 +21,17 @@ if type ghq >/dev/null; then
 fi
 
 _target='/opt/homebrew/bin'
-if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
+if [ -d "${_target}" ]; then export PATH="${PATH}:${_target}"; fi
+_target="/home/linuxbrew/.linuxbrew/bin"
+if [ -d "${_target}" ]; then export PATH="${PATH}:${_target}"; fi
+_target="${GHQ_ROOT:+${GHQ_ROOT}/github.com/Homebrew/brew/bin}"
+if [ -d "${_target}" ]; then export PATH="${PATH}:${_target}"; fi
 if type brew >/dev/null 2>&1; then
     eval "$(brew shellenv)"
 fi
 
 _target="${HOME}/.npm/bin"
 if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
-
-export HOMEBREW_HOME="${HOMEBREW_HOME:-${HOME}/.homebrew}"
-_target="${HOMEBREW_HOME}/bin"
-if [ -d "${_target}" ]; then export PATH="${_target}:${PATH}"; fi
-_target="${GHQ_ROOT:+${GHQ_ROOT}/github.com/Homebrew/brew/bin}"
-if [ -d "${_target}" ]; then
-    export PATH="${PATH}:${_target}"
-fi
 
 if type asdf >/dev/null 2>&1; then
     export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:${PATH}"
