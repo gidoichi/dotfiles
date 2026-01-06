@@ -11,6 +11,17 @@
   (define-key global-map [menu-bar help-menu] nil)
   (define-key global-map [menu-bar options] nil))
 
+(use-package! ansi-color
+  :config
+
+  ;; Source - https://stackoverflow.com/questions/23378271/how-do-i-display-ansi-color-codes-in-emacs-for-any-mode
+  ;; Posted by juanleon, modified by community. See post 'Timeline' for change history
+  ;; Retrieved 2025-11-24, License - CC BY-SA 3.0
+  (defun display-ansi-colors ()
+    (interactive)
+    (ansi-color-apply-on-region (point-min) (point-max)))
+)
+
 (use-package! anzu-mode
   :hook
   (after-init . global-anzu-mode)
