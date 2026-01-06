@@ -20,11 +20,7 @@ if type ghq >/dev/null; then
     GHQ_ROOT="$(ghq root)"
 fi
 
-_target='/opt/homebrew/bin'
-if [ -d "${_target}" ]; then export PATH="${PATH}:${_target}"; fi
 _target="/home/linuxbrew/.linuxbrew/bin"
-if [ -d "${_target}" ]; then export PATH="${PATH}:${_target}"; fi
-_target="${GHQ_ROOT:+${GHQ_ROOT}/github.com/Homebrew/brew/bin}"
 if [ -d "${_target}" ]; then export PATH="${PATH}:${_target}"; fi
 if type brew >/dev/null 2>&1; then
     eval "$(brew shellenv)"
