@@ -1,8 +1,1 @@
-{
-  "filters": {},
-  "rules": {
-    "preset-ja-spacing": true,
-    "preset-ja-technical-writing": true,
-    "preset-jtf-style": true
-  }
-}
+dotconf/textlintrc

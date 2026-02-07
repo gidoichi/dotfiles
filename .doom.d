@@ -1,0 +1,1 @@
+dotconf/doom.d
