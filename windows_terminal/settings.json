@@ -1,0 +1,33 @@
+{
+  "$help": "https://aka.ms/terminal-documentation",
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "actions": [
+    {
+      "command": "unbound",
+      "keys": "ctrl+v"
+    },
+    {
+      "command": "unbound",
+      "keys": "ctrl+c"
+    }
+  ],
+  "copyFormatting": "none",
+  "copyOnSelect": true,
+  "newTabMenu": [
+    {
+      "type": "remainingProfiles"
+    }
+  ],
+  "profiles": {
+    "defaults": {
+      "closeOnExit": "always",
+      "colorScheme": "Campbell",
+      "cursorShape": "filledBox",
+      "font": {
+        "face": "CaskaydiaCove Nerd Font",
+        "size": 9.0
+      }
+    }
+  },
+  "trimPaste": false
+}

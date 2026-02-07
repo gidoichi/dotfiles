@@ -4,6 +4,8 @@
       relink: true
 
 - link:
+    ~/.ssh/config:
+      path: ssh/config
     ~/.config/terminology/config:
       if: '[ "$(uname)" = Linux ] && [ -z "${WSL_DISTRO_NAME}" ]'
       path: terminology/config
@@ -11,9 +13,6 @@
       glob: true
       path: dotconf/*
       prefix: '.'
-
-- shell:
-  - [git submodule update --init --recursive, Installing submodules]
 
 - link:
     ~/Library/Application Support/KeePassXC/keepassxc.ini:
@@ -23,5 +22,15 @@
   shell:
   - |
     if [ -n "${WSL_DISTRO_NAME}" ]; then
-      echo cp "keepassxc.ini" "$(wslpath "$(powershell.exe -Command Write-Host '$env:APPDATA')")/KeePassXC/keepassxc.ini" || true
+      cp keepassxc.ini "$(wslpath "$(powershell.exe -Command Write-Host '$env:APPDATA')")/KeePassXC/keepassxc.ini"
     fi
+
+- shell:
+  - |
+    if [ "$(uname)" = Linux ] && [ -n "${WSL_DISTRO_NAME}" ]; then
+      mkdir ~/Documents/PowerShell
+      cp PowerShell/profile.ps1 ~/Documents/PowerShell/profile.ps1
+    fi
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
