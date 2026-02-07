@@ -1,5 +1,9 @@
 .PHONY: all
-all: diff
+all: submodule diff
+
+.PHONY: submodule
+submodule:
+	git submodule update --init --recursive
 
 .PHONY: diff
 diff: \
@@ -12,16 +16,10 @@ define diff
 	(diff -uN --label $(1) --label $(2) $(1) $(2) || true)
 endef
 
-.zprezto:
-	git submodule update --init .zprezto
-
-.zpreztorc.diff: .zprezto .zprezto/runcoms/zpreztorc .zpreztorc
+.zpreztorc.diff: .zprezto/runcoms/zpreztorc .zpreztorc
 	$(call diff,.zprezto/runcoms/zpreztorc,.zpreztorc) > $@
 
-.emacs.d:
-	git submodule update --init .emacs.d
-
-.doom.d/init.el.diff: .emacs.d .emacs.d/static/init.example.el .doom.d/init.el
+.doom.d/init.el.diff: .emacs.d/static/init.example.el .doom.d/init.el
 	$(call diff,.emacs.d/static/init.example.el,.doom.d/init.el) > $@
 
 .doom.d/packages.el.diff: .emacs.d .emacs.d/static/packages.example.el .doom.d/packages.el
