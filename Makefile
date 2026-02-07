@@ -7,6 +7,7 @@ submodule:
 
 .PHONY: diff
 diff: \
+	install.diff \
 	.zpreztorc.diff \
 	.doom.d/init.el.diff \
 	.doom.d/packages.el.diff \
@@ -15,6 +16,9 @@ diff: \
 define diff
 	(diff -uN --label $(1) --label $(2) $(1) $(2) || true)
 endef
+
+install.diff: dotbot/tools/git-submodule/install install
+	$(call diff,dotbot/tools/git-submodule/install,install) > $@
 
 .zpreztorc.diff: .zprezto/runcoms/zpreztorc .zpreztorc
 	$(call diff,.zprezto/runcoms/zpreztorc,.zpreztorc) > $@
