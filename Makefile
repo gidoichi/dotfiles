@@ -8,7 +8,7 @@ submodule:
 .PHONY: diff
 diff: submodule \
 	install.diff \
-	.zpreztorc.diff \
+	dotconf/.zpreztorc.diff \
 	.doom.d/init.el.diff \
 	.doom.d/packages.el.diff \
 	.doom.d/config.el.diff \
@@ -20,8 +20,8 @@ endef
 install.diff: dotbot/tools/git-submodule/install install
 	$(call diff,dotbot/tools/git-submodule/install,install) > $@
 
-.zpreztorc.diff: .zprezto/runcoms/zpreztorc .zpreztorc
-	$(call diff,.zprezto/runcoms/zpreztorc,.zpreztorc) > $@
+dotconf/.zpreztorc.diff: dotconf/zprezto/runcoms/zpreztorc dotconf/zpreztorc
+	$(call diff,dotconf/zprezto/runcoms/zpreztorc,dotconf/zpreztorc) > $@
 
 .doom.d/init.el.diff: .emacs.d/static/init.example.el .doom.d/init.el
 	$(call diff,.emacs.d/static/init.example.el,.doom.d/init.el) > $@

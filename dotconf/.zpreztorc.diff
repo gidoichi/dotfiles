@@ -1,5 +1,5 @@
---- .zprezto/runcoms/zpreztorc
-+++ .zpreztorc
+--- dotconf/zprezto/runcoms/zpreztorc
++++ dotconf/zpreztorc
 @@ -30,6 +30,8 @@
  # Set the Prezto modules to load (browse modules).
  # The order matters.
