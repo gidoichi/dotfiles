@@ -22,8 +22,8 @@ endef
 .doom.d/init.el.diff: .emacs.d/static/init.example.el .doom.d/init.el
 	$(call diff,.emacs.d/static/init.example.el,.doom.d/init.el) > $@
 
-.doom.d/packages.el.diff: .emacs.d .emacs.d/static/packages.example.el .doom.d/packages.el
+.doom.d/packages.el.diff: .emacs.d/static/packages.example.el .doom.d/packages.el
 	$(call diff,.emacs.d/static/packages.example.el,.doom.d/packages.el) > $@
 
-.doom.d/config.el.diff: .emacs.d .emacs.d/static/config.example.el .doom.d/config.el
+.doom.d/config.el.diff: .emacs.d/static/config.example.el .doom.d/config.el
 	$(call diff,.emacs.d/static/config.example.el,.doom.d/config.el) > $@
