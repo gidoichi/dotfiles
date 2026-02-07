@@ -7,26 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Sync files
-        run: |
-          diff() {
-            original=$1
-            modified=$2
-            command diff -uN --label "$original" --label "$modified" "$original" "$modified" || true
-          }
-
-          set -eux
-
-          git submodule update --init .emacs.d
-          diff .emacs.d/static/init.example.el     .doom.d/init.el     > .doom.d/init.el.diff
-          diff .emacs.d/static/packages.example.el .doom.d/packages.el > .doom.d/packages.el.diff
-          diff .emacs.d/static/config.example.el   .doom.d/config.el   > .doom.d/config.el.diff
-
-          git submodule update --init .zprezto
-          diff .zprezto/runcoms/zpreztorc .zpreztorc > .zpreztorc.diff
-      - uses: peter-evans/create-pull-request@main
-        with:
-          branch: 'bot/${{ github.ref_name }}/sync-diff'
-          delete-branch: true
-          labels: update
-          title: 'Update diff files by create-pull-request action'
+      - run: make diff && git diff --exit-code
