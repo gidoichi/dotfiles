@@ -1,12 +1,12 @@
 .PHONY: all
-all: submodule diff
+all: diff
 
 .PHONY: submodule
 submodule:
 	git submodule update --init --recursive
 
 .PHONY: diff
-diff: \
+diff: submodule \
 	install.diff \
 	.zpreztorc.diff \
 	.doom.d/init.el.diff \
