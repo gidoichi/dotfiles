@@ -1,5 +1,5 @@
---- .emacs.d/static/config.example.el
-+++ .doom.d/config.el
+--- dotconf/emacs.d/static/config.example.el
++++ dotconf/doom.d/config.el
 @@ -6,8 +6,8 @@
  
  ;; Some functionality uses this to identify you, e.g. GPG configuration, email

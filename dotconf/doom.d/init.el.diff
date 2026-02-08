@@ -1,5 +1,5 @@
---- .emacs.d/static/init.example.el
-+++ .doom.d/init.el
+--- dotconf/emacs.d/static/init.example.el
++++ dotconf/doom.d/init.el
 @@ -21,12 +21,12 @@
         ;;layout            ; auie,ctsrnm is the superior home row
  
