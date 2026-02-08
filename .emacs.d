@@ -1,1 +1,0 @@
-dotconf/emacs.d
