@@ -1,5 +1,9 @@
 # dotfiles
 
+```
+./install
+```
+
 ### dotconf/emacs.d, dotconf/doom.d
 - https://github.com/doomemacs/doomemacs
 
@@ -19,10 +23,10 @@
 ### dotconf/shell
 - run commands for b-shell
 
-### dotconf/textlinerc
+### dotconf/textlintrc
 - https://github.com/textlint/textlint
 
-### .zprezto, .zpreztorc, .zshrc
+### dotconf/zprezto, dotconf/zpreztorc, dotconf/zshrc
 - https://github.com/sorin-ionescu/prezto
 
 ### keepassxc.ini
