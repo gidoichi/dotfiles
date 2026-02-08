@@ -1,0 +1,7 @@
+# -*- mode: shell-script -*-
+
+export GIT_AUTHOR_NAME=''
+export GIT_COMMITTER_NAME="${GIT_AUTHOR_NAME}"
+export EMAIL=''
+export SAVEHIST=100000
+export KEEPASSXC_GUI=''
