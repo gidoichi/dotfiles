@@ -1,6 +1,10 @@
 [submodule ".emacs.d"]
-	path = .emacs.d
+	path = dotconf/emacs.d
 	url = https://github.com/doomemacs/doomemacs.git
 [submodule ".zprezto"]
-	path = .zprezto
+	path = dotconf/zprezto
 	url = https://github.com/sorin-ionescu/prezto.git
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot
+	ignore = dirty
