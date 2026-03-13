@@ -64,7 +64,9 @@
   )
 
 (use-package! copilot
-  :hook (prog-mode . copilot-mode-hooks)
+  :hook
+  (prog-mode . copilot-mode-hooks)
+  (text-mode . copilot-mode-hooks)
   :bind (:map copilot-completion-map
               ("<tab>" . 'copilot-accept-completion)
               ("TAB" . 'copilot-accept-completion)
