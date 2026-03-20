@@ -92,6 +92,8 @@
 ;; renovate: datasource=git-refs packageName=https://github.com/magit/ssh-agency currentValue=master
 (package! ssh-agency :pin "a5377e4317365a3d5442e06d5c255d4a7c7618db"
   :ignore (not (eq system-type 'gnu/linux)))
+;; renovate: datasource=git-refs packageName=https://github.com/renzmann/treesit-auto currentValue=main
+(package! treesit-auto :pin "31466e4ccfd4f896ce3145c95c4c1f8b59d4bfdf")
 (package! tty-format :pin "557d5137766f011f72a9324902ee23e650fa4c80") ;; from user42
 (package! undo-tree :pin "d8f72bbe7d3c3a2808986febd3bb1a46d4da7f51")
 (package! valign :pin "8b0002844cb6012ac4f8952e255c165e0e3be5b6")

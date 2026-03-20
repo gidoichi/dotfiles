@@ -208,23 +208,6 @@
   (defun terraform-mode-hooks ()
     (add-hook! before-save :local 'terraform-format-buffer)))
 
-(use-package! typescript-mode
-  :hook
-  (typescript-mode . lsp-deferred)
-  (typescript-mode . typescript-mode-hooks)
-  :config
-  (defun typescript-mode-hooks ()
-    (setq treesit-language-source-alist
-          '((tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-            (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")))
-    (dolist (element treesit-language-source-alist)
-      (let* ((lang (car element)))
-        (unless (treesit-language-available-p lang)
-          (treesit-install-language-grammar lang))))
-    (typescript-ts-mode)
-    )
-  )
-
 (use-package! vterm
   :hook
   (vterm-mode . goto-address-mode)
