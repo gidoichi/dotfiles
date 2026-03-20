@@ -11,7 +11,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^\\.doom\\.d/packages\\.el$/"
+        "/^dotconf/doom\\.d/packages\\.el$/"
       ],
       "matchStrings": [";; renovate: datasource=(?<datasource>[^\\s]+) packageName=(?<packageName>[^\\s]+) currentValue=(?<currentValue>[^\\s]+)\\s+\\(package! [^\\s]+ :pin \"(?<currentDigest>[^\\s]+)\""],
       "currentValueTemplate": "{{{currentValue}}}",
@@ -24,7 +24,7 @@
     {
       "groupName": ".doom.d",
       "matchFileNames": [
-        ".doom.d/**"
+        "dotconf/doom.d/**"
       ]
     }
   ]
