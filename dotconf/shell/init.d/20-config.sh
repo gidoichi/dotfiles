@@ -90,7 +90,7 @@ if type direnv >/dev/null 2>&1; then
     esac
 fi
 
-if type docker >/dev/null 2>&1; then
+if docker --version >/dev/null 2>&1; then
     case "${CURRENT_SHELL}" in
         bash) eval "$(docker completion bash)" ;;
         zsh)  eval "$(docker completion zsh)"  ;;
