@@ -90,6 +90,13 @@ if type direnv >/dev/null 2>&1; then
     esac
 fi
 
+if type docker >/dev/null 2>&1; then
+    case "${CURRENT_SHELL}" in
+        bash) eval "$(docker completion bash)" ;;
+        zsh)  eval "$(docker completion zsh)"  ;;
+    esac
+fi
+
 # emacs
 if type emacs >/dev/null 2>&1; then
     alias emacs=editor-wrapper
