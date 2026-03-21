@@ -25,6 +25,8 @@
   :hook
   (go-mode . go-mode-hooks)
   (go-mode . lsp-deferred)
+  (go-ts-mode . go-mode-hooks)
+  (go-ts-mode . lsp-deferred)
   :config
   (defun go-mode-hooks ()
     (add-hook! before-save
