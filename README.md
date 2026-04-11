@@ -17,6 +17,9 @@
 ### dotconf/npmrc
 - https://docs.npmjs.com/cli/v8/configuring-npm/npmrc
 
+### dotconf/opencommit
+- https://github.com/di-sukharev/opencommit
+
 ### dotconf/screenrc
 - https://www.gnu.org/software/screen/manual/screen.html
 
