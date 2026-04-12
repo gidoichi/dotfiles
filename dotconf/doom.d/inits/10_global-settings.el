@@ -11,6 +11,18 @@
   (define-key global-map [menu-bar help-menu] nil)
   (define-key global-map [menu-bar options] nil))
 
+(use-package! agent-shell
+  :config
+  ;; c.f. https://github.com/xenodium/agent-shell/tree/7f106a355295d6c0fde5cd589cf566df7850463f#data-storage-location
+  (defun my/agent-shell-dot-subdir (subdir)
+    (let* ((cwd (string-remove-suffix "/" (agent-shell-cwd)))
+           (sanitized (replace-regexp-in-string "/" "-" (string-remove-prefix "/" cwd))))
+      (expand-file-name subdir (expand-file-name (concat "agent-shell/" sanitized) doom-user-dir))))
+  (setopt agent-shell-dot-subdir-function #'my/agent-shell-dot-subdir)
+  ;; workaround: skip to insert .gitignore file
+  (advice-add #'agent-shell--ensure-gitignore :around #'ignore)
+  )
+
 (use-package! ansi-color
   :config
 
