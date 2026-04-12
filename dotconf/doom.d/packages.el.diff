@@ -1,11 +1,15 @@
 --- dotconf/emacs.d/static/packages.example.el
 +++ dotconf/doom.d/packages.el
-@@ -52,3 +52,56 @@
+@@ -52,3 +52,62 @@
  ;; (unpin! pinned-package another-pinned-package)
  ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
  ;; (unpin! t)
 +
 +
++;; renovate: datasource=git-refs packageName=https://github.com/xenodium/acp.el currentValue=main
++(package! acp :pin "c32fbf8df34ed0095853a8cf55dc783e68b67d90") ;; for agent-shell
++;; renovate: datasource=git-refs packageName=https://github.com/xenodium/agent-shell currentValue=main
++(package! agent-shell :pin "7f106a355295d6c0fde5cd589cf566df7850463f")
 +;; renovate: datasource=git-refs packageName=https://github.com/ema2159/centaur-tabs currentValue=master
 +(package! centaur-tabs :pin "7704f2017cef96e6fe0ce33ec40f27b0087ac5a0"
 +  ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
@@ -41,6 +45,8 @@
 +(package! multi-vterm :pin "36746d85870dac5aaee6b9af4aa1c3c0ef21a905")
 +(package! nhexl-mode :pin "0b27339bdb3e5255353de457ad99724b0d83dcaf")
 +(package! py-isort :pin "e67306f459c47c53a65604e4eea88a3914596560")
++;; renovate: datasource=git-refs packageName=https://github.com/xenodium/shell-maker currentValue=main
++(package! shell-maker :pin "6377cbdb49248d670170f1c8dbe045648063583e") ;; for agent-shell
 +;; renovate: datasource=git-refs packageName=https://github.com/magit/ssh-agency currentValue=master
 +(package! ssh-agency :pin "a5377e4317365a3d5442e06d5c255d4a7c7618db"
 +  :ignore (not (eq system-type 'gnu/linux)))
