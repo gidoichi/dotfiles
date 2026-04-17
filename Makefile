@@ -1,12 +1,14 @@
 .PHONY: all
-all: diff
+all: hook diff
 
-.PHONY: submodule
-submodule:
-	git submodule update --init --recursive
+.PHONY: hook
+hook: .git/hooks/pre-commit
+
+.git/hooks/pre-commit: hooks/pre-commit
+	ln -s ../../hooks/pre-commit .git/hooks/pre-commit
 
 .PHONY: diff
-diff: submodule \
+diff: \
 	install.diff \
 	dotconf/.zpreztorc.diff \
 	dotconf/doom.d/init.el.diff \
