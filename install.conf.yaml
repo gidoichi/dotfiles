@@ -13,6 +13,9 @@
       glob: true
       path: dotconf/*
       prefix: '.'
+    # workaround for https://github.com/doomemacs/doomemacs/issues/5925
+    ~/.emacs.d/.local/cache/transient/values.el:
+      path: dotconf/doom.d/etc/transient/values.el
 
 - link:
     ~/Library/Application Support/KeePassXC/keepassxc.ini:
