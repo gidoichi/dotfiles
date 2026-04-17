@@ -156,7 +156,7 @@
 (use-package! helm-ghq
   :config
   (defun ghq ()
-    "Extend original helm-ghq function to show without full path.
+    "Extend original helm-ghq function to show without full path and open magit-status buffer without selecting a file. Original function is
 see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc05b86c9fe5f14/helm-ghq.el#L229-L238"
     (interactive)
     (let* ((helm-ghq-command-ghq-arg-list '("list"))
@@ -166,10 +166,7 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
                                   :name "ghq list"
                                   :must-match t)
                   (helm-ghq--root))))
-      (let ((default-directory (file-name-as-directory repo)))
-        (helm :sources (list (helm-ghq--source default-directory)
-                             (helm-ghq--source-update repo))
-              :buffer "*helm-ghq-list*"))))
+      (magit-status-setup-buffer repo)))
 
   ;; In vterm-mode, default-directory is overwritten by current directory indicator inside terminal.
   ;; To avoid this, remove default-directory from helm-ghq function.
