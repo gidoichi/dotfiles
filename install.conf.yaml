@@ -14,7 +14,7 @@
       path: dotconf/*
       prefix: '.'
     # workaround for https://github.com/doomemacs/doomemacs/issues/5925
-    ~/.emacs.d/.local/cache/transient/values.el:
+    ~/.emacs.d/.local/etc/transient/values:
       path: dotconf/doom.d/etc/transient/values.el
 
 - link:
