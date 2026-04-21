@@ -1,11 +1,16 @@
 .PHONY: all
 all: hook diff
 
+
 .PHONY: hook
 hook: .git/hooks/pre-commit
 
 .git/hooks/pre-commit: hooks/pre-commit
 	ln -s ../../hooks/pre-commit .git/hooks/pre-commit
+
+.PHONY: submodule
+submodule:
+	git submodule update --init --recursive
 
 .PHONY: diff
 diff: \
