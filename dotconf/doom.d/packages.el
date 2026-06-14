@@ -111,5 +111,5 @@
   :disable (not (doom-module-active-p :os 'tty)))
 
 (load
- (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir)
+ (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-user-dir)
  'noerror)
