@@ -196,4 +196,4 @@
        (default +bindings +smartparens))
 
 
-(load (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-user-dir) 'noerror)
+(load (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-private-dir) 'noerror)
