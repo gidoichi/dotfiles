@@ -193,12 +193,13 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   :config
   (fset 'git-ls-files 'helm-ls-git))
 
-(use-package! hide-mode-line
-  :config
-  ;; want to just disable hide-mode-line-mode at vterm-mode
-  ;; workaround https://github.com/doomemacs/doomemacs/issues/6209
-  (advice-add #'hide-mode-line-mode :around #'ignore)
-  )
+;; FIXME: disable hide-mode-line is not working
+;; (use-package! hide-mode-line
+;;   :config
+;;   ;; want to just disable hide-mode-line-mode at vterm-mode
+;;   ;; workaround https://github.com/doomemacs/doomemacs/issues/6209
+;;   (advice-add #'hide-mode-line-mode :around #'ignore)
+;;   )
 
 (use-package! language-detection
   :config
