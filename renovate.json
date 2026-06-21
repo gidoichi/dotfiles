@@ -22,7 +22,7 @@
   ],
   "packageRules": [
     {
-      "groupName": ".doom.d",
+      "groupName": "emacs dependencies",
       "matchFileNames": [
         "dotconf/doom.d/**",
         "dotconf/emacs.d"
