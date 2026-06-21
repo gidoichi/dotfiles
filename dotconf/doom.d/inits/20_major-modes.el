@@ -211,12 +211,23 @@
     (add-hook! before-save :local 'terraform-format-buffer)))
 
 (use-package! vterm
+  :bind (:map vterm-mode-map
+              ("C-c C-y" . #'vterm-send-clipboard)
+              ("C-h" . #'my/vterm-send-C-h)
+              ("C-q" . #'vterm-mode-quoted-insert)
+              ("M-y" . #'vterm-mode-helm-show-kill-ring)
+              ("<C-left>" . #'centaur-tabs-backward-tab)
+              ("<C-right>" . #'centaur-tabs-forward-tab))
   :hook
   (vterm-mode . goto-address-mode)
   (vterm-mode . vterm-mode-hooks)
   (vterm-copy-mode . vterm-copy-mode-hooks)
   :config
   (setq vterm-copy-mode-remove-fake-newlines t)
+  (defun my/vterm-send-C-h ()
+    "Send C-h in vterm."
+    (interactive)
+    (vterm-send-key "h" nil nil t))
   (defun before-vterm-send-C-k (&rest _)
     "Save to kill-ring."
     (let* ((whole-content (buffer-substring (point) (vterm-end-of-line)))
@@ -248,13 +259,6 @@
                                            "cp" ;; copy-mode
                                          "ia" ;; interactive mode
                                          ))))
-  (map! :mode vterm-mode
-        "C-c C-y" #'vterm-send-clipboard
-        "C-h" #'vterm-send-C-h
-        "C-q" #'vterm-mode-quoted-insert
-        "M-y" #'vterm-mode-helm-show-kill-ring
-        "<C-left>" #'centaur-tabs-backward-tab
-        "<C-right>" #'centaur-tabs-forward-tab)
   (defun vterm-mode-hooks ()
     (setq confirm-kill-processes t)
     (face-remap-set-base 'link nil)
