@@ -24,7 +24,8 @@
     {
       "groupName": ".doom.d",
       "matchFileNames": [
-        "dotconf/doom.d/**"
+        "dotconf/doom.d/**",
+        "dotconf/emacs.d"
       ]
     }
   ]
