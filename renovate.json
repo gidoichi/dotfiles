@@ -24,8 +24,13 @@
     {
       "groupName": "emacs dependencies",
       "matchFileNames": [
-        "dotconf/doom.d/**",
-        "dotconf/emacs.d"
+        "dotconf/doom.d/**"
+      ]
+    },
+    {
+      "groupName": "emacs dependencies",
+      "matchPackageNames": [
+        "https://github.com/doomemacs/doomemacs.git"
       ]
     }
   ]
