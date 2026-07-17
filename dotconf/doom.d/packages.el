@@ -55,9 +55,9 @@
 
 
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/acp.el currentValue=main
-(package! acp :pin "3ddfa907eb7f17949a4a8e731ea5c5241e6cbcb4") ;; for agent-shell
+(package! acp :pin "5140f4121156707245567b8fc3072d4c3b5c867f") ;; for agent-shell
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/agent-shell currentValue=main
-(package! agent-shell :pin "bb1bcfa97231d35f498197ac647debcc128ee3c4")
+(package! agent-shell :pin "fe1defec8c5c629008d978e7b2f772dadf30b31f")
 ;; renovate: datasource=git-refs packageName=https://github.com/ema2159/centaur-tabs currentValue=master
 (package! centaur-tabs :pin "24490495bce04bec2b8b3718f71f82e73a856602"
   ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
@@ -66,7 +66,7 @@
 (package! centaur-tabs :pin "24490495bce04bec2b8b3718f71f82e73a856602"
   :disable (not (doom-module-active-p :ui 'tabs)))
 ;; renovate: datasource=git-refs packageName=https://github.com/copilot-emacs/copilot.el currentValue=main
-(package! copilot :pin "4870dac784b49fdcf2319d3b1eea9b643432f767"
+(package! copilot :pin "277ca357422ba34bcf7fe650cb720580994eea84"
   :recipe (:host github :repo "copilot-emacs/copilot.el"))
 ;; renovate: datasource=git-refs packageName=https://github.com/hamano/locale-eaw currentValue=master
 (package! eaw :pin "c6f5f0413ca3b583f52247247b4c436ce063091c"
@@ -94,7 +94,7 @@
 (package! nhexl-mode :pin "0b27339bdb3e5255353de457ad99724b0d83dcaf")
 (package! py-isort :pin "e67306f459c47c53a65604e4eea88a3914596560")
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/shell-maker currentValue=main
-(package! shell-maker :pin "43ee9e1862994cbaa89715d324edb7a424181f22") ;; for agent-shell
+(package! shell-maker :pin "071c6df3ca22a2f4c0daa689848ac9bd21bf4e2b") ;; for agent-shell
 ;; renovate: datasource=git-refs packageName=https://github.com/magit/ssh-agency currentValue=master
 (package! ssh-agency :pin "2a6e1784b42b6179da11c6c1077faaa0eb484e0d"
   :ignore (not (eq system-type 'gnu/linux)))
