@@ -31,8 +31,8 @@
   (defun go-mode-hooks ()
     (add-hook! before-save
                :local
-               'gofmt-before-save
-               'lsp-organize-imports
+               #'gofmt
+               #'lsp-organize-imports
                )))
 
 (use-package! json

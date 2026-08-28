@@ -200,5 +200,4 @@
        ;;literate
        (default +bindings +smartparens))
 
-
 (load (expand-file-name (concat "custom-" (file-name-nondirectory load-file-name)) doom-user-dir) 'noerror)
