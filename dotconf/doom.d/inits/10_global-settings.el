@@ -2,6 +2,7 @@
 
 (setq confirm-kill-emacs nil)
 (setq max-specpdl-size 5000)
+(setq +dashboard-pwd-policy "~")
 (map! :g
         "S-<insert>" 'clipboard-yank)
 
