@@ -13,6 +13,9 @@
   (define-key global-map [menu-bar options] nil))
 
 (use-package! agent-shell
+  :bind (("C-c C-w" . agent-shell-new-shell))
+  :custom
+  (agent-shell-session-restore-verbosity 'full)
   :config
   ;; c.f. https://github.com/xenodium/agent-shell/tree/7f106a355295d6c0fde5cd589cf566df7850463f#data-storage-location
   (defun my/agent-shell-dot-subdir (subdir)
