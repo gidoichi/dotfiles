@@ -54,9 +54,9 @@
 
 
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/acp.el currentValue=main
-(package! acp :pin "5140f4121156707245567b8fc3072d4c3b5c867f") ;; for agent-shell
+(package! acp :pin "5b3abb2956d16f39ed76bc53fe31d3c2ee7fecfd") ;; for agent-shell
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/agent-shell currentValue=main
-(package! agent-shell :pin "fe1defec8c5c629008d978e7b2f772dadf30b31f")
+(package! agent-shell :pin "ee760a022f8b8a0b3126c692460094451efc1605")
 ;; renovate: datasource=git-refs packageName=https://github.com/ema2159/centaur-tabs currentValue=master
 (package! centaur-tabs :pin "24490495bce04bec2b8b3718f71f82e73a856602"
   ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
@@ -65,7 +65,7 @@
 (package! centaur-tabs :pin "24490495bce04bec2b8b3718f71f82e73a856602"
   :disable (not (doom-module-active-p :ui 'tabs)))
 ;; renovate: datasource=git-refs packageName=https://github.com/copilot-emacs/copilot.el currentValue=main
-(package! copilot :pin "277ca357422ba34bcf7fe650cb720580994eea84"
+(package! copilot :pin "56c043ae5078c4f8e13538c45f2a4227c9c1eb00"
   :recipe (:host github :repo "copilot-emacs/copilot.el"))
 ;; renovate: datasource=git-refs packageName=https://github.com/hamano/locale-eaw currentValue=master
 (package! eaw :pin "c6f5f0413ca3b583f52247247b4c436ce063091c"
@@ -93,12 +93,12 @@
 (package! nhexl-mode :pin "0b27339bdb3e5255353de457ad99724b0d83dcaf")
 (package! py-isort :pin "e67306f459c47c53a65604e4eea88a3914596560")
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/shell-maker currentValue=main
-(package! shell-maker :pin "071c6df3ca22a2f4c0daa689848ac9bd21bf4e2b") ;; for agent-shell
+(package! shell-maker :pin "dcc05a8cf24eb62f2f611fd2d009a161fada5f6e") ;; for agent-shell
 ;; renovate: datasource=git-refs packageName=https://github.com/magit/ssh-agency currentValue=master
 (package! ssh-agency :pin "2a6e1784b42b6179da11c6c1077faaa0eb484e0d"
   :ignore (not (eq system-type 'gnu/linux)))
 ;; renovate: datasource=git-refs packageName=https://github.com/renzmann/treesit-auto currentValue=main
-(package! treesit-auto :pin "31466e4ccfd4f896ce3145c95c4c1f8b59d4bfdf")
+(package! treesit-auto :pin "3106c739c2a84bec2cb671997fe074e5dd5dd967")
 (package! tty-format :pin "557d5137766f011f72a9324902ee23e650fa4c80") ;; from user42
 (package! undo-tree :pin "d8f72bbe7d3c3a2808986febd3bb1a46d4da7f51")
 ;; renovate: datasource=git-refs packageName=https://github.com/casouri/valign currentValue=main
