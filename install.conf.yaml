@@ -9,6 +9,9 @@
     ~/.config/terminology/config:
       if: '[ "$(uname)" = Linux ] && [ -z "${WSL_DISTRO_NAME}" ]'
       path: terminology/config
+    ~/.config:
+      glob: true
+      path: config/*
     ~/:
       glob: true
       path: dotconf/*
