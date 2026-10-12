@@ -9,6 +9,8 @@
     "openai-auth": {
       "npm": "@ai-sdk/openai-compatible",
       "options": {
+        // run server by `npx openai-oauth@latest` before using this provider
+        // see: https://github.com/EvanZhouDev/openai-oauth/
         "baseURL": "http://127.0.0.1:10531/v1"
       },
       "models": {
