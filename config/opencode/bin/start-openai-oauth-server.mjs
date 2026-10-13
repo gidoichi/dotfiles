@@ -3,8 +3,19 @@
 import { startOpenAIOAuthServer } from "openai-oauth";
 import readline from "node:readline";
 
-const running = await startOpenAIOAuthServer({});
-console.error("OpenAI-compatible endpoint ready at", running.url);
+const RETRY_DELAY_MS = 5_000;
+
+async function startServer() {
+    try {
+        const running = await startOpenAIOAuthServer({});
+        console.error("OpenAI-compatible endpoint ready at", running.url);
+    } catch (error) {
+        console.error("Failed to start OpenAI OAuth server; retrying...", error);
+        setTimeout(startServer, RETRY_DELAY_MS);
+    }
+}
+
+void startServer();
 
 const input = readline.createInterface({ input: process.stdin });
 input.on("line", (line) => {
