@@ -52,6 +52,8 @@
                )))
 
 (use-package! json
+  :mode
+  ("\\.jsonc\\'" . jsonc-mode)
   :hook
   (json-mode . lsp-deferred))
 
