@@ -6,8 +6,6 @@
     }
   },
   "provider": {
-    // run server by `npx openai-oauth@latest` before using this provider
-    // see: https://github.com/EvanZhouDev/openai-oauth/
     "openai-auth": {
       "npm": "@ai-sdk/openai-compatible",
       "options": {
@@ -26,6 +24,16 @@
         "gpt-image-2": {
           "name": "GPT-Image-2"
         }
+      }
+    }
+  },
+  "mcp": {
+    "servers": {
+      // Not an MCP server; required to start the local server for the openai-auth provider.
+      "start-openai-oauth-server": {
+        "enabled": true,
+        "type": "local",
+        "command": ["{env:HOME}/.config/opencode/bin/start-openai-oauth-server.mjs"]
       }
     }
   },
