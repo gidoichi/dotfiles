@@ -6,7 +6,7 @@
     }
   },
   "provider": {
-    "openai-auth": {
+    "openai-oauth": {
       "npm": "@ai-sdk/openai-compatible",
       "options": {
         "baseURL": "http://127.0.0.1:10531/v1"
@@ -29,7 +29,7 @@
   },
   "mcp": {
     "servers": {
-      // Not an MCP server; required to start the local server for the openai-auth provider.
+      // Not an MCP server; required to start the local server for the openai-oauth provider.
       "start-openai-oauth-server": {
         "enabled": true,
         "type": "local",
@@ -37,5 +37,5 @@
       }
     }
   },
-  "enabled_providers": ["openai-auth"]
+  "enabled_providers": ["openai-oauth"]
 }
