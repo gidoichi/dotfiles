@@ -54,9 +54,9 @@
 
 
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/acp.el currentValue=main
-(package! acp :pin "5140f4121156707245567b8fc3072d4c3b5c867f") ;; for agent-shell
+(package! acp :pin "5b3abb2956d16f39ed76bc53fe31d3c2ee7fecfd") ;; for agent-shell
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/agent-shell currentValue=main
-(package! agent-shell :pin "fe1defec8c5c629008d978e7b2f772dadf30b31f")
+(package! agent-shell :pin "956a0be6b56e21b6de47a74a2a52fed0288b2abb")
 ;; renovate: datasource=git-refs packageName=https://github.com/ema2159/centaur-tabs currentValue=master
 (package! centaur-tabs :pin "24490495bce04bec2b8b3718f71f82e73a856602"
   ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
@@ -93,7 +93,7 @@
 (package! nhexl-mode :pin "0b27339bdb3e5255353de457ad99724b0d83dcaf")
 (package! py-isort :pin "e67306f459c47c53a65604e4eea88a3914596560")
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/shell-maker currentValue=main
-(package! shell-maker :pin "071c6df3ca22a2f4c0daa689848ac9bd21bf4e2b") ;; for agent-shell
+(package! shell-maker :pin "dcc05a8cf24eb62f2f611fd2d009a161fada5f6e") ;; for agent-shell
 ;; renovate: datasource=git-refs packageName=https://github.com/magit/ssh-agency currentValue=master
 (package! ssh-agency :pin "2a6e1784b42b6179da11c6c1077faaa0eb484e0d"
   :ignore (not (eq system-type 'gnu/linux)))
