@@ -5,6 +5,7 @@
          :map agent-shell-mode-map ("M-w" . agent-shell-copy-as-markdown))
   :custom
   (agent-shell-session-restore-verbosity 'full)
+  (agent-shell-confirm-interrupt nil)
   :config
   ;; c.f. https://github.com/xenodium/agent-shell/tree/7f106a355295d6c0fde5cd589cf566df7850463f#data-storage-location
   (defun my/agent-shell-dot-subdir (subdir)
