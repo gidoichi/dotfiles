@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@opencode-ai/plugin": "1.4.3",
+    "@opencode-ai/plugin": "1.19.0",
     "openai-oauth": "^2.0.0"
   }
 }
