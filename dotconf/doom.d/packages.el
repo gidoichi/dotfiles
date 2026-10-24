@@ -54,9 +54,9 @@
 
 
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/acp.el currentValue=main
-(package! acp :pin "5b3abb2956d16f39ed76bc53fe31d3c2ee7fecfd") ;; for agent-shell
+(package! acp :pin "2959da5fa8657da17a78ac6ceef303a50e3e69de") ;; for agent-shell
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/agent-shell currentValue=main
-(package! agent-shell :pin "956a0be6b56e21b6de47a74a2a52fed0288b2abb")
+(package! agent-shell :pin "b3553916e7b6b8fe7ed00bba3811f4c5a1e43496")
 ;; renovate: datasource=git-refs packageName=https://github.com/ema2159/centaur-tabs currentValue=master
 (package! centaur-tabs :pin "24490495bce04bec2b8b3718f71f82e73a856602"
   ;; workaround https://github.com/doomemacs/doomemacs/issues/7904
@@ -65,10 +65,10 @@
 (package! centaur-tabs :pin "24490495bce04bec2b8b3718f71f82e73a856602"
   :disable (not (doom-module-active-p :ui 'tabs)))
 ;; renovate: datasource=git-refs packageName=https://github.com/copilot-emacs/copilot.el currentValue=main
-(package! copilot :pin "277ca357422ba34bcf7fe650cb720580994eea84"
+(package! copilot :pin "56c043ae5078c4f8e13538c45f2a4227c9c1eb00"
   :recipe (:host github :repo "copilot-emacs/copilot.el"))
 ;; renovate: datasource=git-refs packageName=https://github.com/hamano/locale-eaw currentValue=master
-(package! eaw :pin "c6f5f0413ca3b583f52247247b4c436ce063091c"
+(package! eaw :pin "2143df0c297333e77791e4d20b2746a53d925790"
   :recipe (:host github :repo "hamano/locale-eaw" :files ("dist/*.el")))
 ;; renovate: datasource=git-refs packageName=https://github.com/Fanael/edit-indirect currentValue=master
 (package! edit-indirect :pin "82a28d8a85277cfe453af464603ea330eae41c05")
@@ -80,7 +80,7 @@
 ;; renovate: datasource=git-refs packageName=https://github.com/masutaka/emacs-helm-ghq currentValue=master
 (package! helm-ghq :pin "4d25fa9af579500ecc793a7292bf242221ed38a7")
 ;; renovate: datasource=git-refs packageName=https://github.com/emacs-helm/helm-ls-git currentValue=master
-(package! helm-ls-git :pin "dd0ed5847d4bf1b27e767cf194475ada88ee8898")
+(package! helm-ls-git :pin "89c67f7a91648ad4fc7adc6539234270c99bf466")
 ;; renovate: datasource=git-refs packageName=https://github.com/emacs-jp/init-loader currentValue=master
 (package! init-loader :pin "1837769c872b6453c7c02490f50a6eb322156c2c")
 ;; renovate: datasource=git-refs packageName=https://github.com/andreasjansson/language-detection.el currentValue=master
@@ -93,12 +93,12 @@
 (package! nhexl-mode :pin "0b27339bdb3e5255353de457ad99724b0d83dcaf")
 (package! py-isort :pin "e67306f459c47c53a65604e4eea88a3914596560")
 ;; renovate: datasource=git-refs packageName=https://github.com/xenodium/shell-maker currentValue=main
-(package! shell-maker :pin "dcc05a8cf24eb62f2f611fd2d009a161fada5f6e") ;; for agent-shell
+(package! shell-maker :pin "e089f07fb4f5a8ce226932e192a2c11682a51102") ;; for agent-shell
 ;; renovate: datasource=git-refs packageName=https://github.com/magit/ssh-agency currentValue=master
 (package! ssh-agency :pin "2a6e1784b42b6179da11c6c1077faaa0eb484e0d"
   :ignore (not (eq system-type 'gnu/linux)))
 ;; renovate: datasource=git-refs packageName=https://github.com/renzmann/treesit-auto currentValue=main
-(package! treesit-auto :pin "31466e4ccfd4f896ce3145c95c4c1f8b59d4bfdf")
+(package! treesit-auto :pin "3106c739c2a84bec2cb671997fe074e5dd5dd967")
 (package! tty-format :pin "557d5137766f011f72a9324902ee23e650fa4c80") ;; from user42
 (package! undo-tree :pin "d8f72bbe7d3c3a2808986febd3bb1a46d4da7f51")
 ;; renovate: datasource=git-refs packageName=https://github.com/casouri/valign currentValue=main
