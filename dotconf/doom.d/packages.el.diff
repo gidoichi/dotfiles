@@ -1,6 +1,6 @@
 --- dotconf/emacs.d/static/packages.example.el
 +++ dotconf/doom.d/packages.el
-@@ -51,3 +51,64 @@
+@@ -51,3 +51,66 @@
  ;; (unpin! pinned-package another-pinned-package)
  ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
  ;; (unpin! t)
@@ -28,8 +28,10 @@
 +;; renovate: datasource=git-refs packageName=https://github.com/mbriggs/emacs-pager currentValue=master
 +(package! emacs-pager :pin "7e1ee467b0f905fbdd3d208b480acaadab8410b9"
 +  :recipe (:host github :repo "mbriggs/emacs-pager"))
-+;;renovate: datasource=git-refs packageName=https://github.com/lafrenierejm/emacs-ghq currentValue=master
++;; renovate: datasource=git-refs packageName=https://github.com/lafrenierejm/emacs-ghq currentValue=master
 +(package! ghq :pin "e9d7346c693af6b9473fa8ca3abc729692f582b1")
++;; renovate: datasource=git-refs packageName=https://github.com/dochang/json5-ts-mode currentValue=master
++(package! json5-ts-mode :pin "8ef36adff943bed504148e54cfff505b92674c10")
 +;; renovate: datasource=git-refs packageName=https://github.com/masutaka/emacs-helm-ghq currentValue=master
 +(package! helm-ghq :pin "4d25fa9af579500ecc793a7292bf242221ed38a7")
 +;; renovate: datasource=git-refs packageName=https://github.com/emacs-helm/helm-ls-git currentValue=master
@@ -41,7 +43,7 @@
 +;; renovate: datasource=git-refs packageName=https://github.com/emacs-lsp/lsp-pyright currentValue=master
 +(package! lsp-pyright :pin "147d6d9c799f945ba4a2fb14824ddea9ade6de74")
 +(package! multi-term :pin "017c77c550115936860e2ea71b88e585371475d5")
-+;;renovate: datasource=git-refs packageName=https://github.com/suonlight/multi-vterm currentValue=master
++;; renovate: datasource=git-refs packageName=https://github.com/suonlight/multi-vterm currentValue=master
 +(package! multi-vterm :pin "36746d85870dac5aaee6b9af4aa1c3c0ef21a905")
 +(package! nhexl-mode :pin "0b27339bdb3e5255353de457ad99724b0d83dcaf")
 +(package! py-isort :pin "e67306f459c47c53a65604e4eea88a3914596560")
