@@ -1,3 +1,6 @@
 # -*- mode: sh -*-
 OCO_HOOK_AUTO_UNCOMMENT=true
 OCO_ONE_LINE_COMMIT=true
+OCO_API_KEY=dummy
+OCO_API_URL=http://localhost:4000/v1
+OCO_MODEL=auto
