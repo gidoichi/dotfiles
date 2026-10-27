@@ -337,7 +337,18 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   (treesit-auto-install t)
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+  (global-treesit-auto-mode)
+
+  (define-derived-mode json5-fallback-mode json-mode "JSON5")
+  (add-to-list 'auto-mode-alist '("\\.json5\\'" . json5-fallback-mode))
+  (add-to-list 'treesit-auto-langs 'json5)
+  (add-to-list 'treesit-auto-recipe-list
+               (make-treesit-auto-recipe
+                :lang 'json5
+                :ts-mode 'json5-ts-mode
+                :remap 'json5-fallback-mode
+                :url "https://github.com/Joakker/tree-sitter-json5"
+                :ext "\\.json5\\'")))
 
 (use-package! text-mode
   :hook
