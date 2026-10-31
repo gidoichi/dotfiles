@@ -298,6 +298,8 @@ see: https://github.com/masutaka/emacs-helm-ghq/blob/7b47ac91e42762f2ecbbceeaadc
   (server-start)))
 
 (use-package! simple
+  :custom
+  (kill-transform-function #'substring-no-properties)
   :config
   (map! :g
         "C-h" 'delete-backward-char
